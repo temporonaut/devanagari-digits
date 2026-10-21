@@ -66,12 +66,18 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
 @media (hover:none) and (pointer:coarse){.flashcard,.flashcard-inner,.flashcard-face{-webkit-transform-style:preserve-3d}.flashcard-inner{-webkit-backface-visibility:hidden;backface-visibility:hidden;-webkit-transform:translateZ(0);transform:translateZ(0);will-change:transform}.flashcard.flipped .flashcard-inner{-webkit-transform:rotateY(180deg) translateZ(0);transform:rotateY(180deg) translateZ(0)}.flashcard-face{-webkit-backface-visibility:hidden;backface-visibility:hidden;-webkit-transform:translateZ(.1px);transform:translateZ(.1px)}.flashcard-face.ru{-webkit-transform:rotateY(180deg) translateZ(.1px);transform:rotateY(180deg) translateZ(.1px)}}
 .flashcard{-webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation;-webkit-user-select:none;user-select:none}
 
+
+.topbar .digits-site-title{border:0;background:transparent;padding:0;color:var(--ink);font:inherit;font-weight:900;letter-spacing:.02em;text-align:left;cursor:pointer}
+.topbar .digits-site-title:hover,.topbar .digits-site-title:focus-visible{color:var(--pink)}
+.hero .digits-back-menu{position:relative;z-index:2;display:inline-flex;align-items:center;margin:0 0 20px}
+@media(max-width:600px){.topbar .digits-site-title{font-size:14px}.hero .digits-back-menu{margin-bottom:16px}}
+
 </style>
 </head>
   <body data-digits-only="true">
     <main class="app-shell digits-boot">
       <header class="topbar">
-        <p>Цифры деванагари</p>
+        <button class="digits-site-title" id="digits-site-title" type="button" aria-label="Цифры деванагари — в меню">Цифры деванагари</button>
         <div class="lesson-pill" id="lesson-pill">Дополнительный урок</div>
       </header>
 
@@ -108,7 +114,7 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
         </div>
       </section>
 
-      <section class="hero">
+      <section class="hero"><button class="back-link digits-back-menu" id="digits-back-menu" type="button">← В меню</button>
         <div class="mandala mandala-one"></div><div class="mandala mandala-two"></div>
         <p class="eyebrow" id="lesson-task-count">Мини-игра · 7 заданий</p>
         <h1 id="hero-title">Игровая<br /><em>практика</em></h1>
@@ -1007,7 +1013,7 @@ function openLessonMode(lessonId) {
   modeTitle.textContent = 'Как позанимаемся?';
   modeSubtitle.textContent = activeLesson.data.subtitle;
   if (digitsStandalone) {
-    document.querySelector('.topbar p').textContent = 'Цифры деванагари';
+    document.querySelector('#digits-site-title').textContent = 'Цифры деванагари';
     brand?.setAttribute('aria-label', 'Цифры деванагари — в начало');
   }
   modeOptions.hidden = false;
@@ -1261,6 +1267,9 @@ if (digitsStandalone) {
   updateCatalogProgress();
   render();
 }
+
+document.querySelector('#digits-site-title')?.addEventListener('click', () => openLessonMode('digits'));
+document.querySelector('#digits-back-menu')?.addEventListener('click', () => openLessonMode('digits'));
 
 </script>
 </body>
