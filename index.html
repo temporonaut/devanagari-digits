@@ -57,9 +57,11 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
 @media(max-width:600px){.mode-picker{padding:38px 4px 27px}.mode-option{padding:15px}.mode-option b{font-size:16px}.mode-option small{font-size:12px}.flashcard{height:270px}.flashcard-face{padding:24px}.flashcard-face b{font-size:32px}.flashcard-face.ru b{font-size:25px}}
 .semantic-board{position:relative;padding:2px 0 0}.semantic-hint{margin:0 0 14px;color:#6d8891;text-align:center;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.semantic-center{position:relative;z-index:1;width:min(184px,56vw);aspect-ratio:1;display:grid;place-items:center;margin:0 auto 19px;border:2px solid var(--ink);border-radius:50%;background:#e7f0ed;color:var(--ink);box-shadow:0 10px 0 rgba(25,83,107,.08)}.semantic-center::before,.semantic-center::after{content:"";position:absolute;border:1px solid var(--peach);border-radius:50%;pointer-events:none;z-index:0}.semantic-center::before{inset:-9px}.semantic-center::after{inset:-17px;opacity:.58}.semantic-center span{position:relative;z-index:1;display:block;max-width:78%;font-family:"Noto Sans Devanagari";font-size:28px;font-weight:800;line-height:1.25;text-align:center}.semantic-cloud{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 9px;max-width:650px;margin:0 auto}.semantic-chip{border:1.5px solid #dce5e5;border-radius:999px;padding:10px 14px;background:#fff;color:var(--ink-dark);cursor:pointer;font-family:"Noto Sans Devanagari";font-size:17px;font-weight:700;line-height:1.15;transition:.18s}.semantic-chip:nth-child(3n+2){transform:translateY(4px)}.semantic-chip:hover:not(:disabled){border-color:var(--pink);transform:translateY(-2px)}.semantic-chip:nth-child(3n+2):hover:not(:disabled){transform:translateY(2px)}.semantic-chip.selected{border-color:var(--ink);background:#e7f0ed;box-shadow:0 0 0 3px rgba(25,83,107,.1)}.semantic-chip.correct{background:#effaf5;border-color:var(--green);color:var(--green)}.semantic-chip.wrong{background:#fff0f3;border-color:var(--pink);color:var(--pink)}.semantic-chip.missed{box-shadow:0 0 0 3px rgba(40,132,101,.13)}.semantic-chip:disabled{cursor:default}.semantic-check{display:block;margin:25px auto 0;cursor:pointer;border:0;border-radius:12px;padding:14px 20px;background:var(--pink);color:#fff;font-weight:900;box-shadow:0 5px 0 var(--pink-dark);transition:.15s}.semantic-check:hover:not(:disabled){transform:translateY(-1px)}.semantic-check:active:not(:disabled){transform:translateY(3px);box-shadow:0 2px 0 var(--pink-dark)}.semantic-check:disabled{cursor:default;opacity:.46;box-shadow:none}
 .order-board{max-width:690px;margin:0 auto}.order-slots{display:grid;gap:8px;min-height:74px;padding:13px;background:#f7f4ee;border:1px dashed #d9d0c5;border-radius:16px}.order-empty{margin:auto;color:#758d96;font-size:14px;font-weight:800}.order-slot,.order-card{border:1.5px solid #dce5e5;border-radius:13px;background:#fff;color:var(--ink-dark);font-family:"Noto Sans Devanagari";font-size:17px;font-weight:700;line-height:1.4;text-align:left}.order-slot{display:flex;align-items:center;gap:10px;padding:10px 13px;cursor:pointer}.order-slot span{width:24px;height:24px;flex:0 0 24px;display:grid;place-items:center;border-radius:50%;background:var(--ink);color:#fff;font-family:"Nunito Sans",sans-serif;font-size:12px;font-weight:900}.order-slot:hover:not(:disabled){border-color:var(--pink)}.order-slot.correct{background:#effaf5;border-color:var(--green);color:var(--green)}.order-slot.wrong{background:#fff0f3;border-color:var(--pink);color:var(--pink)}.order-bank{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}.order-card{min-height:64px;padding:12px 14px;cursor:pointer;transition:.18s}.order-card:hover:not(:disabled){border-color:var(--pink);transform:translateY(-1px)}.order-card.chosen{opacity:.38;cursor:default}.order-solution{display:grid;gap:6px;margin-top:18px;padding:14px 17px;border-radius:12px;background:#edf7f4;color:#276b55;font-weight:800;line-height:1.45}.order-solution span{font-family:"Noto Sans Devanagari";font-size:16px}
+.number-order-board{margin-top:22px}.number-order-board .order-slots{min-height:94px}.number-order-board .order-slot,.number-order-board .order-card{font-size:clamp(19px,3vw,24px);font-weight:800}.number-order-board .order-card{text-align:center}.number-order-board .semantic-check{display:block;margin:20px auto 0}
 .semantic-chip small{display:block;margin-top:4px;font-family:"Nunito Sans",sans-serif;font-size:11px;font-weight:900;line-height:1.25;opacity:.78}
 @media(max-width:600px){.semantic-center{width:138px;margin-bottom:18px}.semantic-center span{font-size:24px}.semantic-cloud{gap:8px}.semantic-chip{padding:9px 12px;font-size:15px}.semantic-chip:nth-child(3n+2){transform:none}.semantic-chip:nth-child(3n+2):hover:not(:disabled){transform:translateY(-2px)}}
 @media(max-width:600px){.order-bank{grid-template-columns:1fr}.order-card{min-height:54px;font-size:16px}.order-slot{font-size:16px}}
+@media(max-width:600px){.number-order-board .order-bank{grid-template-columns:repeat(2,minmax(0,1fr))}.number-order-board .order-slot,.number-order-board .order-card{font-size:19px}}
 .flashcard::after{content:none}
  .emoji-series{margin:-3px 0 25px;text-align:center}.emoji-progress{margin:0 0 14px;color:#6d8891;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.emoji-orb{position:relative;width:min(184px,56vw);aspect-ratio:1;display:grid;place-items:center;margin:0 auto;border:2px solid var(--ink);border-radius:50%;background:#e7f0ed;box-shadow:0 10px 0 rgba(25,83,107,.08);font-size:clamp(72px,14vw,112px);line-height:1}.emoji-orb::before,.emoji-orb::after{content:"";position:absolute;border:1px solid var(--peach);border-radius:50%;pointer-events:none}.emoji-orb::before{inset:-9px}.emoji-orb::after{inset:-17px;opacity:.58}
 @media (prefers-reduced-motion:reduce){.message.outgoing.is-sent,.message.incoming.is-received{animation:none}.chat-messages{scroll-behavior:auto}}
@@ -74,9 +76,27 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
 .mode-option[hidden]{display:none!important}
 .number-word-display{font-size:clamp(34px,8vw,64px);overflow-wrap:anywhere}
 .number-word-choices .choice{font-family:"Noto Sans Devanagari",sans-serif;font-size:clamp(18px,3vw,24px);line-height:1.35;overflow-wrap:anywhere}
+.digit-context-scene{display:flex;align-items:center;justify-content:center;gap:clamp(8px,2vw,22px);width:min(100%,620px);min-height:150px;margin:8px auto 24px;padding:14px 18px;border:1.5px solid #d9e9e9;border-radius:20px;background:#f1f8f8}
+.digit-context-scene img{display:block;width:40%;height:150px;flex:0 0 40%;object-fit:contain}
+.digit-context-scene--bus img,.digit-context-scene--display img,.digit-context-scene--room img,.digit-context-scene--train img{width:55%;height:190px;flex-basis:55%}
+.digit-context-scene--bus img{width:60%;height:210px;flex-basis:60%}
+.digit-context-scene--room img{width:62%;height:225px;flex-basis:62%}
+.digit-context-scene strong{flex:1;min-width:0;color:var(--ink);font-family:"Noto Sans Devanagari",sans-serif;font-size:clamp(48px,10vw,90px);font-weight:800;line-height:1.2;letter-spacing:-.03em;text-align:center;white-space:nowrap}
+@media(max-width:600px){.digit-context-scene{min-height:115px;padding:9px 10px;border-radius:15px}.digit-context-scene img{height:110px}.digit-context-scene--bus img,.digit-context-scene--display img,.digit-context-scene--room img,.digit-context-scene--train img{height:145px}.digit-context-scene--bus img,.digit-context-scene--room img{width:58%;height:165px;flex-basis:58%}}
 .number-compare{display:flex;align-items:center;justify-content:center;gap:clamp(10px,3vw,32px);min-height:132px;margin:0 auto 22px;color:var(--ink);font-family:"Noto Sans Devanagari",sans-serif;font-size:clamp(29px,6vw,56px);font-weight:800;text-align:center}
 .number-compare>span:not(.compare-separator){min-width:0;overflow-wrap:anywhere}
 .number-compare .compare-separator{color:#7b929a;font-family:"Nunito Sans",sans-serif;font-size:14px;font-weight:900}
+.ordinal-gender-highlight{padding:1px 6px;border-radius:6px;background:#ffe5ec;color:#ad1e4c;font:inherit}
+.ordinal-translation{margin:8px 0 0;font-size:13px;font-weight:700;line-height:1.5}
+.ordinal-translation b{font-weight:900}
+.ordinal-scene-range{width:max-content;max-width:100%;margin:18px auto -12px;padding:8px 17px;border:1px solid #ffc6d5;border-radius:999px;background:#fff0f4;color:#ad1e4c;font-size:16px;font-weight:900;line-height:1.2;text-align:center}
+.ordinal-scene{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;max-width:520px;margin:22px auto 28px;padding:12px;border-radius:20px;background:#f7f4ee}
+.ordinal-object{display:grid;place-items:center;min-width:0;aspect-ratio:1;border:2px solid transparent;border-radius:14px;color:var(--ink);background:#fff;box-shadow:0 2px 7px rgba(25,83,107,.06)}
+.ordinal-object img{display:block;width:96%;height:96%;object-fit:contain}
+.ordinal-object.selected{border-color:var(--pink);color:var(--pink);background:#fff0f4;box-shadow:0 0 0 3px rgba(255,45,104,.14)}
+.ordinal-object.selected img{filter:hue-rotate(130deg) saturate(1.35)}
+.ordinal-count-hint{margin:-15px 0 22px;color:#6d8891;font-size:13px;font-weight:800;text-align:center}
+@media(max-width:600px){.ordinal-scene{gap:4px;padding:6px}.ordinal-object{border-radius:9px}.ordinal-object img{width:100%;height:100%}}
 .number-sequence{counter-reset:number-step;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;max-width:760px;margin:12px auto 25px}
 .number-sequence-token{counter-increment:number-step;position:relative;display:grid;place-items:center;min-height:104px;padding:25px 9px 10px;border:1.5px solid var(--line);border-radius:16px;background:#fff;color:var(--ink);font-family:"Noto Sans Devanagari",sans-serif;font-size:clamp(20px,2.4vw,30px);font-weight:800;line-height:1.25;text-align:center;overflow-wrap:anywhere}
 .number-sequence-token::before{content:counter(number-step);position:absolute;top:8px;left:11px;color:#7b929a;font-family:"Nunito Sans",sans-serif;font-size:11px;font-weight:900}
@@ -129,7 +149,7 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
 .large-input-form label{color:var(--ink);font-size:15px;font-weight:900}
 .large-input-control{display:flex;align-items:center;gap:10px;min-width:0}
 .large-input-answer{width:100%;min-width:0;min-height:58px;padding:11px 15px;border:2px solid var(--line);border-radius:13px;background:#fff;color:var(--ink);font:inherit;font-size:clamp(22px,5vw,30px);font-weight:900;text-align:center;font-variant-numeric:tabular-nums}
-.large-input-answer::placeholder{color:#aeb9bb;opacity:1}
+.large-input-answer::placeholder{color:#aeb9bb;font-weight:400;opacity:1}
 .large-input-answer:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
 .large-input-form.correct .large-input-answer{border-color:var(--green);background:#effaf5;color:var(--green)}
 .large-input-form.wrong .large-input-answer{border-color:var(--pink);background:#fff0f3;color:var(--pink)}
@@ -240,7 +260,7 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
             <span><b>Большие числа</b><small>Лакхи, кроры и непривычные запятые</small></span>
             <span class="lesson-arrow">→</span>
           </button>
-          <button class="mode-option ordinal-game-mode" id="start-ordinal-game" type="button" hidden><span class="mode-icon">✦</span><span><b>Который по счёту?</b><small>Порядковые числительные 1–20</small></span><span class="lesson-arrow">→</span></button><button class="number-table-open" id="open-number-table" type="button" hidden>▦ Таблица чисел 0–100 <span aria-hidden="true">→</span></button>
+          <button class="mode-option ordinal-game-mode" id="start-ordinal-game" type="button" hidden><span class="mode-icon">✦</span><span><b>Который по счёту?</b><small>Порядковые числительные 1–100</small></span><span class="lesson-arrow">→</span></button><button class="number-table-open" id="open-number-table" type="button" hidden>▦ Таблица чисел 0–100 <span aria-hidden="true">→</span></button>
         </div>
         <div class="difficulty-picker" id="digits-word-counts" hidden>
           <button class="back-link" data-back-to-modes type="button">← К видам практики</button>
@@ -291,6 +311,13 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
           <p class="difficulty-intro">Выбери темп: сначала знакомые числа или сразу некруглые — без вариантов ответа.</p>
           <button class="difficulty-option" data-large-level="warmup" type="button"><span class="difficulty-badge">1</span><span><b>Разминка</b><small>Лакхи, кроры и запись чисел · 4 задания</small></span><span class="lesson-arrow">→</span></button>
           <button class="difficulty-option pahalvaan-option" data-large-level="pahalvaan" type="button"><span class="difficulty-badge">💪</span><span><b>Pahalvaan</b><small>Некруглые числа · 3 раунда с вводом ответа</small></span><span class="lesson-arrow">→</span></button>
+        </div>
+        <div class="difficulty-picker" id="ordinals-difficulty" hidden>
+          <button class="back-link" data-back-to-modes type="button">← К видам практики</button>
+          <p class="difficulty-intro">Выбирай диапазон и темп. В каждом заходе — новые ситуации.</p>
+          <button class="difficulty-option" data-ordinal-level="warmup" type="button"><span class="difficulty-badge">1</span><span><b>Разминка</b><small>1–10 · 3 пары · по 3 вопроса</small></span><span class="lesson-arrow">→</span></button>
+          <button class="difficulty-option" data-ordinal-level="drive" type="button"><span class="difficulty-badge">2</span><span><b>Разгон</b><small>1–50 · 5 пар · по 5 вопросов</small></span><span class="lesson-arrow">→</span></button>
+          <button class="difficulty-option pahalvaan-option" data-ordinal-level="pahalvaan" type="button"><span class="difficulty-badge">💪</span><span><b>Pahalvaan</b><small>1–100 · 7 пар · по 7 вопросов</small></span><span class="lesson-arrow">→</span></button>
         </div>
       </section>
 
@@ -431,18 +458,25 @@ function makeComposeQuestions(config) {
 
 function makeContextQuestions(config) {
   const contexts = [
-    value => `Номер автобусного маршрута: ${toDevanagari(value)}. Как записать его обычными цифрами?`,
-    value => `Номер места в поезде: ${toDevanagari(value)}. Как записать его обычными цифрами?`,
-    value => `Цена на ценнике: ${toDevanagari(value)}. Сколько это в обычной записи?`,
-    value => `Номер кабинета: ${toDevanagari(value)}. Какой это номер?`,
-    value => `На табло указано ${toDevanagari(value)}. Какое число там написано?`
+    { kind: 'bus', prompt: () => 'На автобусе указан номер маршрута. Как записать его обычными цифрами?' },
+    { kind: 'train', prompt: () => 'На билете указан номер места в поезде. Как записать его обычными цифрами?' },
+    { kind: 'price', prompt: () => 'На ценнике указана цена. Сколько это в обычной записи?' },
+    { kind: 'room', prompt: () => 'На двери указан номер кабинета. Какой это номер?' },
+    { kind: 'display', prompt: () => 'На табло указано число. Какое число там написано?' }
   ];
-  return Array.from({ length: config.questions }, () => {
+  const selectedContexts = shuffle([
+    contexts[0],
+    ...pickSome(contexts.slice(1), Math.min(config.questions - 1, contexts.length - 1)),
+    ...Array.from({ length: Math.max(0, config.questions - contexts.length) }, () => pick(contexts.slice(1)))
+  ]);
+  return selectedContexts.map(context => {
     const length = config.minLength + Math.floor(Math.random() * (config.maxLength - config.minLength + 1));
     const value = randomNumber(length);
     const choices = sameLengthNumberChoices(value, config.choices);
     return {
-      prompt: pick(contexts)(value), choices, answer: choices.indexOf(value), explanation: `Это число ${value}.`
+      prompt: context.prompt(value), contextScene: context.kind,
+      display: toDevanagari(value),
+      choices, answer: choices.indexOf(value), explanation: `Это число ${value}.`
     };
   });
 }
@@ -590,11 +624,19 @@ function createDevanagariNumberRounds(level = 'warmup', { includeEndings = false
     return { prompt: 'Какого числа не хватает в ряду?', sequenceWords: sequence.map((entry, index) => index === missing ? '＿' : word(entry)),
       choices, wordChoices: true, answer: choices.indexOf(word(value)), explanation: `Пропуск — ${word(value)} (${value}).` };
   });
-  const contexts = ['На ценнике написано', 'На билете указано', 'На табло видно', 'В записи встречается'];
-  const situations = pickTargets(config.max, config.questions).map(value => {
-    const choices = makeChoices(String(value), values.map(String), config.choices);
-    return { prompt: `${pick(contexts)} «${word(value)}». Какое это число?`, choices,
-      answer: choices.indexOf(String(value)), explanation: `${word(value)} — это ${value}.` };
+  const orderSize = level === 'pahalvaan' ? 5 : level === 'drive' ? 4 : 3;
+  const ordering = Array.from({ length: config.questions }, () => {
+    const selected = pickSome(values, orderSize).sort((first, second) => first - second);
+    let orderChoices = shuffle(selected.map(value => ({ value, word: word(value) })));
+    if (orderChoices.every((entry, index) => entry.value === selected[index])) {
+      [orderChoices[0], orderChoices[1]] = [orderChoices[1], orderChoices[0]];
+    }
+    return {
+      prompt: 'Расставь названия чисел от меньшего к большему.',
+      orderChoices,
+      orderedValues: selected,
+      explanation: `Правильный порядок: ${selected.map(value => `${word(value)} (${value})`).join(' → ')}.`
+    };
   });
   const rounds = [
     { type: 'match', trainingTag: 'найди пару', label: 'Задание 1 · найди пару', title: 'Найди пару',
@@ -603,14 +645,14 @@ function createDevanagariNumberRounds(level = 'warmup', { includeEndings = false
     seriesRound(2, 'Узнай число', `Определи ${counted(config.questions, 'число', 'числа', 'чисел')} по очереди.`, recognition),
     seriesRound(3, 'Не перепутай!', 'Выбери название числа среди близких вариантов.', confusing),
     seriesRound(4, 'Продолжи ряд', `Восстанови ${counted(config.questions, 'ряд', 'ряда', 'рядов')} по очереди.`, sequences),
-    seriesRound(5, 'Числа вокруг нас', `Прочитай ${counted(config.questions, 'число', 'числа', 'чисел')} в небольших ситуациях.`, situations),
     seriesRound(6, 'Кто больше?', 'Выбери большее из двух чисел.', makeComparisonQuestions(config, 'word')),
-    seriesRound(7, 'Соседи', 'Найди число на единицу больше или меньше.', makeNeighborQuestions(config, 'word'))
+    seriesRound(7, 'Расставь по порядку', `Расположи названия чисел от меньшего к большему ${config.questions} раз.`, ordering),
+    seriesRound(8, 'Соседи', 'Найди число на единицу больше или меньше.', makeNeighborQuestions(config, 'word'))
   ];
-  if (includeEndings) rounds.splice(5, 0, seriesRound(6, 'Угадай окончание',
+  if (includeEndings) rounds.splice(4, 0, seriesRound(5, 'Угадай окончание',
     'Вспомни по диапазону чисел характерное окончание их названий.',
     makeEndingQuestions(level, config.choices)));
-  if (includeArithmetic) rounds.splice(includeEndings ? 6 : 5, 0, seriesRound(7, 'Посчитай на хинди',
+  if (includeArithmetic) rounds.splice(includeEndings ? 5 : 4, 0, seriesRound(6, 'Посчитай на хинди',
     `Реши ${counted(config.questions, 'пример', 'примера', 'примеров')} и выбери ответы на хинди.`,
     makeArithmeticQuestions(config)));
   if (compactWarmup && level === 'warmup') {
@@ -626,7 +668,13 @@ function createDevanagariNumberRounds(level = 'warmup', { includeEndings = false
 const devanagariOrdinals = {
   id: 'ordinals', title: 'Порядковые числительные', shortLabel: 'Дополнительная практика',
   subtitle: 'Учись говорить «первый», «вторая» и выбирать форму по контексту.',
-  taskCount: 4, heroTitle: 'Который<br /><em>по счёту?</em>'
+  taskCount: 5, heroTitle: 'Который<br /><em>по счёту?</em>'
+};
+
+const ordinalLevels = {
+  warmup: { count: 3, max: 10 },
+  drive: { count: 5, max: 50 },
+  pahalvaan: { count: 7, max: 100 }
 };
 
 const ordinalFirstTen = [
@@ -634,40 +682,67 @@ const ordinalFirstTen = [
   ['पाँचवाँ', 'पाँचवीं'], ['छठा', 'छठी'], ['सातवाँ', 'सातवीं'], ['आठवाँ', 'आठवीं'],
   ['नौवाँ', 'नौवीं'], ['दसवाँ', 'दसवीं']
 ];
-const ordinalForms = Array.from({ length: 20 }, (_, index) => {
+const ordinalForms = Array.from({ length: 100 }, (_, index) => {
   const value = index + 1;
   const [masculine, feminine] = ordinalFirstTen[index] || [`${numberWords[value]}वाँ`, `${numberWords[value]}वीं`];
   return { value, masculine, feminine };
 });
 
-function ordinalChoices(correct, value, gender, count = 4) {
-  const nearby = [value - 2, value - 1, value + 1, value + 2]
-    .filter(other => other >= 1 && other <= ordinalForms.length)
-    .map(other => ordinalForms[other - 1][gender]);
+function ordinalChoices(correct, value, gender, max) {
+  const preferred = { 1: 21, 2: 22, 3: 33, 4: 34, 5: 25, 6: 36, 7: 27, 8: 38, 9: 29, 10: 20 };
+  const sameEnding = ordinalForms.slice(0, max).filter(form => form.value !== value && form.value % 10 === value % 10);
+  const nearby = ordinalForms.slice(0, max).filter(form => form.value !== value).sort((a, b) => Math.abs(a.value - value) - Math.abs(b.value - value));
+  const related = value <= 10 && preferred[value] <= max
+    ? ordinalForms[preferred[value] - 1]
+    : pick(sameEnding.length ? sameEnding.sort((a, b) => Math.abs(a.value - value) - Math.abs(b.value - value)).slice(0, 2) : nearby.slice(0, 2));
   const otherGender = ordinalForms[value - 1][gender === 'masculine' ? 'feminine' : 'masculine'];
-  const distractors = [...new Set([...nearby, ...ordinalForms.map(form => form[gender])])]
-    .filter(option => option !== correct && option !== otherGender);
-  return shuffle([correct, otherGender, ...pickSome(distractors, count - 2)]);
+  return shuffle([correct, otherGender, related.masculine, related.feminine]);
 }
 
-function createDevanagariOrdinalRounds() {
-  const ordinalSample = (count, firstTenCount) => shuffle([
-    ...pickSome(ordinalForms.slice(0, 10), firstTenCount),
-    ...pickSome(ordinalForms.slice(10), count - firstTenCount)
-  ]);
-  const selected = ordinalSample(4, 3);
+function createDevanagariOrdinalRounds(level = 'warmup') {
+  const config = ordinalLevels[level] || ordinalLevels.warmup;
+  const ordinalSample = count => level === 'warmup'
+    ? pickSome(ordinalForms.slice(0, 10), count)
+    : shuffle([
+      ...pickSome(ordinalForms.slice(0, 10), 1),
+      ...(level === 'pahalvaan' ? pickSome(ordinalForms.slice(10, 50), 1) : []),
+      ...pickSome(ordinalForms.slice(level === 'pahalvaan' ? 50 : 10, config.max), count - (level === 'pahalvaan' ? 2 : 1))
+    ]);
+  const selected = ordinalSample(config.count);
   const pairs = selected.map(form => ({ key: `ordinal-${form.value}`, hi: form.masculine, ru: String(form.value) }));
-  const recognition = ordinalSample(5, 3).map(form => {
-    const choices = makeChoices(form.masculine, ordinalForms.map(entry => entry.masculine), 4);
-    return { prompt: `Как сказать «${form.value}-й» на хинди?`, display: String(form.value), choices, wordChoices: true,
-      answer: choices.indexOf(form.masculine), explanation: `${form.value}-й — ${form.masculine}.` };
+  const sceneCopy = {
+    door: { prompt: 'Какой по счёту выделенный кабинет?', noun: 'кабинет' },
+    dinosaur: { prompt: 'Какой по счёту выделенный динозавр?', noun: 'динозавр' },
+    ufo: { prompt: 'Какой по счёту выделенный космический корабль?', noun: 'космический корабль' },
+    cat: { prompt: 'Какой по счёту выделенный кот?', noun: 'кот' },
+    robot: { prompt: 'Какой по счёту выделенный робот?', noun: 'робот' },
+    cactus: { prompt: 'Какой по счёту выделенный кактус?', noun: 'кактус' },
+    penguin: { prompt: 'Какой по счёту выделенный пингвин?', noun: 'пингвин' },
+    apple: { prompt: 'Какой по счёту выделенный фрукт?', noun: 'фрукт' },
+    punk: { prompt: 'Какой по счёту выделенный панк?', noun: 'панк' },
+    phone: { prompt: 'Какой по счёту выделенный телефон?', noun: 'телефон' },
+    ukulele: { prompt: 'Какой по счёту выделенный музыкальный инструмент?', noun: 'музыкальный инструмент' },
+    mushroom: { prompt: 'Какой по счёту выделенный гриб?', noun: 'гриб' }
+  };
+  const scenes = pickSome(Object.keys(sceneCopy), config.count);
+  const recognition = ordinalSample(config.count).map((form, index) => {
+    const scene = scenes[index];
+    const start = Math.floor((form.value - 1) / 10) * 10 + 1;
+    const nearby = [form.value - 1, form.value + 1, form.value - 2, form.value + 2]
+      .filter(value => value >= 1 && value <= config.max);
+    const alternatives = [...new Set([...nearby, ...pickSome(range(config.max).slice(1), config.max)])]
+      .filter(value => value !== form.value).slice(0, 3)
+      .map(value => ordinalForms[value - 1].masculine);
+    const choices = shuffle([form.masculine, ...alternatives]);
+    return { prompt: sceneCopy[scene].prompt, ordinalScene: { kind: scene, count: 10, start, target: form.value }, choices, wordChoices: true,
+      answer: choices.indexOf(form.masculine), explanation: `Выделен ${sceneCopy[scene].noun} № ${form.value}: ${form.masculine}.` };
   });
-  const genderPattern = shuffle(['masculine', 'masculine', 'feminine', 'feminine', 'feminine']);
-  const genderForms = ordinalSample(5, 3).map((form, index) => {
+  const genderPattern = shuffle(Array.from({ length: config.count }, (_, index) => index % 2 ? 'masculine' : 'feminine'));
+  const genderForms = ordinalSample(config.count).map((form, index) => {
     const gender = genderPattern[index];
     const correct = form[gender];
-    const choices = ordinalChoices(correct, form.value, gender);
-    return { prompt: `Выбери ${gender === 'feminine' ? 'женскую' : 'мужскую'} форму порядкового числительного.`, display: String(form.value),
+    const choices = ordinalChoices(correct, form.value, gender, config.max);
+    return { prompt: `Выбери ${gender === 'feminine' ? 'женскую' : 'мужскую'} форму порядкового числительного.`, ordinalGender: gender === 'feminine' ? 'женскую' : 'мужскую', display: String(form.value),
       choices, wordChoices: true, answer: choices.indexOf(correct), explanation: `${form.value}-й: ${form.masculine} — мужская форма, ${form.feminine} — женская.` };
   });
   const nouns = [
@@ -675,23 +750,82 @@ function createDevanagariOrdinalRounds() {
     { word: 'मंज़िल', gender: 'feminine', sentence: 'यह ___ मंज़िल है।' },
     { word: 'बार', gender: 'feminine', sentence: 'यह ___ बार है।' },
     { word: 'कमरा', gender: 'masculine', sentence: 'यह ___ कमरा है।' },
-    { word: 'दिन', gender: 'masculine', sentence: 'यह ___ दिन है।' }
+    { word: 'दिन', gender: 'masculine', sentence: 'यह ___ दिन है।' },
+    { word: 'पन्ना', gender: 'masculine', sentence: 'यह किताब का ___ पन्ना है।' },
+    { word: 'तस्वीर', gender: 'feminine', sentence: 'यह एल्बम की ___ तस्वीर है।' }
   ];
-  const phraseNouns = shuffle(nouns);
-  const phrases = ordinalSample(5, 3).map((form, index) => {
+  const phraseNouns = pickSome(nouns, config.count);
+  const phrases = ordinalSample(config.count).map((form, index) => {
     const noun = phraseNouns[index];
     const correct = form[noun.gender];
-    const choices = ordinalChoices(correct, form.value, noun.gender);
+    const choices = ordinalChoices(correct, form.value, noun.gender, config.max);
     return { prompt: 'Вставь подходящую форму в предложение.', display: `${form.value} · ${noun.sentence}`, wordDisplay: true, ordinalSentence: true,
       choices, wordChoices: true, answer: choices.indexOf(correct), explanation: `${correct} ${noun.word} — подходящая форма.` };
+  });
+  const students = shuffle([
+    { hi: 'संजय', ru: 'Санджай', verb: 'पढ़ता' },
+    { hi: 'माधुरी', ru: 'Мадхури', verb: 'पढ़ती' },
+    { hi: 'अमित', ru: 'Амит', verb: 'पढ़ता' },
+    { hi: 'अंजलि', ru: 'Анджали', verb: 'पढ़ती' },
+    { hi: 'नीना', ru: 'Нина', verb: 'पढ़ती' }
+  ]);
+  const readingContexts = [
+    { id: 'class', max: 12, gender: 'feminine', prompt: student => `В каком классе учится ${student.ru}?`,
+      sentence: (form, student) => `${student.hi} ${form.feminine} कक्षा में ${student.verb} है।`,
+      translation: (value, student) => `${student.ru} учится в ${value}-м классе.`, label: 'Класс' },
+    { id: 'page', max: 100, gender: 'masculine', prompt: () => 'Какая это страница книги?',
+      sentence: form => `यह किताब का ${form.masculine} पन्ना है।`,
+      translation: value => `Это ${value}-я страница книги.`, label: 'Страница' },
+    { id: 'day', max: 100, gender: 'masculine', prompt: () => 'Какой это день путешествия?',
+      sentence: form => `आज यात्रा का ${form.masculine} दिन है।`,
+      translation: value => `Сегодня ${value}-й день путешествия.`, label: 'День' },
+    { id: 'floor', max: 30, gender: 'feminine', prompt: () => 'Какой это этаж?',
+      sentence: form => `यह इमारत की ${form.feminine} मंज़िल है।`,
+      translation: value => `Это ${value}-й этаж здания.`, label: 'Этаж' },
+    { id: 'room', max: 100, gender: 'masculine', prompt: () => 'Которая это комната?',
+      sentence: form => `यह होटल का ${form.masculine} कमरा है।`,
+      translation: value => `Это ${value}-я комната отеля.`, label: 'Комната' },
+    { id: 'lesson', max: 100, gender: 'masculine', prompt: () => 'Который это урок?',
+      sentence: form => `यह हमारा ${form.masculine} पाठ है।`,
+      translation: value => `Это наш ${value}-й урок.`, label: 'Урок' },
+    { id: 'chapter', max: 60, gender: 'masculine', prompt: () => 'Какая это глава книги?',
+      sentence: form => `यह किताब का ${form.masculine} अध्याय है।`,
+      translation: value => `Это ${value}-я глава книги.`, label: 'Глава' },
+    { id: 'episode', max: 100, gender: 'feminine', prompt: () => 'Какая это серия?',
+      sentence: form => `यह धारावाहिक की ${form.feminine} कड़ी है।`,
+      translation: value => `Это ${value}-я серия сериала.`, label: 'Серия' },
+    { id: 'attempt', max: 50, gender: 'feminine', prompt: () => 'Которая это попытка?',
+      sentence: form => `यह मेरी ${form.feminine} कोशिश है।`,
+      translation: value => `Это моя ${value}-я попытка.`, label: 'Попытка' },
+    { id: 'photo', max: 100, gender: 'feminine', prompt: () => 'Какая это фотография в альбоме?',
+      sentence: form => `यह एल्बम की ${form.feminine} तस्वीर है।`,
+      translation: value => `Это ${value}-я фотография в альбоме.`, label: 'Фотография' }
+  ];
+  const usedReadingValues = new Set();
+  const reading = pickSome(readingContexts, config.count).map((context, index) => {
+    const student = students[index % students.length];
+    const upper = Math.min(context.max, config.max);
+    const lower = level === 'pahalvaan' && upper > 50 ? 51 : level === 'drive' && upper > 20 ? 21 : 1;
+    const value = pick(range(upper).slice(lower).filter(candidate => !usedReadingValues.has(candidate)));
+    usedReadingValues.add(value);
+    const form = ordinalForms[value - 1];
+    const nearby = [form.value - 1, form.value + 1, form.value - 2, form.value + 2]
+      .filter(value => value >= 1 && value <= config.max);
+    const alternatives = [...new Set([...nearby, ...pickSome(range(config.max).slice(1), config.max)])]
+      .filter(value => value !== form.value).slice(0, 3).map(String);
+    const choices = shuffle([String(form.value), ...alternatives]);
+    return { prompt: context.prompt(student), display: context.sentence(form, student), translation: context.translation(value, student), readingContext: context.id,
+      wordDisplay: true, ordinalSentence: true, choices, answer: choices.indexOf(String(form.value)),
+      explanation: `${context.label} ${form.value}: ${form[context.gender]}.` };
   });
   return [
     { type: 'match', trainingTag: 'порядковые пары', label: 'Задание 1 · найди пару', title: 'Найди пару',
       description: 'Соедини число с порядковым числительным в мужской форме.', leftLabel: 'На хинди', rightLabel: 'Номер',
       pairs, hindi: shuffle(pairs), russian: shuffle(pairs) },
-    seriesRound(2, 'Который по счёту?', 'Узнай порядковую форму пяти чисел.', recognition),
+    seriesRound(2, 'Который по счёту?', 'Найди выделенный объект и выбери порядковую форму на хинди.', recognition),
     seriesRound(3, 'Не перепутай форму', 'Выбери мужскую или женскую форму.', genderForms),
-    seriesRound(4, 'Вставь в предложение', 'Подбери форму к существительному в предложении.', phrases)
+    seriesRound(4, 'Вставь в предложение', 'Подбери форму к существительному в предложении.', phrases),
+    seriesRound(5, 'Прочитай и ответь', 'Прочитай предложения на хинди и определи порядковый номер.', reading)
   ];
 }
 
@@ -857,6 +991,7 @@ const modeOptions = document.querySelector('.mode-options');
 const difficultyPicker = document.querySelector('#digits-difficulty');
 const numberDifficultyPicker = document.querySelector('#numbers-difficulty');
 const largeNumberDifficultyPicker = document.querySelector('#large-numbers-difficulty');
+const ordinalDifficultyPicker = document.querySelector('#ordinals-difficulty');
 const flashcardCountPicker = document.querySelector('#digits-flashcard-counts');
 const wordCountPicker = document.querySelector('#digits-word-counts');
 const startWordCards = document.querySelector('#start-word-cards');
@@ -986,7 +1121,7 @@ function renderNavigation() {
     const label = round.label.split('·')[1].trim();
     return `<button class="round${index === current ? ' active' : ''}" data-round="${index}" aria-current="${index === current ? 'step' : 'false'}"><span>${index + 1}</span><b>${label.charAt(0).toUpperCase() + label.slice(1)}</b></button>`;
   }).join('');
-  roundsNav.querySelectorAll('.round').forEach(button => button.addEventListener('click', () => { current = Number(button.dataset.round); matchSelection = null; matchLocked = false; if (rounds[current].type === 'chat') { chatStep = 0; chatAnswers = []; } if (rounds[current].type === 'emoji') { emojiStep = 0; emojiHadError = false; } if (['digit-series', 'digit-compose', 'large-input'].includes(rounds[current].type)) { digitSeriesIndex = 0; digitSeriesHadError = false; digitComposeSelection = []; } render(); }));
+  roundsNav.querySelectorAll('.round').forEach(button => button.addEventListener('click', () => { current = Number(button.dataset.round); matchSelection = null; matchLocked = false; if (rounds[current].type === 'chat') { chatStep = 0; chatAnswers = []; } if (rounds[current].type === 'emoji') { emojiStep = 0; emojiHadError = false; } if (['digit-series', 'digit-compose', 'large-input'].includes(rounds[current].type)) { digitSeriesIndex = 0; digitSeriesHadError = false; digitComposeSelection = []; orderSelection = []; } render(); }));
 }
 
 function scoreWord(value) { return value === 1 ? 'балл' : value > 1 && value < 5 ? 'балла' : 'баллов'; }
@@ -1026,6 +1161,34 @@ function orderMarkup(item) {
   const chosen = orderSelection.map(index => item.lines[index]);
   return `<div class="order-board"><div class="order-slots">${chosen.length ? chosen.map((line, index) => `<button class="order-slot" type="button" data-order-remove="${orderSelection[index]}"><span>${index + 1}</span>${line.text}</button>`).join('') : '<p class="order-empty">Нажимай реплики в естественном порядке.</p>'}</div><div class="order-bank">${item.lines.map((line, index) => `<button class="order-card${orderSelection.includes(index) ? ' chosen' : ''}" type="button" data-order="${index}" ${orderSelection.includes(index) ? 'disabled' : ''}>${line.text}</button>`).join('')}</div><button class="semantic-check" type="button" data-order-check ${orderSelection.length === item.lines.length ? '' : 'disabled'}>Проверить</button></div>`;
 }
+function numberOrderMarkup(stage) {
+  const chosen = orderSelection.map(index => stage.orderChoices[index]);
+  const slots = chosen.length
+    ? chosen.map((entry, index) => `<button class="order-slot" type="button" data-number-order-remove="${orderSelection[index]}" lang="hi"><span>${index + 1}</span>${entry.word}</button>`).join('')
+    : '<p class="order-empty">Нажимай на числа от меньшего к большему.</p>';
+  const bank = stage.orderChoices.map((entry, index) => `<button class="order-card${orderSelection.includes(index) ? ' chosen' : ''}" type="button" data-number-order="${index}" lang="hi" ${orderSelection.includes(index) ? 'disabled' : ''}>${entry.word}</button>`).join('');
+  return `<div class="order-board number-order-board"><div class="order-slots">${slots}</div><div class="order-bank">${bank}</div><button class="semantic-check" type="button" data-number-order-check ${orderSelection.length === stage.orderChoices.length ? '' : 'disabled'}>Проверить</button></div>`;
+}
+function bindNumberOrder(item, isReview = false) {
+  const stage = item.questions[digitSeriesIndex];
+  const refresh = () => { card.querySelector('.number-order-board').outerHTML = numberOrderMarkup(stage); bindNumberOrder(item, isReview); };
+  card.querySelectorAll('[data-number-order]').forEach(button => button.addEventListener('click', () => {
+    orderSelection.push(Number(button.dataset.numberOrder));
+    refresh();
+  }));
+  card.querySelectorAll('[data-number-order-remove]').forEach(button => button.addEventListener('click', () => {
+    orderSelection = orderSelection.filter(index => index !== Number(button.dataset.numberOrderRemove));
+    refresh();
+  }));
+  card.querySelector('[data-number-order-check]').addEventListener('click', () => {
+    const chosenValues = orderSelection.map(index => stage.orderChoices[index].value);
+    const correct = stage.orderedValues.every((value, index) => chosenValues[index] === value);
+    card.querySelectorAll('[data-number-order], [data-number-order-remove]').forEach(button => { button.disabled = true; });
+    card.querySelectorAll('[data-number-order-remove]').forEach((button, index) => button.classList.add(chosenValues[index] === stage.orderedValues[index] ? 'correct' : 'wrong'));
+    card.querySelector('[data-number-order-check]').remove();
+    answerDigitStage(item, correct, isReview);
+  });
+}
 function digitCheatMarkup() {
   return `<div class="digit-tools"><button class="digit-cheat-button" data-digit-cheat type="button">▦ Шпаргалка</button></div>`;
 }
@@ -1038,14 +1201,14 @@ function bindDigitCheat() {
     }
     const isPahalvaan = selectedDifficulty === 'pahalvaan';
     const ordinalSection = (heading, forms) => `<section class="ordinal-cheat-section"><h3>${heading}</h3><div class="ordinal-cheat-table"><div class="ordinal-cheat-head"><span>№</span><span>Мужская</span><span>Женская</span></div>${forms.map(form => `<div class="ordinal-cheat-row"><span>${form.value}</span><span lang="hi">${form.masculine}</span><span lang="hi">${form.feminine}</span></div>`).join('')}</div></section>`;
-    const table = isOrdinal
-      ? `<p class="ordinal-cheat-note">В мужской форме встречаются окончания -आ и -वाँ; в женской — -ई и -वीं. Первые десять форм удобнее запомнить отдельно.</p>${ordinalSection('1–10 · основные формы', ordinalForms.slice(0, 10))}${ordinalSection('11–20 · добавляем -वाँ / -वीं', ordinalForms.slice(10))}`
-      : isPahalvaan
+    const table = isPahalvaan
       ? '<p class="cheat-joke">Pahalvaan не подглядывает. Pahalvaan уже знает.</p><div class="cheat-joke-glyph" aria-hidden="true">💪</div>'
+      : isOrdinal
+      ? `<p class="ordinal-cheat-note">В мужской форме встречаются окончания -आ и -वाँ; в женской — -ई и -वीं. Первые десять форм удобнее запомнить отдельно.</p>${ordinalSection('1–10 · основные формы', ordinalForms.slice(0, 10))}${selectedDifficulty === 'drive' ? ordinalSection('11–50 · добавляем -वाँ / -वीं', ordinalForms.slice(10, 50)) : ''}`
       : `<div class="digit-cheat-table" role="table" aria-label="Цифры деванагари"><div role="row"><b role="columnheader">Деванагари</b><b role="columnheader">Обычная запись</b></div>${devanagariDigits.flashcards.map(({ hi, ru }) => `<div role="row"><span lang="hi">${hi}</span><span>${ru}</span></div>`).join('')}</div>`;
     const overlay = document.createElement('div');
     overlay.className = 'digit-cheat-overlay';
-    overlay.innerHTML = `<section class="digit-cheat-dialog${isOrdinal ? ' ordinal-cheat-dialog' : ''}" role="dialog" aria-modal="true" aria-labelledby="digit-cheat-title"><button class="digit-cheat-close" type="button" aria-label="Закрыть">×</button><p class="eyebrow">${activeLesson.data.title}</p><h2 id="digit-cheat-title">${isOrdinal ? 'Порядковые числительные 1–20' : isPahalvaan ? 'Шпаргалка? Какая шпаргалка?' : 'Все цифры'}</h2>${table}</section>`;
+    overlay.innerHTML = `<section class="digit-cheat-dialog${isOrdinal ? ' ordinal-cheat-dialog' : ''}" role="dialog" aria-modal="true" aria-labelledby="digit-cheat-title"><button class="digit-cheat-close" type="button" aria-label="Закрыть">×</button><p class="eyebrow">${activeLesson.data.title}</p><h2 id="digit-cheat-title">${isPahalvaan ? 'Шпаргалка? Какая шпаргалка?' : isOrdinal ? `Порядковые числительные 1–${selectedDifficulty === 'drive' ? 50 : 10}` : 'Все цифры'}</h2>${table}</section>`;
     const onEscape = event => { if (event.key === 'Escape' && overlay.isConnected) close(); };
     const close = () => { overlay.remove(); document.removeEventListener('keydown', onEscape); };
     overlay.addEventListener('click', event => { if (event.target === overlay) close(); });
@@ -1055,13 +1218,34 @@ function bindDigitCheat() {
     overlay.querySelector('.digit-cheat-close').focus();
   });
 }
+function ordinalSceneIcon(kind) {
+  return `<img src="assets/ordinal-scenes/${kind}.png" alt="" width="256" height="256" loading="eager" decoding="async" />`;
+}
+function digitContextSceneMarkup(stage) {
+  const sceneNames = { bus: 'Автобус', train: 'Место в поезде', price: 'Ценник', room: 'Двери кабинетов', display: 'Табло' };
+  if (!Object.hasOwn(sceneNames, stage.contextScene)) return '';
+  return `<div class="digit-context-scene digit-context-scene--${stage.contextScene}"><img src="assets/context-scenes/${stage.contextScene}.png" alt="${sceneNames[stage.contextScene]}" width="280" height="170" /><strong lang="hi">${stage.display}</strong></div>`;
+}
 function digitSeriesMarkup(item) {
   const stage = item.questions[digitSeriesIndex];
+  const prompt = stage.ordinalGender
+    ? stage.prompt.replace(stage.ordinalGender, `<mark class="ordinal-gender-highlight">${stage.ordinalGender}</mark>`)
+    : stage.prompt;
   const sequence = item.type === 'digit-series' && stage.display && !stage.wordDisplay && !stage.largeDisplay
     ? stage.display.split('　').map(glyph => `<span class="digit-sequence-token${glyph === '＿' ? ' digit-sequence-answer' : ''}">${glyph}</span>`).join('')
     : null;
   const wordSequence = stage.sequenceWords?.map(value => `<span class="number-sequence-token${value === '＿' ? ' digit-sequence-answer' : ''}" lang="hi">${value}</span>`).join('');
-  const detail = stage.endingRange
+  const ordinalRange = stage.ordinalScene && selectedDifficulty !== 'warmup'
+    ? `<p class="ordinal-scene-range">Позиции ${stage.ordinalScene.start}–${stage.ordinalScene.start + stage.ordinalScene.count - 1}</p>`
+    : '';
+  const ordinalScene = stage.ordinalScene
+    ? `${ordinalRange}<div class="ordinal-scene" role="group" aria-label="Считай объекты слева направо по строкам">${Array.from({ length: stage.ordinalScene.count }, (_, index) => { const number = stage.ordinalScene.start + index; return `<span class="ordinal-object${number === stage.ordinalScene.target ? ' selected' : ''}" role="img" aria-label="Объект ${number}${number === stage.ordinalScene.target ? ', выделен' : ''}">${ordinalSceneIcon(stage.ordinalScene.kind)}</span>`; }).join('')}</div><p class="ordinal-count-hint">Считай слева направо, начиная с верхнего ряда.</p>`
+    : null;
+  const detail = ordinalScene
+    ? ordinalScene
+    : stage.contextScene
+    ? digitContextSceneMarkup(stage)
+    : stage.endingRange
     ? `<div class="ending-range" aria-label="Диапазон чисел">${stage.endingRange}</div>`
     : stage.arithmetic
     ? `<div class="number-equation" aria-label="Пример на хинди"><span lang="hi">${stage.arithmetic.first}</span><span>${stage.arithmetic.sign}</span><span lang="hi">${stage.arithmetic.second}</span><span>= ?</span></div>`
@@ -1072,7 +1256,8 @@ function digitSeriesMarkup(item) {
       : stage.display
         ? `<div class="digit-display${sequence ? ' digit-sequence-display' : ''}${stage.wordDisplay ? ' number-word-display' : ''}${stage.ordinalSentence ? ' ordinal-sentence-display' : ''}${stage.largeDisplay ? ' large-number-display' : ''}" ${stage.wordDisplay || sequence ? 'lang="hi"' : ''}>${sequence || stage.display}</div>`
         : '';
-  return `<div class="digit-series"><p class="digit-progress">Вопрос ${digitSeriesIndex + 1} из ${item.questions.length}</p><p class="digit-prompt">${stage.prompt}</p>${detail}${answersMarkup(stage.choices, `choice-grid digit-choices${stage.endingRange || stage.wordChoices || stage.sequenceWords || (stage.compare && activeLesson.data.id === 'numbers') ? ' number-word-choices' : ''}`)}</div>`;
+  const answers = stage.orderChoices ? numberOrderMarkup(stage) : answersMarkup(stage.choices, `choice-grid digit-choices${stage.endingRange || stage.wordChoices || stage.sequenceWords || (stage.compare && activeLesson.data.id === 'numbers') ? ' number-word-choices' : ''}`);
+  return `<div class="digit-series"><p class="digit-progress">Вопрос ${digitSeriesIndex + 1} из ${item.questions.length}</p><p class="digit-prompt">${prompt}</p>${detail}${answers}</div>`;
 }
 function largeInputMarkup(item) {
   const stage = item.questions[digitSeriesIndex];
@@ -1156,6 +1341,7 @@ function render() {
   card.querySelectorAll('[data-semantic]').forEach(button => button.addEventListener('click', () => selectSemantic(button)));
   card.querySelector('[data-semantic-check]')?.addEventListener('click', () => checkSemantic(item));
   if (item.type === 'order') bindOrder(item);
+  if (item.type === 'digit-series' && item.questions[digitSeriesIndex].orderChoices) bindNumberOrder(item);
   if (item.type === 'digit-compose') bindDigitCompose(item);
   if (item.type === 'large-input') bindLargeInput(item);
   if (item.type === 'chat') scrollChatMessages(false);
@@ -1418,10 +1604,22 @@ function answerDigitStage(item, correct, isReview = false) {
     if (!isReview) rememberMistake();
   }
   const feedback = `${pickDigitFeedback(correct)} ${stage.explanation}`;
-  showFeedback(correct, feedback, feedback).classList.add('digit-feedback', correct ? 'correct' : 'wrong');
+  const feedbackElement = showFeedback(correct, feedback, feedback);
+  feedbackElement.classList.add('digit-feedback', correct ? 'correct' : 'wrong');
+  if (stage.translation) {
+    const translation = document.createElement('p');
+    translation.className = 'ordinal-translation';
+    const label = document.createElement('b');
+    label.textContent = 'Перевод:';
+    const sentence = document.createElement('span');
+    sentence.textContent = stage.translation;
+    translation.append(label, ' ', sentence);
+    feedbackElement.append(translation);
+  }
   const isLast = digitSeriesIndex === item.questions.length - 1;
   addNext(isLast ? (isReview ? 'К результату →' : current === total() - 1 ? 'Посмотреть результат →' : 'Следующее задание →') : 'Следующий вопрос →', () => {
     digitComposeSelection = [];
+    orderSelection = [];
     if (!isLast) {
       digitSeriesIndex++;
       isReview ? renderReview() : render();
@@ -1519,6 +1717,7 @@ function startReviewOrFinish() {
   digitSeriesIndex = 0;
   digitSeriesHadError = false;
   digitComposeSelection = [];
+  orderSelection = [];
   renderReview();
 }
 function renderReview() {
@@ -1536,7 +1735,8 @@ function renderReview() {
   else if (item.type !== 'digit-series' && item.type !== 'digit-compose') inner += answersMarkup(item.choices, item.type === 'fill' ? 'word-options' : item.type === 'opinion' ? 'opinion' : 'choice-grid');
   card.innerHTML = inner;
   bindDigitCheat();
-  if (item.type === 'digit-series') card.querySelectorAll('[data-answer]').forEach(button => button.addEventListener('click', () => answerDigitSeries(item, Number(button.dataset.answer), button, true)));
+  if (item.type === 'digit-series' && item.questions[digitSeriesIndex].orderChoices) bindNumberOrder(item, true);
+  else if (item.type === 'digit-series') card.querySelectorAll('[data-answer]').forEach(button => button.addEventListener('click', () => answerDigitSeries(item, Number(button.dataset.answer), button, true)));
   else if (item.type === 'semantic') {
     card.querySelectorAll('[data-semantic]').forEach(button => button.addEventListener('click', () => selectSemantic(button)));
     card.querySelector('[data-semantic-check]').addEventListener('click', () => checkSemantic(item, true));
@@ -1574,7 +1774,7 @@ function finish() {
     card.innerHTML = `<p class="game-label">Ещё не всё</p><h2 class="game-title">Осталось одно дело</h2><div class="finish">Чтобы завершить урок и сохранить результат, пройди все задания.</div><button class="next restart" id="continue-pending">К незавершённому заданию</button>`;
     document.querySelector('#continue-pending').addEventListener('click', () => {
       current = pending;
-      if (['digit-series', 'digit-compose', 'large-input'].includes(rounds[current].type)) { digitSeriesIndex = 0; digitSeriesHadError = false; digitComposeSelection = []; }
+      if (['digit-series', 'digit-compose', 'large-input'].includes(rounds[current].type)) { digitSeriesIndex = 0; digitSeriesHadError = false; digitComposeSelection = []; orderSelection = []; }
       render();
     });
     return;
@@ -1650,6 +1850,7 @@ function openLessonMode(lessonId) {
   difficultyPicker.hidden = true;
   numberDifficultyPicker.hidden = true;
   largeNumberDifficultyPicker.hidden = true;
+  ordinalDifficultyPicker.hidden = true;
   flashcardCountPicker.hidden = true;
   wordCountPicker.hidden = true;
   startWordCards.hidden = lessonId !== 'digits';
@@ -1760,8 +1961,8 @@ function quickRounds(lessonId) {
     let added = false;
     const generated = lessons[lessonId].createRounds(isNumberPractice(lessonId) ? selectedDifficulty : undefined);
     const candidates = generated.flatMap(round => {
-      if (round.type === 'digit-series' && round.trainingTag === 'угадай окончание') return [];
-      if (round.type === 'digit-series') return round.questions.map(stage => ({ type: 'digit-choice', title: round.title, prompt: stage.prompt, display: stage.display, compare: stage.compare, sequenceWords: stage.sequenceWords, wordDisplay: stage.wordDisplay, wordChoices: stage.wordChoices, largeDisplay: stage.largeDisplay, choices: stage.choices, answer: stage.answer, explanation: stage.explanation }));
+      if (round.type === 'digit-series' && (round.trainingTag === 'угадай окончание' || round.questions.some(stage => stage.orderChoices || stage.ordinalScene))) return [];
+      if (round.type === 'digit-series') return round.questions.map(stage => ({ type: 'digit-choice', title: round.title, prompt: stage.prompt, display: stage.display, contextScene: stage.contextScene, compare: stage.compare, sequenceWords: stage.sequenceWords, wordDisplay: stage.wordDisplay, wordChoices: stage.wordChoices, largeDisplay: stage.largeDisplay, choices: stage.choices, answer: stage.answer, explanation: stage.explanation }));
       if (round.type === 'digit-compose') return round.questions.map(stage => ({ type: 'digit-choice', title: round.title, prompt: `${stage.prompt}: ${stage.value}`, choices: stage.choices, answer: stage.answer, explanation: stage.explanation }));
       if (round.type === 'match' && isNumberPractice(lessonId)) return round.pairs.map(pair => {
         const choices = shuffleBlitz([pair.ru, ...shuffleBlitz(round.pairs.filter(other => other.key !== pair.key).map(other => other.ru)).slice(0, 3)]);
@@ -1782,6 +1983,7 @@ function renderBlitzQuestion() {
   const item = blitz.items[blitz.index];
   const answerClass = item.type === 'fill' ? 'word-options' : item.type === 'opinion' ? 'opinion' : item.wordChoices || item.sequenceWords || (item.compare && activeLesson.data.id === 'numbers') ? 'choice-grid number-word-choices' : 'choice-grid';
   const task = item.type === 'fill' ? `<div class="sentence">${item.sentence}</div>`
+    : item.contextScene ? `<p class="digit-prompt">${item.prompt}</p>${digitContextSceneMarkup(item)}`
     : item.compare ? `<p class="digit-prompt">${item.prompt}</p><div class="number-compare" lang="hi">${item.compare.map(value => `<span>${value}</span>`).join('<span class="compare-separator">или</span>')}</div>`
     : item.sequenceWords ? `<p class="digit-prompt">${item.prompt}</p><div class="number-sequence">${item.sequenceWords.map(value => `<span class="number-sequence-token" lang="hi">${value}</span>`).join('')}</div>`
     : item.display ? `<p class="digit-prompt">${item.prompt}</p><div class="digit-display blitz-digit${item.wordDisplay ? ' number-word-display' : ''}${item.largeDisplay ? ' large-number-display' : ''}" lang="hi">${item.display}</div>`
@@ -1890,6 +2092,7 @@ startGame.addEventListener('click', () => {
   wordCountPicker.hidden = true;
   numberDifficultyPicker.hidden = true;
   largeNumberDifficultyPicker.hidden = true;
+  ordinalDifficultyPicker.hidden = true;
   modeTitle.textContent = 'Выбери уровень';
   modeSubtitle.textContent = 'Спокойная разминка, уверенный разгон или испытание Pahalvaan.';
   modeOptions.hidden = true;
@@ -1904,6 +2107,7 @@ startNumberGame.addEventListener('click', () => {
   backToLessons.hidden = true;
   difficultyPicker.hidden = true;
   largeNumberDifficultyPicker.hidden = true;
+  ordinalDifficultyPicker.hidden = true;
   flashcardCountPicker.hidden = true;
   wordCountPicker.hidden = true;
   numberDifficultyPicker.hidden = false;
@@ -1915,11 +2119,24 @@ startLargeNumbers.addEventListener('click', () => {
   backToLessons.hidden = true;
   difficultyPicker.hidden = true;
   numberDifficultyPicker.hidden = true;
+  ordinalDifficultyPicker.hidden = true;
   flashcardCountPicker.hidden = true;
   wordCountPicker.hidden = true;
   largeNumberDifficultyPicker.hidden = false;
 });
-startOrdinalGame?.addEventListener('click', () => openLesson('ordinals', 'warmup'));
+startOrdinalGame?.addEventListener('click', () => {
+  modeTitle.textContent = 'Который по счёту?';
+  modeSubtitle.textContent = 'От первых десяти до сотого: выбирай удобный темп.';
+  modeOptions.hidden = true;
+  backToLessons.hidden = true;
+  difficultyPicker.hidden = true;
+  numberDifficultyPicker.hidden = true;
+  largeNumberDifficultyPicker.hidden = true;
+  flashcardCountPicker.hidden = true;
+  wordCountPicker.hidden = true;
+  ordinalDifficultyPicker.hidden = false;
+});
+ordinalDifficultyPicker?.querySelectorAll('[data-ordinal-level]').forEach(button => button.addEventListener('click', () => openLesson('ordinals', button.dataset.ordinalLevel)));
 largeNumberDifficultyPicker.querySelectorAll('[data-large-level]').forEach(button => button.addEventListener('click', () => openLesson('large-numbers', button.dataset.largeLevel)));
 numberDifficultyPicker.querySelectorAll('[data-number-level]').forEach(button => button.addEventListener('click', () => openLesson('numbers', button.dataset.numberLevel)));
 flashcardCountPicker.querySelectorAll('[data-flashcard-count]').forEach(button => button.addEventListener('click', () => startFlashcardMode(Number(button.dataset.flashcardCount))));
@@ -1932,6 +2149,7 @@ startFlashcards.addEventListener('click', () => {
   difficultyPicker.hidden = true;
   numberDifficultyPicker.hidden = true;
   largeNumberDifficultyPicker.hidden = true;
+  ordinalDifficultyPicker.hidden = true;
   wordCountPicker.hidden = true;
   flashcardCountPicker.hidden = false;
 });
@@ -2235,25 +2453,62 @@ return { openNumberWordCheat };
     'Восемь заданий с названиями чисел': 'Eight activities with Hindi number names',
     'Девять заданий с названиями чисел': 'Nine activities with Hindi number names',
     'Который по счёту?': 'Which one in order?',
+    'Прочитай и ответь': 'Read and answer',
     'Который': 'Which one',
     'по счёту?': 'in order?',
     'Порядковые числительные': 'Ordinal numbers',
     'Порядковые числительные 1–20': 'Ordinal numbers 1–20',
+    'Порядковые числительные 1–10': 'Ordinal numbers 1–10',
+    'Порядковые числительные 1–50': 'Ordinal numbers 1–50',
+    'Порядковые числительные 1–100': 'Ordinal numbers 1–100',
+    'От первых десяти до сотого: выбирай удобный темп.': 'From the first ten to the hundredth: choose your pace.',
+    'Выбирай диапазон и темп. В каждом заходе — новые ситуации.': 'Choose a range and pace. Each run brings new situations.',
     'Учись говорить «первый», «вторая» и выбирать форму по контексту.': 'Learn to say “first” and “second” and choose the right form in context.',
     'Не перепутай форму': 'Choose the right form',
     'Вставь в предложение': 'Complete the sentence',
     'Соедини число с порядковым числительным в мужской форме.': 'Match each number with its masculine ordinal form.',
-    'Узнай порядковую форму пяти чисел.': 'Find the ordinal form of five numbers.',
+    'Найди выделенный объект и выбери порядковую форму на хинди.': 'Find the highlighted object and choose the Hindi ordinal form.',
+    'Какой по счёту выделенный кабинет?': 'What is the highlighted room’s position?',
+    'Какой по счёту выделенный динозавр?': 'What is the highlighted dinosaur’s position?',
+    'Какой по счёту выделенный космический корабль?': 'What is the highlighted spaceship’s position?',
+    'Какой по счёту выделенный кот?': 'What is the highlighted cat’s position?',
+    'Какой по счёту выделенный робот?': 'What is the highlighted robot’s position?',
+    'Какой по счёту выделенный кактус?': 'What is the highlighted cactus’s position?',
+    'Какой по счёту выделенный пингвин?': 'What is the highlighted penguin’s position?',
+    'Какой по счёту выделенный фрукт?': 'What is the highlighted fruit’s position?',
+    'Какой по счёту выделенный панк?': 'What is the highlighted punk’s position?',
+    'Какой по счёту выделенный телефон?': 'What is the highlighted telephone’s position?',
+    'Какой по счёту выделенный музыкальный инструмент?': 'What is the highlighted instrument’s position?',
+    'Какой по счёту выделенный гриб?': 'What is the highlighted mushroom’s position?',
+    'Считай объекты слева направо по строкам': 'Count the objects from left to right, row by row',
+    'Считай слева направо, начиная с верхнего ряда.': 'Count from left to right, starting with the top row.',
+    'Прочитай пять предложений на хинди и узнай номер класса.': 'Read five Hindi sentences and identify the grade.',
+    'Прочитай предложения на хинди и определи порядковый номер.': 'Read the Hindi sentences and identify the ordinal number.',
+    'Какая это страница книги?': 'Which page of the book is this?',
+    'Какой это день путешествия?': 'Which day of the journey is this?',
+    'Какой это этаж?': 'Which floor is this?',
+    'Которая это комната?': 'Which room is this?',
+    'Который это урок?': 'Which lesson is this?',
+    'Какая это глава книги?': 'Which chapter of the book is this?',
+    'Какая это серия?': 'Which episode is this?',
+    'Которая это попытка?': 'Which attempt is this?',
+    'Какая это фотография в альбоме?': 'Which photo in the album is this?',
     'Выбери мужскую или женскую форму.': 'Choose the masculine or feminine form.',
     'Подбери форму к существительному в предложении.': 'Choose the form that fits the noun in the sentence.',
     'Выбери женскую форму порядкового числительного.': 'Choose the feminine ordinal form.',
     'Выбери мужскую форму порядкового числительного.': 'Choose the masculine ordinal form.',
+    'Выбери': 'Choose',
+    'женскую': 'feminine',
+    'мужскую': 'masculine',
+    'форму порядкового числительного.': 'ordinal form.',
+    'Перевод:': 'Translation:',
     'Вставь подходящую форму в предложение.': 'Insert the matching form into the sentence.',
     'Номер': 'Number',
     'Мужская': 'Masculine',
     'Женская': 'Feminine',
     '1–10 · основные формы': '1–10 · core forms',
     '11–20 · добавляем -वाँ / -वीं': '11–20 · add -वाँ / -वीं',
+    '11–50 · добавляем -वाँ / -वीं': '11–50 · add -वाँ / -वीं',
     'В мужской форме встречаются окончания -आ и -वाँ; в женской — -ई и -वीं. Первые десять форм удобнее запомнить отдельно.': 'Masculine forms can end in -आ or -वाँ; feminine forms in -ई or -वीं. The first ten are worth learning separately.',
     'Цифра за цифрой': 'Digit by digit',
     'Цифра за': 'Digit by',
@@ -2374,8 +2629,21 @@ return { openNumberWordCheat };
     'Продолжи ряд': 'Complete the sequence',
     'Собери число': 'Build the number',
     'Цифры вокруг нас': 'Digits around us',
+    'На автобусе указан номер маршрута. Как записать его обычными цифрами?': 'The bus shows its route number. How would you write it with standard numerals?',
+    'Автобус': 'Bus',
+    'На билете указан номер места в поезде. Как записать его обычными цифрами?': 'The ticket shows a train seat number. How would you write it with standard numerals?',
+    'На ценнике указана цена. Сколько это в обычной записи?': 'The price tag shows a price. What is it in standard numerals?',
+    'На двери указан номер кабинета. Какой это номер?': 'The door shows a room number. What number is it?',
+    'На табло указано число. Какое число там написано?': 'The display shows a number. What number is it?',
+    'Место в поезде': 'Train seat',
+    'Ценник': 'Price tag',
+    'Двери кабинетов': 'Room doors',
+    'Табло': 'Display board',
     'Числа вокруг нас': 'Numbers around us',
     'Кто больше?': 'Which is greater?',
+    'Расставь по порядку': 'Put in order',
+    'Расставь названия чисел от меньшего к большему.': 'Arrange the Hindi number names from smallest to largest.',
+    'Нажимай на числа от меньшего к большему.': 'Tap the numbers from smallest to largest.',
     'Соседи': 'Neighbours',
     'Назови число': 'Name the number',
     'Расставь запятые': 'Place the commas',
@@ -2474,6 +2742,8 @@ return { openNumberWordCheat };
     [/^Задание (\d+) · (.+)$/i, (_, index, title) => `Activity ${index} · ${translateCore(title)}`],
     [/^ЗАДАНИЕ (\d+) · (.+)$/i, (_, index, title) => `ACTIVITY ${index} · ${translateCore(title.toLowerCase()).toUpperCase()}`],
     [/^Числа (\d+)–(\d+)$/i, (_, first, last) => `Numbers ${first}–${last}`],
+    [/^Позиции (\d+)–(\d+)$/i, (_, first, last) => `Positions ${first}–${last}`],
+    [/^(\d+)–(\d+) · (\d+) (пар|пары|пара) · по (\d+) (вопросов|вопроса|вопросу)$/, (_, from, to, pairs, pairNoun, questions) => `${from}–${to} · ${pairs} pairs · ${questions} questions each`],
     [/^(\d+) (пар|пары|пара) · по (\d+) (вопросов|вопроса|вопросу) в сериях$/, (_, pairs, pairNoun, questions) => `${pairs} pairs · ${questions} questions per series`],
     [/^(\d+) (пар|пары|пара) · по (\d+) (вопросов|вопроса|вопросу)$/, (_, pairs, pairNoun, questions) => `${pairs} pairs · ${questions} questions`],
     [/^Числа (\d+)–(\d+) · (\d+) (пар|пары|пара) · по (\d+) (вопросов|вопроса|вопросу)$/, (_, from, to, pairs, pairNoun, questions) => `Numbers ${from}–${to} · ${pairs} pairs · ${questions} questions`],
@@ -2502,9 +2772,26 @@ return { openNumberWordCheat };
     [/^Запиши (\d+) (число|числа|чисел) цифрами деванагари, выбирая цифры на клавиатуре\.$/, (_, count) => `Write ${count} numbers with Devanagari digits using the on-screen keypad.`],
     [/^Прочитай (\d+) (номер|номера|номеров) и значения в бытовых ситуациях\.$/, (_, count) => `Read ${count} numbers in everyday situations.`],
     [/^Прочитай (\d+) (число|числа|чисел) в небольших ситуациях\.$/, (_, count) => `Read ${count} numbers in short everyday situations.`],
+    [/^Расположи названия чисел от меньшего к большему (\d+) раз\.$/, (_, count) => `Arrange Hindi number names from smallest to largest ${count} times.`],
+    [/^Правильный порядок: (.+)\.$/, (_, order) => `Correct order: ${order}.`],
     [/^Какое число на единицу (больше|меньше)\?$/, (_, direction) => `Which number is one ${direction === 'больше' ? 'higher' : 'lower'}?`],
     [/^Найди название числа (\d+)\.$/, (_, number) => `Find the Hindi name for ${number}.`],
     [/^Как сказать «(\d+)-й» на хинди\?$/, (_, number) => `How do you say ordinal number ${number} in Hindi?`],
+    [/^Кабинет (\d+)(, выделен)?$/, (_, number, highlighted) => `Room ${number}${highlighted ? ', highlighted' : ''}`],
+    [/^Выделен кабинет № (\d+): (.+)\.$/, (_, number, word) => `Room ${number} is highlighted: ${word}.`],
+    [/^Выделен динозавр № (\d+): (.+)\.$/, (_, number, word) => `Dinosaur ${number} is highlighted: ${word}.`],
+    [/^Выделен космический корабль № (\d+): (.+)\.$/, (_, number, word) => `Spaceship ${number} is highlighted: ${word}.`],
+    [/^Выделен (кот|робот|кактус|пингвин|фрукт|панк|телефон|музыкальный инструмент|гриб) № (\d+): (.+)\.$/, (_, noun, number, word) => `${({ кот: 'Cat', робот: 'Robot', кактус: 'Cactus', пингвин: 'Penguin', фрукт: 'Fruit', панк: 'Punk', телефон: 'Telephone', 'музыкальный инструмент': 'Instrument', гриб: 'Mushroom' })[noun]} ${number} is highlighted: ${word}.`],
+    [/^Объект (\d+)(, выделен)?$/, (_, number, highlighted) => `Object ${number}${highlighted ? ', highlighted' : ''}`],
+    [/^В каком классе учится (Санджай|Мадхури|Амит|Анджали|Нина)\?$/, (_, name) => `What grade is ${({ 'Санджай': 'Sanjay', 'Мадхури': 'Madhuri', 'Амит': 'Amit', 'Анджали': 'Anjali', 'Нина': 'Neena' })[name]} in?`],
+    [/^(Санджай|Мадхури|Амит|Анджали|Нина) учится в (\d+)-м классе\.$/, (_, name, number) => `${({ 'Санджай': 'Sanjay', 'Мадхури': 'Madhuri', 'Амит': 'Amit', 'Анджали': 'Anjali', 'Нина': 'Neena' })[name]} is in grade ${number}.`],
+    [/^Это (\d+)-я (страница книги|комната отеля|глава книги|серия сериала|фотография в альбоме)\.$/, (_, number, context) => `This is ${({ 'страница книги': 'page', 'комната отеля': 'hotel room', 'глава книги': 'chapter', 'серия сериала': 'episode', 'фотография в альбоме': 'photo in the album' })[context]} ${number}.`],
+    [/^Сегодня (\d+)-й день путешествия\.$/, (_, number) => `Today is day ${number} of the journey.`],
+    [/^Это (\d+)-й этаж здания\.$/, (_, number) => `This is floor ${number} of the building.`],
+    [/^Это наш (\d+)-й урок\.$/, (_, number) => `This is our ${number}${Number(number) % 100 >= 11 && Number(number) % 100 <= 13 ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' })[Number(number) % 10] || 'th'} lesson.`],
+    [/^Это моя (\d+)-я попытка\.$/, (_, number) => `This is my attempt number ${number}.`],
+    [/^Класс (\d+): (.+)\.$/, (_, number, phrase) => `Grade ${number}: ${phrase}.`],
+    [/^(Страница|День|Этаж|Комната|Урок|Глава|Серия|Попытка|Фотография) (\d+): (.+)\.$/, (_, label, number, form) => `${({ Страница: 'Page', День: 'Day', Этаж: 'Floor', Комната: 'Room', Урок: 'Lesson', Глава: 'Chapter', Серия: 'Episode', Попытка: 'Attempt', Фотография: 'Photo' })[label]} ${number}: ${form}.`],
     [/^(\d+)-й — (.+)\.$/, (_, number, form) => `Ordinal ${number} — ${form}.`],
     [/^(\d+)-й: (.+) — мужская форма, (.+) — женская\.$/, (_, number, masculine, feminine) => `Ordinal ${number}: ${masculine} is masculine; ${feminine} is feminine.`],
     [/^(.+ [^ ]+) — подходящая форма\.$/, (_, phrase) => `${phrase} is the matching form.`],
