@@ -163,6 +163,11 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
 .mode-option#start-word-cards .mode-icon{background:var(--pink);color:#fff}
 .mode-option#start-number-game .mode-icon{background:var(--pink);color:#fff}
 .mode-option#start-word-cards .mode-icon{font-family:"Nunito Sans",sans-serif;font-size:18px}
+.card-stack-icon{position:relative}
+.card-stack-back,.card-stack-front{position:absolute;width:22px;height:28px;box-sizing:border-box;border:2px solid #fff;border-radius:4px}
+.card-stack-back{left:10px;top:8px;transform:rotate(-16deg);background:rgba(255,255,255,.4)}
+.card-stack-front{left:18px;top:11px;display:grid;place-items:center;transform:rotate(11deg);background:#fff;color:var(--ink);font:900 15px "Noto Sans Devanagari",sans-serif;line-height:1}
+#start-word-cards .card-stack-front{color:var(--pink);font-family:"Nunito Sans",sans-serif;font-size:12px}
 .mode-option#start-large-numbers .mode-icon{background:#4d8a9b;color:#fff}
 .number-table-open{width:100%;min-height:48px;display:flex;align-items:center;justify-content:space-between;grid-column:1/-1;border:1.5px solid var(--line);border-radius:14px;padding:11px 17px;background:var(--paper);color:var(--ink);font:inherit;font-size:14px;font-weight:900;text-align:left;cursor:pointer}
 .number-table-open[hidden]{display:none!important}.number-table-open:hover{border-color:var(--pink);color:var(--pink)}
@@ -171,6 +176,15 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
 .digit-flashcard .flashcard-face small{align-self:start}
 .digit-flashcard~.flashcard-actions{margin-top:28px}
 .flashcard-controls{flex-wrap:wrap}
+.card-audio-controls{width:min(100%,560px);display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;min-height:42px;margin:5px auto 1px}
+.card-audio-replay{grid-column:2;position:relative;display:inline-flex;align-items:center;justify-content:center;border:1.5px solid var(--line);border-radius:999px;padding:8px 34px;background:#fff;color:var(--ink);font:900 13px "Nunito Sans",sans-serif;cursor:pointer}
+.card-audio-play-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%)}
+.card-audio-replay:hover,.card-audio-replay:focus-visible{border-color:var(--pink);outline:none}
+.card-audio-replay:disabled{opacity:.48;cursor:default;border-color:var(--line)}
+.card-audio-mute{grid-column:3;justify-self:start;display:grid;place-items:center;width:38px;height:38px;margin-left:9px;border:1.5px solid var(--line);border-radius:50%;background:#fff;color:var(--ink);cursor:pointer}
+.card-audio-mute:hover,.card-audio-mute:focus-visible{border-color:var(--pink);outline:none}
+.card-audio-mute svg{display:block;width:20px;height:20px}
+.card-audio-controls + .flashcard-actions{margin-top:10px}
 .large-number-display{display:flex;align-items:center;justify-content:center;width:100%;min-width:0;font-family:"Nunito Sans",sans-serif;font-size:clamp(30px,7vw,58px);line-height:1.1;white-space:nowrap}
 .large-input-round .large-number-display{margin:24px auto 30px}
 .large-input-form{display:grid;gap:9px;width:min(100%,520px);margin:0 auto}
@@ -271,7 +285,7 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
             <span class="lesson-arrow">→</span>
           </button>
           <button class="mode-option flashcard-mode" id="start-flashcards" type="button">
-            <span class="mode-icon" lang="hi">१२३</span>
+            <span class="mode-icon card-stack-icon" aria-hidden="true"><i class="card-stack-back"></i><i class="card-stack-front" lang="hi">१</i></span>
             <span><b>Слово за словом</b><small>Переворачивай карточки в своём темпе</small></span>
             <span class="lesson-arrow">→</span>
           </button>
@@ -281,7 +295,7 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
             <span class="lesson-arrow">→</span>
           </button>
           <button class="mode-option flashcard-mode" id="start-word-cards" type="button" hidden>
-            <span class="mode-icon">54</span>
+            <span class="mode-icon card-stack-icon" aria-hidden="true"><i class="card-stack-back"></i><i class="card-stack-front">64</i></span>
             <span><b>Число за числом</b><small>Карточки с числами</small></span>
             <span class="lesson-arrow">→</span>
           </button>
@@ -1078,6 +1092,69 @@ let flashcardIndex = 0;
 let flashcardCount = 10;
 let flashcardDirection = 'hi';
 let flashcardFlipped = false;
+const kishoreSecondTakes = new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 30, 44]);
+const numberAudioVoices = {
+  kishore: {
+    label: 'Кишор',
+    variants: {
+      ...Object.fromEntries(Array.from({ length: 101 }, (_, value) => [String(value).padStart(3, '0'), kishoreSecondTakes.has(value) ? 2 : 1])),
+      1000: 3, lakh: 1, kror: 1
+    }
+  }
+};
+let selectedNumberAudioVoice = 'kishore';
+let numberAudioMuted = localStorage.getItem('devanagari-number-audio-muted') === 'true';
+const numberAudioPlayer = new Audio();
+const numberAudioNextTakes = new Map();
+const speakerOnIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3Z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></svg>';
+const speakerOffIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3Z"/><path d="m16 9 5 6m0-6-5 6"/></svg>';
+function stopNumberAudio() {
+  numberAudioPlayer.pause();
+  numberAudioPlayer.currentTime = 0;
+}
+function numberAudioStem(value) {
+  if (Number(value) === 100000) return 'lakh';
+  if (Number(value) === 10000000) return 'kror';
+  return String(value).padStart(3, '0');
+}
+function hasNumberAudio(value) {
+  return (numberAudioVoices[selectedNumberAudioVoice]?.variants[numberAudioStem(value)] || 0) > 0;
+}
+function playNumberAudio(value) {
+  if (numberAudioMuted || !hasNumberAudio(value)) return;
+  stopNumberAudio();
+  const stem = numberAudioStem(value);
+  const key = `${selectedNumberAudioVoice}/${stem}`;
+  const count = numberAudioVoices[selectedNumberAudioVoice].variants[stem];
+  const take = ((numberAudioNextTakes.get(key) || 0) % count) + 1;
+  numberAudioNextTakes.set(key, take);
+  numberAudioPlayer.src = `assets/audio/numbers/${key}-${String(take).padStart(2, '0')}.mp3`;
+  numberAudioPlayer.play().catch(() => {});
+}
+function syncNumberAudioControls() {
+  document.querySelectorAll('.card-audio-controls').forEach(controls => {
+    controls.querySelector('.card-audio-replay').disabled = numberAudioMuted;
+    const toggle = controls.querySelector('.card-audio-mute');
+    const label = numberAudioMuted ? 'Включить звук' : 'Выключить звук';
+    toggle.setAttribute('aria-label', label);
+    toggle.setAttribute('title', label);
+    toggle.setAttribute('aria-pressed', String(numberAudioMuted));
+    toggle.innerHTML = numberAudioMuted ? speakerOffIcon : speakerOnIcon;
+  });
+}
+function attachNumberAudioControls(flashcard, value) {
+  if (!hasNumberAudio(value)) return;
+  flashcard.insertAdjacentHTML('afterend', `<div class="card-audio-controls"><button class="card-audio-replay" type="button" aria-label="Повторить произношение числа ${value}"><span class="card-audio-play-icon" aria-hidden="true">▶</span><span>Слушать · ${numberAudioVoices[selectedNumberAudioVoice].label}</span></button><button class="card-audio-mute" type="button"></button></div>`);
+  const controls = flashcard.nextElementSibling;
+  controls.querySelector('.card-audio-replay').addEventListener('click', () => playNumberAudio(value));
+  controls.querySelector('.card-audio-mute').addEventListener('click', () => {
+    numberAudioMuted = !numberAudioMuted;
+    localStorage.setItem('devanagari-number-audio-muted', String(numberAudioMuted));
+    if (numberAudioMuted) stopNumberAudio();
+    syncNumberAudioControls();
+  });
+  syncNumberAudioControls();
+}
 let selectedDifficulty = 'warmup';
 let digitSeriesIndex = 0;
 let digitSeriesHadError = false;
@@ -2079,6 +2156,7 @@ function openLessonMode(lessonId) {
   window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
 }
 function renderFlashcards() {
+  stopNumberAudio();
   const pair = flashcardDeck[flashcardIndex];
   if (!pair) { finishFlashcards(); return; }
   const showingHindi = flashcardFlipped ? flashcardDirection !== 'hi' : flashcardDirection === 'hi';
@@ -2097,11 +2175,17 @@ function renderFlashcards() {
   const frontLabel = digitLesson ? '' : `<span>${cardSides[0]}</span>`;
   const backLabel = digitLesson ? '' : `<span>${cardSides[1]}</span>`;
   card.innerHTML = `<p class="game-label">Карточки · ${digitLesson ? 'цифры деванагари' : `урок ${activeLesson.data.id}`}</p><div class="flashcard-controls" role="group" aria-label="Направление карточек"><button class="flashcard-direction${flashcardDirection === 'hi' ? ' active' : ''}" data-direction="hi" type="button">${cardSides[0]}${directionSeparator}${cardSides[1]}</button><button class="flashcard-direction${flashcardDirection === 'ru' ? ' active' : ''}" data-direction="ru" type="button">${cardSides[1]}${directionSeparator}${cardSides[0]}</button></div><button class="flashcard${digitLesson ? ' digit-flashcard' : ''}${showingHindi ? '' : ' flipped'}" id="flashcard" type="button" aria-label="Перевернуть карточку"><span class="flashcard-inner"><span class="flashcard-face hi">${frontLabel}<b>${pair.hi}</b><small>Нажми, чтобы перевернуть</small></span><span class="flashcard-face ru">${backLabel}<b>${pair.ru}</b><small>Нажми, чтобы перевернуть</small></span></span></button><div class="flashcard-actions"><button class="next flashcard-previous" id="previous-flashcard" type="button" ${flashcardIndex === 0 ? 'disabled' : ''}>← ${digitLesson ? 'Предыдущая цифра' : 'Предыдущее слово'}</button><button class="next flashcard-next" id="next-flashcard" type="button">${flashcardIndex === flashcardDeck.length - 1 ? 'Посмотреть итог →' : digitLesson ? 'Следующая цифра →' : 'Следующее слово →'}</button></div>`;
+  const audioValue = digitLesson ? Number(pair.ru) : null;
+  if (digitLesson) attachNumberAudioControls(card.querySelector('#flashcard'), audioValue);
   card.querySelector('#flashcard').addEventListener('click', () => {
     flashcardFlipped = !flashcardFlipped;
     const flashcard = card.querySelector('#flashcard');
     const nowShowingHindi = flashcardFlipped ? flashcardDirection !== 'hi' : flashcardDirection === 'hi';
     flashcard.classList.toggle('flipped', !nowShowingHindi);
+    if (digitLesson && hasNumberAudio(audioValue)) {
+      if (nowShowingHindi) playNumberAudio(audioValue);
+      else stopNumberAudio();
+    }
   });
   card.querySelectorAll('[data-direction]').forEach(button => button.addEventListener('click', () => {
     flashcardDirection = button.dataset.direction;
@@ -2473,6 +2557,7 @@ function startNumberWords(count, rangeStart = numberRangeStart) {
 }
 
 function renderNumberWordCard() {
+  stopNumberAudio();
   if (numberIndex >= numberDeck.length) { finishNumberWords(); return; }
   const item = numberDeck[numberIndex];
   const numberFirst = numberDirection === 'number';
@@ -2487,6 +2572,7 @@ function renderNumberWordCard() {
   progress.style.width = `${(numberIndex + 1) / numberDeck.length * 100}%`;
   const numberSize = item.value >= 10000000 ? 'crore' : item.value >= 100000 ? 'lakh' : 'standard';
   card.innerHTML = `<div class="digit-tools"><button class="digit-cheat-button" id="number-word-cheat" type="button">▦ Шпаргалка</button></div><p class="game-label">Карточки · ${deckLabel}</p><div class="flashcard-controls" role="group" aria-label="Направление карточек"><button class="flashcard-direction${numberFirst ? ' active' : ''}" data-number-direction="number" type="button" aria-pressed="${numberFirst}">Число – слово</button><button class="flashcard-direction${numberFirst ? '' : ' active'}" data-number-direction="word" type="button" aria-pressed="${!numberFirst}">Слово – число</button></div><button class="flashcard word-flashcard${numberFlipped ? ' flipped' : ''}" data-number-size="${numberSize}" id="number-word-card" type="button" aria-label="Перевернуть карточку"><span class="flashcard-inner"><span class="flashcard-face hi ${front.type}"><span>${front.label}</span><b${front.type === 'word-face' ? ' lang="hi"' : ''}>${front.value}</b><small>Нажмите, чтобы перевернуть</small></span><span class="flashcard-face ru ${back.type}"><span>${back.label}</span><b${back.type === 'word-face' ? ' lang="hi"' : ''}>${back.value}</b><small>Нажмите, чтобы перевернуть</small></span></span></button><div class="flashcard-actions"><button class="next flashcard-previous" id="previous-number" type="button" ${numberIndex === 0 ? 'disabled' : ''}>← Предыдущее число</button><button class="next flashcard-next" id="next-number" type="button">${numberIndex === numberDeck.length - 1 ? 'Посмотреть итог →' : 'Следующее число →'}</button></div>`;
+  attachNumberAudioControls(card.querySelector('#number-word-card'), item.value);
   card.querySelectorAll('[data-number-direction]').forEach(button => button.addEventListener('click', () => {
     if (button.dataset.numberDirection === numberDirection) return;
     numberDirection = button.dataset.numberDirection;
@@ -2496,6 +2582,11 @@ function renderNumberWordCard() {
   card.querySelector('#number-word-card').addEventListener('click', () => {
     numberFlipped = !numberFlipped;
     card.querySelector('#number-word-card').classList.toggle('flipped', numberFlipped);
+    if (hasNumberAudio(item.value)) {
+      const wordVisible = numberFirst ? numberFlipped : !numberFlipped;
+      if (wordVisible) playNumberAudio(item.value);
+      else stopNumberAudio();
+    }
   });
   card.querySelector('#previous-number').addEventListener('click', () => {
     if (numberIndex > 0) { numberIndex--; numberFlipped = false; renderNumberWordCard(); }
@@ -2506,6 +2597,7 @@ function renderNumberWordCard() {
     renderNumberWordCard();
   });
   card.querySelector('#number-word-cheat').addEventListener('click', () => openNumberWordCheat());
+  if (!numberFirst && !numberFlipped) playNumberAudio(item.value);
 }
 
 function finishNumberWords() {
@@ -2770,6 +2862,9 @@ return { openNumberWordCheat };
     'Нажмите, чтобы перевернуть': 'Tap to flip',
     'Нажми, чтобы перевернуть': 'Tap to flip',
     'Перевернуть карточку': 'Flip card',
+    'Слушать · Кишор': 'Listen · Kishore',
+    'Включить звук': 'Turn sound on',
+    'Выключить звук': 'Turn sound off',
     'Направление карточек': 'Card direction',
     'Число – слово': 'Number → word',
     'Слово – число': 'Word → number',
@@ -2999,6 +3094,7 @@ return { openNumberWordCheat };
   }));
 
   const rules = [
+    [/^Повторить произношение числа (\d+)$/, (_, value) => `Replay the pronunciation of ${value}`],
     [/^(яблоки|шестерёнки|яйца|пришельцы|носки|роботы|пингвины|огурцы|марки): (\d+)$/, (_, kind, count) => `${({ яблоки: 'Apples', шестерёнки: 'Gears', яйца: 'Eggs', пришельцы: 'Aliens', носки: 'Socks', роботы: 'Robots', пингвины: 'Penguins', огурцы: 'Cucumbers', марки: 'Stamps' })[kind]}: ${count}`],
     [/^(\d+) (предмет|предмета|предметов) — ([०-९])\.$/, (_, count, item, glyph) => `${count} objects — ${glyph}.`],
     [/^Ящик: ([०-९]+) яблок$/, (_, value) => `Crate: ${value} apples`],
