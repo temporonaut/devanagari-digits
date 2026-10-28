@@ -136,6 +136,10 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
 .number-sequence-token.correct{border-color:var(--green);background:#effaf5;color:var(--green)}
 .number-sequence-token.wrong{border-color:var(--pink);background:#fff0f3;color:var(--pink)}
 @media(max-width:600px){.number-sequence{grid-template-columns:repeat(2,minmax(0,1fr))}.number-sequence-token{min-height:80px;font-size:22px}.number-compare{min-height:105px;font-size:30px}.number-compare.digit-comparison{font-size:46px}}
+.chat-window .message,.chat-choices .choice{font-family:"Nunito Sans","Noto Sans Devanagari",sans-serif;font-weight:700}
+.chat-choices.chat-choices--two-column{grid-template-columns:repeat(2,minmax(0,1fr))}
+.chat-choices--two-column .choice{min-width:0;overflow-wrap:anywhere}
+@media(max-width:560px){.chat-choices.chat-choices--two-column{grid-template-columns:1fr}}
 
 
 .topbar .digits-site-title{border:0;border-radius:999px;background:#e7f0ed;padding:9px 15px;color:var(--ink);font:inherit;font-weight:900;letter-spacing:.02em;text-align:left;cursor:pointer}
@@ -468,14 +472,23 @@ function sameLengthNumberChoices(correct, count) {
   return shuffle([...values]);
 }
 
-function makeRecognitionQuestions(config) {
-  return pickSome(digits, config.questions).map(digit => {
-    const choices = makeChoices(String(digit.value), digits.map(item => String(item.value)), config.choices);
-    return {
-      prompt: 'Что это за цифра?', display: digit.glyph, choices, answer: choices.indexOf(String(digit.value)),
-      explanation: `${digit.glyph} — это ${digit.value}.`
-    };
+function makeDigitChatRound(level, config) {
+  const scenes = [
+    { message: glyph => `Я на вокзале. На табло платформа ${glyph}. К какой идти?`, reply: value => `К платформе ${value}.` },
+    { message: glyph => `Нашла платформу! На билете вагон ${glyph}. Какой искать?`, reply: value => `Вагон ${value}.` },
+    { message: glyph => `Я в вагоне. Моё место ${glyph}. Куда садиться?`, reply: value => `На место ${value}.` },
+    { message: glyph => `На двери секции написано ${glyph}. Это какой номер?`, reply: value => `Секция ${value}.` },
+    { message: glyph => `Остался выход ${glyph}. К какому идти?`, reply: value => `К выходу ${value}.` }
+  ];
+  const count = level === 'warmup' ? 3 : level === 'drive' ? 4 : 5;
+  const choiceCount = Math.min(config.choices, 6);
+  const dialogue = pickSome(digits, count).map((digit, index) => {
+    const scene = scenes[index];
+    const choices = makeChoices(String(digit.value), digits.map(item => String(item.value)), choiceCount).map(scene.reply);
+    return { message: scene.message(digit.glyph), choices, answer: choices.indexOf(scene.reply(digit.value)), explanation: `${digit.glyph} — это ${digit.value}.` };
   });
+  return { type: 'chat', trainingTag: 'узнай цифру', label: 'Задание 2 · чат с Наташей', title: 'Узнай цифру',
+    description: 'Помоги Наташе найти платформу, вагон и место.', chatName: 'Наташа', chatAvatar: 'Н', chatTwoColumns: level === 'pahalvaan', dialogue };
 }
 
 function makeSequenceQuestions(config) {
@@ -549,7 +562,7 @@ function createDevanagariDigitRounds(level = 'warmup') {
       description: `Соедини цифры деванагари с привычной записью. В этом раунде ${counted(config.pairs, 'пара', 'пары', 'пар')}.`,
       leftLabel: 'Деванагари', rightLabel: 'Обычная запись', pairs, hindi: shuffle(pairs), russian: shuffle(pairs)
     },
-    seriesRound(2, 'Узнай цифру', `Определи ${counted(config.questions, 'цифру', 'цифры', 'цифр')} по очереди.`, makeRecognitionQuestions(config)),
+    makeDigitChatRound(selectedLevel, config),
     seriesRound(3, 'Продолжи ряд', `Восстанови ${counted(config.questions, 'ряд', 'ряда', 'рядов')} по очереди.`, makeSequenceQuestions(config)),
     {
       type: 'digit-compose', trainingTag: 'собери число', label: 'Задание 4 · собери число', title: 'Собери число',
@@ -739,10 +752,18 @@ function createDevanagariNumberRounds(level = 'warmup', { includeEndings = false
   const config = numberLevels[level] || numberLevels.warmup;
   const values = range(config.max);
   const pairs = pickSome(values, config.pairs).map(value => ({ key: `number-${value}`, hi: word(value), ru: String(value) }));
-  const recognition = pickTargets(config.max, config.questions).map(value => {
-    const choices = makeChoices(String(value), values.map(String), config.choices);
-    return { prompt: 'Какое число написано?', display: word(value), wordDisplay: true,
-      choices, answer: choices.indexOf(String(value)), explanation: `${word(value)} — это ${value}.` };
+  const chatScenes = [
+    { message: name => `Кондуктор назвал маршрут «${name}». Какой автобус мне нужен?`, reply: value => `Автобус № ${value}.` },
+    { message: name => `Нашла автобус! Водитель сказал, что билет стоит «${name}». Сколько рупий приготовить?`, reply: value => `${value} рупий.` },
+    { message: name => `В билете место «${name}». Какое кресло искать?`, reply: value => `Место ${value}.` },
+    { message: name => `Приехала. Администратор назвал комнату «${name}». Какой это номер?`, reply: value => `Комната ${value}.` },
+    { message: name => `На стойке мне назвали талон «${name}». Какой номер на экране?`, reply: value => `Талон № ${value}.` }
+  ];
+  const chatCount = level === 'warmup' ? 3 : level === 'drive' ? 4 : 5;
+  const dialogue = pickSome(values.slice(1), chatCount).map((value, index) => {
+    const scene = chatScenes[index];
+    const choices = makeChoices(String(value), values.map(String), config.choices).map(scene.reply);
+    return { message: scene.message(word(value)), choices, answer: choices.indexOf(scene.reply(value)), explanation: `${word(value)} — это ${value}.` };
   });
   const confusing = pickTargets(config.max, config.questions).map(value => {
     const choices = nearbyChoices(value, config.max, config.choices, 'word');
@@ -776,7 +797,8 @@ function createDevanagariNumberRounds(level = 'warmup', { includeEndings = false
     { type: 'match', trainingTag: 'найди пару', label: 'Задание 1 · найди пару', title: 'Найди пару',
       description: `Соедини ${counted(config.pairs, 'слово', 'слова', 'слов')} с числами.`,
       leftLabel: 'На хинди', rightLabel: 'Число', pairs, hindi: shuffle(pairs), russian: shuffle(pairs) },
-    seriesRound(2, 'Узнай число', `Определи ${counted(config.questions, 'число', 'числа', 'чисел')} по очереди.`, recognition),
+    { type: 'chat', trainingTag: 'узнай число', label: 'Задание 2 · чат с Наташей', title: 'Узнай число',
+      description: 'Помоги Наташе разобраться с маршрутом, билетом и номером комнаты.', chatName: 'Наташа', chatAvatar: 'Н', chatTwoColumns: level === 'pahalvaan', dialogue },
     seriesRound(3, 'Не перепутай!', 'Выбери название числа среди близких вариантов.', confusing),
     seriesRound(4, 'Продолжи ряд', `Восстанови ${counted(config.questions, 'ряд', 'ряда', 'рядов')} по очереди.`, sequences),
     seriesRound(6, 'Кто больше?', 'Выбери большее из двух чисел.', makeComparisonQuestions(config, 'word')),
@@ -1347,7 +1369,7 @@ function answersMarkup(answers, className = 'choice-grid') {
 function chatMarkup(item) {
   const stage = item.dialogue[chatStep];
   const history = item.dialogue.slice(0, chatStep).map((line, index) => `<div class="message incoming">${line.message}</div><div class="message outgoing">${line.choices[chatAnswers[index]]}</div>`).join('');
-  return `<div class="chat-window"><div class="chat-bar"><span class="chat-avatar">A</span><div><b>Аджай</b><small>в сети</small></div><span class="chat-progress">${chatStep + 1}/${item.dialogue.length}</span></div><div class="chat-messages">${history}<div class="message incoming">${stage.message}</div></div><div class="chat-hint">Выбери ответ:</div></div>${answersMarkup(stage.choices, 'chat-choices')}`;
+  return `<div class="chat-window"><div class="chat-bar"><span class="chat-avatar">${item.chatAvatar || 'A'}</span><div><b>${item.chatName || 'Аджай'}</b><small>в сети</small></div><span class="chat-progress">${chatStep + 1}/${item.dialogue.length}</span></div><div class="chat-messages">${history}<div class="message incoming">${stage.message}</div></div><div class="chat-hint">Выбери ответ:</div></div>${answersMarkup(stage.choices, `chat-choices${item.chatTwoColumns ? ' chat-choices--two-column' : ''}`)}`;
 }
 function matchMarkup(item) {
   const cards = (items, side) => items.map(pair => `<button class="match-card" data-match data-side="${side}" data-key="${pair.key}">${side === 'hi' ? pair.hi : pair.ru}</button>`).join('');
@@ -1671,7 +1693,7 @@ function advanceChat(item) {
   card.querySelector('.feedback')?.remove();
   card.querySelector('.next')?.remove();
   const hint = card.querySelector('.chat-hint');
-  hint.textContent = 'Аджай печатает…';
+  hint.textContent = `${item.chatName || 'Аджай'} печатает…`;
   hint.classList.add('typing');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   window.setTimeout(() => {
@@ -1685,7 +1707,7 @@ function advanceChat(item) {
     card.querySelector('.chat-progress').textContent = `${chatStep + 1}/${item.dialogue.length}`;
     hint.textContent = 'Выбери ответ:';
     hint.classList.remove('typing');
-    card.querySelector('.chat-choices').outerHTML = answersMarkup(stage.choices, 'chat-choices');
+    card.querySelector('.chat-choices').outerHTML = answersMarkup(stage.choices, `chat-choices${item.chatTwoColumns ? ' chat-choices--two-column' : ''}`);
     card.querySelectorAll('[data-answer]').forEach(button => button.addEventListener('click', () => answer(Number(button.dataset.answer), button)));
     scrollChatMessages();
   }, reduceMotion ? 0 : 500);
@@ -1991,9 +2013,17 @@ function answer(selected, button) {
   showFeedback(correct, stage.explanation);
   const finalLine = chatStep === item.dialogue.length - 1;
   const chatPageScrollDelay = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 680;
-  addNext(correct ? (finalLine ? 'Посмотреть результат →' : 'Продолжить чат →') : 'Попробовать ещё раз →', () => {
+  addNext(correct ? (finalLine ? current === total() - 1 ? 'Посмотреть результат →' : 'Следующее задание →' : 'Продолжить чат →') : 'Попробовать ещё раз →', () => {
     if (!correct) { render(); return; }
-    if (finalLine) { completed.add(current); document.querySelectorAll('.round')[current].classList.add('done'); startReviewOrFinish(); }
+    if (finalLine) {
+      completed.add(current);
+      document.querySelectorAll('.round')[current].classList.add('done');
+      chatStep = 0;
+      chatAnswers = [];
+      if (completingPending) finish();
+      else if (current < total() - 1) { current++; render(); }
+      else startReviewOrFinish();
+    }
     else { advanceChat(item); }
   }, correct ? chatPageScrollDelay : 0, !correct || finalLine);
   updateHeader();
@@ -2930,6 +2960,12 @@ return { openNumberWordCheat };
     'Найди пару: названия': 'Find the pairs: names',
     'Узнай цифру': 'Recognise the digit',
     'Узнай число': 'Recognise the number',
+    'чат с Наташей': 'chat with Natasha',
+    'Наташа': 'Natasha',
+    'Н': 'N',
+    'Наташа печатает…': 'Natasha is typing…',
+    'Помоги Наташе найти платформу, вагон и место.': 'Help Natasha find the platform, carriage, and seat.',
+    'Помоги Наташе разобраться с маршрутом, билетом и номером комнаты.': 'Help Natasha with the bus route, ticket, and room number.',
     'Не перепутай!': 'Do not mix them up!',
     'Угадай окончание': 'Spot the ending',
     'Посчитай на хинди': 'Calculate in Hindi',
@@ -3095,6 +3131,26 @@ return { openNumberWordCheat };
   }));
 
   const rules = [
+    [/^Я на вокзале\. На табло платформа ([०-९])\. К какой идти\?$/, (_, glyph) => `I'm at the station. The board says platform ${glyph}. Which one?`],
+    [/^Нашла платформу! На билете вагон ([०-९])\. Какой искать\?$/, (_, glyph) => `Found the platform! My ticket says carriage ${glyph}. Which one?`],
+    [/^Я в вагоне\. Моё место ([०-९])\. Куда садиться\?$/, (_, glyph) => `I'm in the carriage. My seat is ${glyph}. Where should I sit?`],
+    [/^На двери секции написано ([०-९])\. Это какой номер\?$/, (_, glyph) => `The compartment door says ${glyph}. What number is that?`],
+    [/^Остался выход ([०-९])\. К какому идти\?$/, (_, glyph) => `Now I need exit ${glyph}. Which one?`],
+    [/^Кондуктор назвал маршрут «([^»]+)»\. Какой автобус мне нужен\?$/, (_, word) => `The conductor said the route is «${word}». Which bus do I need?`],
+    [/^Нашла автобус! Водитель сказал, что билет стоит «([^»]+)»\. Сколько рупий приготовить\?$/, (_, word) => `Found the bus! The driver said the ticket costs «${word}». How many rupees?`],
+    [/^В билете место «([^»]+)»\. Какое кресло искать\?$/, (_, word) => `My ticket says seat «${word}». Which seat should I find?`],
+    [/^Приехала\. Администратор назвал комнату «([^»]+)»\. Какой это номер\?$/, (_, word) => `I've arrived. The receptionist said room «${word}». What number is that?`],
+    [/^На стойке мне назвали талон «([^»]+)»\. Какой номер на экране\?$/, (_, word) => `At the desk, they called ticket «${word}». What number is on the screen?`],
+    [/^К платформе (\d+)\.$/, (_, value) => `To platform ${value}.`],
+    [/^Вагон (\d+)\.$/, (_, value) => `Carriage ${value}.`],
+    [/^На место (\d+)\.$/, (_, value) => `Seat ${value}.`],
+    [/^Секция (\d+)\.$/, (_, value) => `Compartment ${value}.`],
+    [/^К выходу (\d+)\.$/, (_, value) => `To exit ${value}.`],
+    [/^Автобус № (\d+)\.$/, (_, value) => `Bus ${value}.`],
+    [/^(\d+) рупий\.$/, (_, value) => `${value} rupees.`],
+    [/^Место (\d+)\.$/, (_, value) => `Seat ${value}.`],
+    [/^Комната (\d+)\.$/, (_, value) => `Room ${value}.`],
+    [/^Талон № (\d+)\.$/, (_, value) => `Ticket ${value}.`],
     [/^Повторить произношение числа (\d+)$/, (_, value) => `Replay the pronunciation of ${value}`],
     [/^(яблоки|шестерёнки|яйца|пришельцы|носки|роботы|пингвины|огурцы|марки): (\d+)$/, (_, kind, count) => `${({ яблоки: 'Apples', шестерёнки: 'Gears', яйца: 'Eggs', пришельцы: 'Aliens', носки: 'Socks', роботы: 'Robots', пингвины: 'Penguins', огурцы: 'Cucumbers', марки: 'Stamps' })[kind]}: ${count}`],
     [/^(\d+) (предмет|предмета|предметов) — ([०-९])\.$/, (_, count, item, glyph) => `${count} objects — ${glyph}.`],
