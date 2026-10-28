@@ -139,7 +139,6 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
 .chat-window .message,.chat-choices .choice{font-family:"Nunito Sans","Noto Sans Devanagari",sans-serif;font-weight:700}
 .chat-choices.chat-choices--two-column{grid-template-columns:repeat(2,minmax(0,1fr))}
 .chat-choices--two-column .choice{min-width:0;overflow-wrap:anywhere}
-@media(max-width:560px){.chat-choices.chat-choices--two-column{grid-template-columns:1fr}}
 
 
 .topbar .digits-site-title{border:0;border-radius:999px;background:#e7f0ed;padding:9px 15px;color:var(--ink);font:inherit;font-weight:900;letter-spacing:.02em;text-align:left;cursor:pointer}
@@ -488,7 +487,7 @@ function makeDigitChatRound(level, config) {
     return { message: scene.message(digit.glyph), choices, answer: choices.indexOf(scene.reply(digit.value)), explanation: `${digit.glyph} — это ${digit.value}.` };
   });
   return { type: 'chat', trainingTag: 'узнай цифру', label: 'Задание 2 · чат с Наташей', title: 'Узнай цифру',
-    description: 'Помоги Наташе найти платформу, вагон и место.', chatName: 'Наташа', chatAvatar: 'Н', chatTwoColumns: level === 'pahalvaan', dialogue };
+    description: 'Помоги Наташе найти платформу, вагон и место.', chatName: 'Наташа', chatAvatar: 'Н', chatTwoColumns: true, dialogue };
 }
 
 function makeSequenceQuestions(config) {
@@ -798,7 +797,7 @@ function createDevanagariNumberRounds(level = 'warmup', { includeEndings = false
       description: `Соедини ${counted(config.pairs, 'слово', 'слова', 'слов')} с числами.`,
       leftLabel: 'На хинди', rightLabel: 'Число', pairs, hindi: shuffle(pairs), russian: shuffle(pairs) },
     { type: 'chat', trainingTag: 'узнай число', label: 'Задание 2 · чат с Наташей', title: 'Узнай число',
-      description: 'Помоги Наташе разобраться с маршрутом, билетом и номером комнаты.', chatName: 'Наташа', chatAvatar: 'Н', chatTwoColumns: level === 'pahalvaan', dialogue },
+      description: 'Помоги Наташе разобраться с маршрутом, билетом и номером комнаты.', chatName: 'Наташа', chatAvatar: 'Н', chatTwoColumns: true, dialogue },
     seriesRound(3, 'Не перепутай!', 'Выбери название числа среди близких вариантов.', confusing),
     seriesRound(4, 'Продолжи ряд', `Восстанови ${counted(config.questions, 'ряд', 'ряда', 'рядов')} по очереди.`, sequences),
     seriesRound(6, 'Кто больше?', 'Выбери большее из двух чисел.', makeComparisonQuestions(config, 'word')),
