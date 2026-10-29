@@ -174,6 +174,22 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
 .mode-option#start-large-numbers .mode-icon{background:#4d8a9b;color:#fff}
 .number-table-open{width:100%;min-height:48px;display:flex;align-items:center;justify-content:space-between;grid-column:1/-1;border:1.5px solid var(--line);border-radius:14px;padding:11px 17px;background:var(--paper);color:var(--ink);font:inherit;font-size:14px;font-weight:900;text-align:left;cursor:pointer}
 .number-table-open[hidden]{display:none!important}.number-table-open:hover{border-color:var(--pink);color:var(--pink)}
+.topic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:540px;margin-top:28px}
+.topic-grid[hidden]{display:none!important}
+.topic-option{min-width:0;aspect-ratio:1;display:flex;flex-direction:column;align-items:flex-start;gap:9px;padding:19px;border:1.5px solid var(--line);border-radius:18px;background:var(--paper);color:var(--ink-dark);text-align:left;box-shadow:0 10px 24px rgba(22,71,90,.06);cursor:pointer;transition:.18s}
+.topic-option:hover{transform:translateY(-2px);border-color:var(--pink)}
+.topic-option b{color:var(--ink);font-size:clamp(30px,4.8vw,40px);font-weight:900;line-height:1.03}
+.topic-subtitle{color:var(--pink);font-size:14px;font-weight:900;line-height:1.25}
+.topic-option small{margin-top:auto;color:#607d88;font-size:13px;font-weight:800;line-height:1.35}
+.picker-cheat{width:100%;min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 16px;border:1.5px solid var(--line);border-radius:14px;background:var(--paper);color:var(--ink);font-size:14px;font-weight:900;text-align:left;cursor:pointer}
+.picker-cheat:hover{border-color:var(--pink);color:var(--pink)}
+.topic-card-entry .mode-icon{background:var(--pink);color:#fff}
+.topic-card-entry .card-stack-front{color:var(--pink)}
+#numbers-cards-entry .card-stack-front{font-family:"Nunito Sans",sans-serif;font-size:12px}
+#digits-difficulty [data-digit-level] .difficulty-badge,#numbers-difficulty [data-number-level] .difficulty-badge{background:var(--ink);color:#fff}
+#digits-difficulty .pahalvaan-option .difficulty-badge,#numbers-difficulty .pahalvaan-option .difficulty-badge{font-family:"Apple Color Emoji","Segoe UI Emoji",sans-serif}
+@media(max-width:600px){.topic-grid{gap:10px;margin-top:24px}.topic-option{min-height:240px;aspect-ratio:auto;padding:14px;gap:7px}.topic-option b{font-size:clamp(28px,7.6vw,36px)}.topic-subtitle{font-size:12px}.topic-option small{font-size:12px}}
+@media(max-width:360px){.topic-option{min-height:248px;padding:11px}.topic-option small{font-size:11px}}
 .digit-flashcard .flashcard-face{gap:11px}
 .digit-flashcard .flashcard-face b{align-self:end}
 .digit-flashcard .flashcard-face small{align-self:start}
@@ -279,8 +295,15 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
       <section class="mode-picker" id="mode-picker" aria-labelledby="mode-title">
         <button class="back-link" id="back-to-lessons" type="button">← Все уроки</button>
         <p class="eyebrow" id="mode-kicker">Урок</p>
-        <h1 id="mode-title">Как позанимаемся?</h1>
+        <h1 id="mode-title">Что потренируем?</h1>
         <p class="intro" id="mode-subtitle"></p>
+        <div class="topic-grid" id="digits-topic-grid" hidden>
+          <button class="number-table-open" id="open-number-table" type="button">▦ Таблица чисел 0–100 <span aria-hidden="true">→</span></button>
+          <button class="topic-option" data-open-topic="digits" type="button"><b>Цифры</b><span class="topic-subtitle">Знаки <span lang="hi">०–९</span></span><small>До 8 заданий и карточки с цифрами деванагари.</small></button>
+          <button class="topic-option" data-open-topic="numbers" type="button"><b>Числа</b><span class="topic-subtitle">Названия 0–100</span><small>До 9 заданий и карточки от शून्य до सौ</small></button>
+          <button class="topic-option" data-open-topic="large" type="button"><b>Большие числа</b><span class="topic-subtitle">Лакхи и кроры</span><small>Непривычные запятые и 7 видов заданий</small></button>
+          <button class="topic-option" data-open-topic="ordinals" type="button"><b>Который по счёту?</b><span class="topic-subtitle">Числительные 1–100</span><small>5 заданий — от первого до сотого.</small></button>
+        </div>
         <div class="mode-options">
           <button class="mode-option game-mode" id="start-game" type="button">
             <span class="mode-icon">✦</span>
@@ -307,10 +330,10 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
             <span><b>Большие числа</b><small>Лакхи, кроры и непривычные запятые</small></span>
             <span class="lesson-arrow">→</span>
           </button>
-          <button class="mode-option ordinal-game-mode" id="start-ordinal-game" type="button" hidden><span class="mode-icon">✦</span><span><b>Который по счёту?</b><small>Порядковые числительные 1–100</small></span><span class="lesson-arrow">→</span></button><button class="number-table-open" id="open-number-table" type="button" hidden>▦ Таблица чисел 0–100 <span aria-hidden="true">→</span></button>
+          <button class="mode-option ordinal-game-mode" id="start-ordinal-game" type="button" hidden><span class="mode-icon">✦</span><span><b>Который по счёту?</b><small>Порядковые числительные 1–100</small></span><span class="lesson-arrow">→</span></button>
         </div>
         <div class="difficulty-picker" id="digits-word-counts" hidden>
-          <button class="back-link" data-back-to-modes type="button">← К видам практики</button>
+          <button class="back-link" data-back-to-modes type="button">← К числам</button>
           <div class="word-scope" role="group" aria-label="Выбор набора чисел">
             <button class="word-scope-option active" data-word-scope="all" type="button" aria-pressed="true">Все числа</button>
             <button class="word-scope-option" data-word-scope="decade" type="button" aria-pressed="false">По десяткам</button>
@@ -340,35 +363,40 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
           <button class="difficulty-option word-bonus-option" data-word-count="bonus" type="button"><span class="difficulty-badge">+</span><span><b>Бонус: большие числа</b><small>Тысяча, лакх и крор</small></span><span class="lesson-arrow">→</span></button>
         </div>
         <div class="difficulty-picker" id="digits-flashcard-counts" hidden>
-          <button class="back-link" data-back-to-modes type="button">← К видам практики</button>
+          <button class="back-link" data-back-to-modes type="button">← К цифрам</button>
           <p class="difficulty-intro">Каждый круг покажет все 10 цифр в новом случайном порядке — выберите длину серии.</p>
           <button class="difficulty-option" data-flashcard-count="10" type="button"><span class="difficulty-badge">10</span><span><b>10 карточек</b><small>Один круг цифр</small></span><span class="lesson-arrow">→</span></button>
           <button class="difficulty-option" data-flashcard-count="20" type="button"><span class="difficulty-badge">20</span><span><b>20 карточек</b><small>Два перемешанных круга</small></span><span class="lesson-arrow">→</span></button>
           <button class="difficulty-option pahalvaan-option" data-flashcard-count="30" type="button"><span class="difficulty-badge">30</span><span><b>30 карточек</b><small>Три перемешанных круга</small></span><span class="lesson-arrow">→</span></button>
         </div>
         <div class="difficulty-picker" id="digits-difficulty" hidden>
-          <button class="back-link" data-back-to-modes type="button">← К видам практики</button>
-          <p class="difficulty-intro">Выбирай по настроению — шпаргалка всегда рядом.</p>
+          <button class="back-link" data-back-to-modes type="button">← К темам</button>
+          <p class="difficulty-intro">Выбирай по настроению — таблица всегда рядом.</p>
+          <button class="picker-cheat" id="digits-picker-cheat" type="button">▦ Таблица цифр <span aria-hidden="true">→</span></button>
+          <button class="difficulty-option topic-card-entry" id="digits-cards-entry" type="button"><span class="mode-icon card-stack-icon" aria-hidden="true"><i class="card-stack-back"></i><i class="card-stack-front" lang="hi">१</i></span><span><b>Цифра за цифрой</b><small>Карточки с цифрами деванагари</small></span><span class="lesson-arrow">→</span></button>
           <button class="difficulty-option" data-digit-level="warmup" type="button"><span class="difficulty-badge">1</span><span><b>Разминка</b><small>4 пары · по 3 вопроса в сериях</small></span><span class="lesson-arrow">→</span></button>
           <button class="difficulty-option" data-digit-level="drive" type="button"><span class="difficulty-badge">2</span><span><b>Разгон</b><small>6 пар · по 6 вопросов в сериях</small></span><span class="lesson-arrow">→</span></button>
           <button class="difficulty-option pahalvaan-option" data-digit-level="pahalvaan" type="button"><span class="difficulty-badge">💪</span><span><b>Pahalvaan</b><small>10 пар · по 10 вопросов в сериях</small></span><span class="lesson-arrow">→</span></button>
         </div>
         <div class="difficulty-picker" id="numbers-difficulty" hidden>
-          <button class="back-link" data-back-to-modes type="button">← К видам практики</button>
-          <p class="difficulty-intro">Выбирай по настроению — шпаргалка всегда рядом.</p>
+          <button class="back-link" data-back-to-modes type="button">← К темам</button>
+          <p class="difficulty-intro">Выбирай по настроению — таблица всегда рядом.</p>
+          <button class="picker-cheat" id="numbers-picker-cheat" type="button">▦ Таблица чисел <span aria-hidden="true">→</span></button>
+          <button class="difficulty-option topic-card-entry" id="numbers-cards-entry" type="button"><span class="mode-icon card-stack-icon" aria-hidden="true"><i class="card-stack-back"></i><i class="card-stack-front">64</i></span><span><b>Число за числом</b><small>Карточки с названиями чисел</small></span><span class="lesson-arrow">→</span></button>
           <button class="difficulty-option" data-number-level="warmup" type="button"><span class="difficulty-badge">1</span><span><b>Разминка</b><small>6 заданий · основы 0–20 + окончания · 4 пары · по 3 вопроса</small></span><span class="lesson-arrow">→</span></button>
           <button class="difficulty-option" data-number-level="drive" type="button"><span class="difficulty-badge">2</span><span><b>Разгон</b><small>Основы 0–50 + окончания · 6 пар · по 6 вопросов</small></span><span class="lesson-arrow">→</span></button>
           <button class="difficulty-option pahalvaan-option" data-number-level="pahalvaan" type="button"><span class="difficulty-badge">💪</span><span><b>Pahalvaan</b><small>Числа 0–100 · 10 пар · до 10 вопросов</small></span><span class="lesson-arrow">→</span></button>
         </div>
         <div class="difficulty-picker" id="large-numbers-difficulty" hidden>
-          <button class="back-link" data-back-to-modes type="button">← К видам практики</button>
+          <button class="back-link" data-back-to-modes type="button">← К темам</button>
           <p class="difficulty-intro">Выбери темп: сначала знакомые числа или сразу некруглые — без вариантов ответа.</p>
           <button class="difficulty-option" data-large-level="warmup" type="button"><span class="difficulty-badge">1</span><span><b>Разминка</b><small>Лакхи, кроры и запись чисел · 4 задания</small></span><span class="lesson-arrow">→</span></button>
           <button class="difficulty-option pahalvaan-option" data-large-level="pahalvaan" type="button"><span class="difficulty-badge">💪</span><span><b>Pahalvaan</b><small>Некруглые числа · 3 раунда с вводом ответа</small></span><span class="lesson-arrow">→</span></button>
         </div>
         <div class="difficulty-picker" id="ordinals-difficulty" hidden>
-          <button class="back-link" data-back-to-modes type="button">← К видам практики</button>
+          <button class="back-link" data-back-to-modes type="button">← К темам</button>
           <p class="difficulty-intro">Выбирай диапазон и темп. В каждом заходе — новые ситуации.</p>
+          <button class="picker-cheat" id="ordinals-picker-cheat" type="button">▦ Таблица числительных <span aria-hidden="true">→</span></button>
           <button class="difficulty-option" data-ordinal-level="warmup" type="button"><span class="difficulty-badge">1</span><span><b>Разминка</b><small>1–10 · 3 пары · по 3 вопроса</small></span><span class="lesson-arrow">→</span></button>
           <button class="difficulty-option" data-ordinal-level="drive" type="button"><span class="difficulty-badge">2</span><span><b>Разгон</b><small>1–50 · 5 пар · по 5 вопросов</small></span><span class="lesson-arrow">→</span></button>
           <button class="difficulty-option pahalvaan-option" data-ordinal-level="pahalvaan" type="button"><span class="difficulty-badge">💪</span><span><b>Pahalvaan</b><small>1–100 · 7 пар · по 7 вопросов</small></span><span class="lesson-arrow">→</span></button>
@@ -486,7 +514,7 @@ function makeDigitChatRound(level, config) {
     const choices = makeChoices(String(digit.value), digits.map(item => String(item.value)), choiceCount).map(scene.reply);
     return { message: scene.message(digit.glyph), choices, answer: choices.indexOf(scene.reply(digit.value)), explanation: `${digit.glyph} — это ${digit.value}.` };
   });
-  return { type: 'chat', trainingTag: 'узнай цифру', label: 'Задание 2 · чат с Наташей', title: 'Узнай цифру',
+  return { type: 'chat', trainingTag: 'узнай цифру', label: 'Задание 2 · чат с Наташей', title: 'Чат с Наташей',
     description: 'Помоги Наташе найти платформу, вагон и место.', chatName: 'Наташа', chatAvatar: 'Н', chatTwoColumns: true, dialogue };
 }
 
@@ -796,7 +824,7 @@ function createDevanagariNumberRounds(level = 'warmup', { includeEndings = false
     { type: 'match', trainingTag: 'найди пару', label: 'Задание 1 · найди пару', title: 'Найди пару',
       description: `Соедини ${counted(config.pairs, 'слово', 'слова', 'слов')} с числами.`,
       leftLabel: 'На хинди', rightLabel: 'Число', pairs, hindi: shuffle(pairs), russian: shuffle(pairs) },
-    { type: 'chat', trainingTag: 'узнай число', label: 'Задание 2 · чат с Наташей', title: 'Узнай число',
+    { type: 'chat', trainingTag: 'узнай число', label: 'Задание 2 · чат с Наташей', title: 'Чат с Наташей',
       description: 'Помоги Наташе разобраться с маршрутом, билетом и номером комнаты.', chatName: 'Наташа', chatAvatar: 'Н', chatTwoColumns: true, dialogue },
     seriesRound(3, 'Не перепутай!', 'Выбери название числа среди близких вариантов.', confusing),
     seriesRound(4, 'Продолжи ряд', `Восстанови ${counted(config.questions, 'ряд', 'ряда', 'рядов')} по очереди.`, sequences),
@@ -814,7 +842,7 @@ function createDevanagariNumberRounds(level = 'warmup', { includeEndings = false
     seriesRound(7, 'Сколько здесь?', 'Число на табличке показывает количество в группе. Прибавь отдельные и выбери ответ на хинди.',
       makeCountingQuestions(level, config)));
   if (compactWarmup && level === 'warmup') {
-    const warmupTitles = new Set(['Найди пару', 'Узнай число', 'Продолжи ряд', 'Угадай окончание', 'Сколько здесь?', 'Соседи']);
+    const warmupTitles = new Set(['Найди пару', 'Чат с Наташей', 'Продолжи ряд', 'Угадай окончание', 'Сколько здесь?', 'Соседи']);
     for (let index = rounds.length - 1; index >= 0; index--) {
       if (!warmupTitles.has(rounds[index].title)) rounds.splice(index, 1);
     }
@@ -1210,6 +1238,7 @@ const backToLessons = document.querySelector('#back-to-lessons');
 const startGame = document.querySelector('#start-game');
 const startFlashcards = document.querySelector('#start-flashcards');
 const modeOptions = document.querySelector('.mode-options');
+const topicGrid = document.querySelector('#digits-topic-grid');
 const difficultyPicker = document.querySelector('#digits-difficulty');
 const numberDifficultyPicker = document.querySelector('#numbers-difficulty');
 const largeNumberDifficultyPicker = document.querySelector('#large-numbers-difficulty');
@@ -1423,14 +1452,13 @@ function ordinalCheatSections() {
     return `<section class="word-cheat-decade ordinal-cheat-decade"><h3 class="word-cheat-decade-title">${start}–${end}</h3>${rows}</section>`;
   }).join('');
 }
-function bindDigitCheat() {
-  card.querySelector('[data-digit-cheat]')?.addEventListener('click', () => {
-    const isOrdinal = activeLesson.data.id === 'ordinals';
-    if (['numbers', 'large-numbers'].includes(activeLesson.data.id) && selectedDifficulty !== 'pahalvaan') {
-      numberWordMode.openNumberWordCheat(card.querySelector('[data-digit-cheat]'));
+function openDigitCheat(trigger = card.querySelector('[data-digit-cheat]'), cheatLessonId = activeLesson.data.id, allowPahalvaanJoke = true) {
+    const isOrdinal = cheatLessonId === 'ordinals';
+    if (['numbers', 'large-numbers'].includes(cheatLessonId) && selectedDifficulty !== 'pahalvaan') {
+      numberWordMode.openNumberWordCheat(trigger);
       return;
     }
-    const isPahalvaan = selectedDifficulty === 'pahalvaan';
+    const isPahalvaan = allowPahalvaanJoke && selectedDifficulty === 'pahalvaan';
     const table = isOrdinal
       ? `<p class="ordinal-cheat-note">В мужской форме встречаются окончания -आ и -वाँ; в женской — -ई и -वीं. Первые десять форм удобнее запомнить отдельно.</p><div class="word-cheat-modes" role="group" aria-label="Форма числительного"><button class="word-cheat-mode active" data-ordinal-gender="masculine" type="button" aria-pressed="true">Мужская</button><button class="word-cheat-mode" data-ordinal-gender="feminine" type="button" aria-pressed="false">Женская</button></div><label class="word-cheat-label" for="ordinal-cheat-search">Найти число или слово</label><input id="ordinal-cheat-search" class="word-cheat-search" type="search" placeholder="Например, 54 или पहला" /><p class="word-cheat-search-status" id="ordinal-cheat-search-status" role="status" aria-live="polite"></p><p class="word-cheat-scroll-hint">← Листайте десятки →</p><div class="word-cheat-board" tabindex="0" role="region" aria-label="Порядковые числительные по десяткам, листайте горизонтально"><div class="word-cheat-columns ordinal-cheat-columns">${ordinalCheatSections()}</div></div>`
       : isPahalvaan
@@ -1438,9 +1466,9 @@ function bindDigitCheat() {
       : `<div class="digit-cheat-table" role="table" aria-label="Цифры деванагари"><div role="row"><b role="columnheader">Деванагари</b><b role="columnheader">Обычная запись</b></div>${devanagariDigits.flashcards.map(({ hi, ru }) => `<div role="row"><span lang="hi">${hi}</span><span>${ru}</span></div>`).join('')}</div>`;
     const overlay = document.createElement('div');
     overlay.className = 'digit-cheat-overlay';
-    overlay.innerHTML = `<section class="digit-cheat-dialog${isOrdinal ? ' word-cheat-dialog ordinal-cheat-dialog' : ''}" role="dialog" aria-modal="true" aria-labelledby="digit-cheat-title"><button class="digit-cheat-close" type="button" aria-label="Закрыть">×</button><p class="eyebrow">${activeLesson.data.title}</p><h2 id="digit-cheat-title">${isOrdinal ? 'Порядковые числительные 1–100' : isPahalvaan ? 'Шпаргалка? Какая шпаргалка?' : 'Все цифры'}</h2>${table}</section>`;
+    overlay.innerHTML = `<section class="digit-cheat-dialog${isOrdinal ? ' word-cheat-dialog ordinal-cheat-dialog' : ''}" role="dialog" aria-modal="true" aria-labelledby="digit-cheat-title"><button class="digit-cheat-close" type="button" aria-label="Закрыть">×</button><p class="eyebrow">${lessons[cheatLessonId].data.title}</p><h2 id="digit-cheat-title">${isOrdinal ? 'Порядковые числительные 1–100' : isPahalvaan ? 'Шпаргалка? Какая шпаргалка?' : 'Все цифры'}</h2>${table}</section>`;
     const onEscape = event => { if (event.key === 'Escape' && overlay.isConnected) close(); };
-    const close = () => { overlay.remove(); document.removeEventListener('keydown', onEscape); };
+    const close = () => { overlay.remove(); document.removeEventListener('keydown', onEscape); trigger?.focus(); };
     overlay.addEventListener('click', event => { if (event.target === overlay) close(); });
     overlay.querySelector('.digit-cheat-close').addEventListener('click', close);
     document.addEventListener('keydown', onEscape);
@@ -1480,7 +1508,9 @@ function bindDigitCheat() {
       searchOrdinals();
     }));
     (search || overlay.querySelector('.digit-cheat-close')).focus();
-  });
+}
+function bindDigitCheat() {
+  card.querySelector('[data-digit-cheat]')?.addEventListener('click', event => openDigitCheat(event.currentTarget));
 }
 function ordinalSceneIcon(kind) {
   return `<img src="assets/ordinal-scenes/${kind}.png" alt="" width="256" height="256" loading="eager" decoding="async" />`;
@@ -2157,14 +2187,15 @@ function openLessonMode(lessonId) {
   mode = 'mode-select';
   updateLessonChrome();
   modeKicker.textContent = digitsStandalone ? 'Цифры и числа деванагари' : activeLesson.data.shortLabel || `Урок ${activeLesson.data.id}`;
-  modeTitle.textContent = 'Как позанимаемся?';
-  modeSubtitle.textContent = activeLesson.data.subtitle;
+  modeTitle.textContent = digitsStandalone ? 'Что потренируем?' : 'Как позанимаемся?';
+  modeSubtitle.textContent = digitsStandalone ? 'Выбери тему — внутри карточки и задания.' : activeLesson.data.subtitle;
   if (digitsStandalone) {
     document.querySelector('#digits-site-title').textContent = 'Тренажёр чисел деванагари';
     brand?.setAttribute('aria-label', 'Цифры деванагари — в начало');
   }
-  modeOptions.hidden = false;
-  backToLessons.hidden = false;
+  topicGrid.hidden = !digitsStandalone;
+  modeOptions.hidden = digitsStandalone;
+  backToLessons.hidden = digitsStandalone;
   difficultyPicker.hidden = true;
   numberDifficultyPicker.hidden = true;
   largeNumberDifficultyPicker.hidden = true;
@@ -2177,11 +2208,28 @@ function openLessonMode(lessonId) {
   if (startOrdinalGame) startOrdinalGame.hidden = lessonId !== 'digits';
   document.querySelector('#open-number-table').hidden = lessonId !== 'digits';
   startGame.querySelector('b').textContent = lessonId === 'digits' ? 'Игровая практика: цифры' : 'Игровая практика';
-  startGame.querySelector('small').textContent = lessonId === 'digits' ? 'Семь заданий с цифрами деванагари' : 'Ситуации, диалоги и задания по материалу урока';
+  startGame.querySelector('small').textContent = lessonId === 'digits' ? 'Восемь заданий с цифрами деванагари' : 'Ситуации, диалоги и задания по материалу урока';
   startFlashcards.querySelector('b').textContent = lessonId === 'digits' ? 'Цифра за цифрой' : 'Слово за словом';
   startFlashcards.querySelector('small').textContent = lessonId === 'digits' ? 'Переворачивай карточки с цифрами' : 'Переворачивай карточки в своём темпе';
   appShell.classList.remove('selecting', 'flashcards', 'blitzing');
   appShell.classList.add('choosing-mode');
+  window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+}
+function openDigitsTopic(topic) {
+  const topics = {
+    digits: { title: 'Цифры ०–९', subtitle: 'Карточки или игровая практика на выбранном уровне.', picker: difficultyPicker },
+    numbers: { title: 'Числа 0–100', subtitle: 'Карточки с названиями чисел или игровая практика.', picker: numberDifficultyPicker },
+    large: { title: 'Большие числа', subtitle: 'Лакхи, кроры и индийская запись чисел.', picker: largeNumberDifficultyPicker },
+    ordinals: { title: 'Который по счёту?', subtitle: 'Порядковые числительные от первого до сотого.', picker: ordinalDifficultyPicker }
+  };
+  const selected = topics[topic];
+  if (!selected) return;
+  modeTitle.textContent = selected.title;
+  modeSubtitle.textContent = selected.subtitle;
+  topicGrid.hidden = true;
+  modeOptions.hidden = true;
+  backToLessons.hidden = true;
+  [difficultyPicker, numberDifficultyPicker, largeNumberDifficultyPicker, ordinalDifficultyPicker, flashcardCountPicker, wordCountPicker].forEach(picker => { picker.hidden = picker !== selected.picker; });
   window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
 }
 function renderFlashcards() {
@@ -2414,6 +2462,12 @@ lessonCards.forEach(cardButton => cardButton.addEventListener('click', () => ope
 practiceCards.forEach(cardButton => cardButton.addEventListener('click', () => startPractice(cardButton.dataset.practice)));
 continueLesson.addEventListener('click', () => openLesson(learningProgress.lastLessonId || '3'));
 backToLessons.addEventListener('click', openCatalog);
+topicGrid.querySelectorAll('[data-open-topic]').forEach(button => button.addEventListener('click', () => openDigitsTopic(button.dataset.openTopic)));
+document.querySelector('#digits-cards-entry').addEventListener('click', () => startFlashcards.click());
+document.querySelector('#numbers-cards-entry').addEventListener('click', () => startWordCards.click());
+document.querySelector('#digits-picker-cheat').addEventListener('click', event => openDigitCheat(event.currentTarget, 'digits', false));
+document.querySelector('#numbers-picker-cheat').addEventListener('click', event => numberWordMode.openNumberWordCheat(event.currentTarget));
+document.querySelector('#ordinals-picker-cheat').addEventListener('click', event => openDigitCheat(event.currentTarget, 'ordinals', false));
 startGame.addEventListener('click', () => {
   if (activeLesson.data.id !== 'digits') { openLesson(activeLesson.data.id); return; }
   flashcardCountPicker.hidden = true;
@@ -2481,7 +2535,11 @@ startFlashcards.addEventListener('click', () => {
   wordCountPicker.hidden = true;
   flashcardCountPicker.hidden = false;
 });
-document.querySelectorAll('[data-back-to-modes]').forEach(button => button.addEventListener('click', () => openLessonMode('digits')));
+document.querySelectorAll('[data-back-to-modes]').forEach(button => button.addEventListener('click', () => {
+  if (digitsStandalone && button.closest('#digits-flashcard-counts')) openDigitsTopic('digits');
+  else if (digitsStandalone && button.closest('#digits-word-counts')) openDigitsTopic('numbers');
+  else openLessonMode('digits');
+}));
 numberWordMode = setupNumberWordMode({ card, progress, appShell, modeTitle, modeSubtitle, modeOptions, difficultyPicker, flashcardCountPicker, lessonSubtitle, openLessonMode, setMode: value => { mode = value; } });
 document.querySelector('#open-number-table').addEventListener('click', event => numberWordMode.openNumberWordCheat(event.currentTarget));
 brand?.addEventListener('click', event => {
@@ -2562,9 +2620,9 @@ function openNumberWordChoices() {
   modeSubtitle.textContent = 'Число на одной стороне, его название на хинди — на другой.';
   modeOptions.hidden = true;
   document.querySelector('#back-to-lessons').hidden = true;
-  difficultyPicker.hidden = true;
-  flashcardCountPicker.hidden = true;
-  wordCountPicker.hidden = false;
+  document.querySelectorAll('.difficulty-picker').forEach(picker => {
+    picker.hidden = picker !== wordCountPicker;
+  });
 }
 
 function startNumberWords(count, rangeStart = numberRangeStart) {
@@ -2759,8 +2817,39 @@ return { openNumberWordCheat };
     'В меню →': 'Menu →',
     '← В меню': '← Menu',
     '← К видам практики': '← Practice types',
+    '← К темам': '← Topics',
+    '← К цифрам': '← Digits',
+    '← К числам': '← Numbers',
     'Цифры и числа деванагари': 'Devanagari digits and numbers',
     'Как позанимаемся?': 'What shall we practise?',
+    'Что потренируем?': 'What shall we practise?',
+    'Выбери тему — внутри карточки и задания.': 'Choose a topic for cards and activities.',
+    'Цифры': 'Digits',
+    'Числа': 'Numbers',
+    'Знаки': 'Symbols',
+    'Названия 0–100': 'Names 0–100',
+    'Лакхи и кроры': 'Lakhs and crores',
+    'Числительные 1–100': 'Ordinals 1–100',
+    'До 8 заданий и карточки с цифрами деванагари.': 'Up to 8 activities and Devanagari digit cards.',
+    'До 9 заданий и карточки от शून्य до सौ': 'Up to 9 activities and cards from शून्य to सौ',
+    'Непривычные запятые и 7 видов заданий': 'Unfamiliar commas and 7 types of activities',
+    '5 заданий — от первого до сотого.': '5 activities, from first to hundredth.',
+    'Цифры ०–९': 'Digits ०–९',
+    'Числа 0–100': 'Numbers 0–100',
+    'Карточки или игровая практика на выбранном уровне.': 'Choose cards or a game difficulty.',
+    'Карточки с названиями чисел или игровая практика.': 'Choose number-name cards or game practice.',
+    'Лакхи, кроры и индийская запись чисел.': 'Lakhs, crores, and Indian number notation.',
+    'Порядковые числительные от первого до сотого.': 'Ordinal numbers from first to hundredth.',
+    'Карточки с цифрами деванагари': 'Devanagari digit cards',
+    'Карточки с названиями чисел': 'Number-name cards',
+    '▦ Шпаргалка с цифрами': '▦ Digit reference chart',
+    '▦ Шпаргалка с числами': '▦ Number reference chart',
+    '▦ Шпаргалка для числительных': '▦ Ordinal reference chart',
+    '▦ Таблица цифр': '▦ Digit chart',
+    '▦ Таблица чисел': '▦ Number chart',
+    '▦ Таблица числительных': '▦ Ordinal chart',
+    'Выбирай по настроению — таблица всегда рядом.': 'Choose your pace — the chart is always nearby.',
+    'Восемь заданий с цифрами деванагари': 'Eight activities with Devanagari digits',
     'Узнавай цифры деванагари, собирай числа и читай их в бытовых ситуациях.': 'Learn Devanagari digits, build numbers, and read them in everyday situations.',
     'Узнавай названия чисел от 0 до 100 на хинди.': 'Learn the Hindi names for numbers from 0 to 100.',
     'Разберись, как большие числа записываются и называются в Индии.': 'Learn how large numbers are written and named in India.',
@@ -2959,6 +3048,7 @@ return { openNumberWordCheat };
     'Найди пару: названия': 'Find the pairs: names',
     'Узнай цифру': 'Recognise the digit',
     'Узнай число': 'Recognise the number',
+    'Чат с Наташей': 'Chat with Natasha',
     'чат с Наташей': 'chat with Natasha',
     'Наташа': 'Natasha',
     'Н': 'N',
