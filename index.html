@@ -186,9 +186,9 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
 .topic-card-entry .mode-icon{background:var(--pink);color:#fff}
 .topic-card-entry .card-stack-front{color:var(--pink)}
 #numbers-cards-entry .card-stack-front{font-family:"Nunito Sans",sans-serif;font-size:12px}
-#digits-difficulty [data-digit-level] .difficulty-badge,#numbers-difficulty [data-number-level] .difficulty-badge{background:var(--ink);color:#fff}
-#digits-difficulty .pahalvaan-option .difficulty-badge,#numbers-difficulty .pahalvaan-option .difficulty-badge{font-family:"Apple Color Emoji","Segoe UI Emoji",sans-serif}
+.difficulty-picker[id$="-difficulty"] .pahalvaan-option .difficulty-badge{background:#e7f0ed;color:var(--ink);font-family:"Apple Color Emoji","Segoe UI Emoji",sans-serif}
 @media(max-width:600px){.topic-grid{gap:10px;margin-top:24px}.topic-option{aspect-ratio:1;min-height:0;overflow:hidden;padding:clamp(8px,2.3vw,12px);gap:clamp(3px,1vw,6px)}.topic-option b{font-size:clamp(18px,5.5vw,24px)}.topic-subtitle{font-size:clamp(10px,2.7vw,12px)}.topic-option small{font-size:clamp(9.5px,2.8vw,11.5px)}}
+@media(max-width:600px){body[data-digits-only="true"] .game-card .choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}body[data-digits-only="true"] .game-card .choice-grid .choice{min-width:0;padding:clamp(10px,3vw,14px);overflow-wrap:anywhere}}
 .digit-flashcard .flashcard-face{gap:11px}
 .digit-flashcard .flashcard-face b{align-self:end}
 .digit-flashcard .flashcard-face small{align-self:start}
@@ -298,10 +298,10 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
         <p class="intro" id="mode-subtitle"></p>
         <div class="topic-grid" id="digits-topic-grid" hidden>
           <button class="number-table-open" id="open-number-table" type="button">▦ Таблица чисел 0–100 <span aria-hidden="true">→</span></button>
-          <button class="topic-option" data-open-topic="digits" type="button"><b>Цифры</b><span class="topic-subtitle">Знаки <span lang="hi">०–९</span></span><small>До 8 заданий и карточки с цифрами деванагари.</small></button>
+          <button class="topic-option" data-open-topic="digits" type="button"><b>Цифры</b><span class="topic-subtitle">Знаки <span lang="hi">०–९</span></span><small>До 8 заданий и карточки с цифрами деванагари</small></button>
           <button class="topic-option" data-open-topic="numbers" type="button"><b>Числа</b><span class="topic-subtitle">Названия 0–100</span><small>До 9 заданий и карточки от शून्य до सौ</small></button>
           <button class="topic-option" data-open-topic="large" type="button"><b>Большие числа</b><span class="topic-subtitle">Лакхи и кроры</span><small>Непривычные запятые и 7 видов заданий</small></button>
-          <button class="topic-option" data-open-topic="ordinals" type="button"><b>Который по счёту?</b><span class="topic-subtitle">Числительные 1–100</span><small>5 заданий — от первого до сотого.</small></button>
+          <button class="topic-option" data-open-topic="ordinals" type="button"><b>Который по счёту?</b><span class="topic-subtitle">Числительные 1–100</span><small>5 заданий — от первого до сотого</small></button>
         </div>
         <div class="mode-options">
           <button class="mode-option game-mode" id="start-game" type="button">
@@ -1517,21 +1517,21 @@ function ordinalSceneIcon(kind) {
 function digitContextSceneMarkup(stage) {
   const sceneNames = { bus: 'Автобус', train: 'Место в поезде', price: 'Ценник', room: 'Двери кабинетов', display: 'Табло' };
   if (!Object.hasOwn(sceneNames, stage.contextScene)) return '';
-  return `<div class="digit-context-scene digit-context-scene--${stage.contextScene}"><img src="assets/context-scenes/${stage.contextScene}.png" alt="${sceneNames[stage.contextScene]}" width="280" height="170" /><strong lang="hi">${stage.display}</strong></div>`;
+  return `<div class="digit-context-scene digit-context-scene--${stage.contextScene}"><img src="assets/context-scenes/optimized/${stage.contextScene}.png" alt="${sceneNames[stage.contextScene]}" width="280" height="170" /><strong lang="hi">${stage.display}</strong></div>`;
 }
 function countingSceneMarkup(stage) {
   const { kind, containers, loose } = stage.countScene;
   const scenes = {
-    apple: { image: 'assets/number-crates/crate-blank.png', loose: 'assets/ordinal-scenes/apple-leaf-v2.png', unit: 'яблок', container: 'Ящик', group: 'Ящики с яблоками и отдельные яблоки', width: 1254, height: 1254, looseWidth: 256, looseHeight: 256 },
-    gear: { image: 'assets/number-crates/gear-bin-blank.png', loose: 'assets/number-crates/gear-single.png', unit: 'шестерёнок', container: 'Контейнер', group: 'Контейнеры с шестерёнками и отдельные шестерёнки', width: 1254, height: 1254, looseWidth: 1254, looseHeight: 1254, className: 'gear-crate', sceneClass: 'gear-scene' },
-    egg: { image: 'assets/number-crates/egg-incubator-blank.png', loose: 'assets/number-crates/egg-single.png', unit: 'яиц', container: 'Инкубатор', group: 'Инкубаторы с яйцами и отдельные яйца', width: 1254, height: 1254, looseWidth: 1254, looseHeight: 1254, className: 'egg-incubator', sceneClass: 'egg-scene' },
-    ufo: { image: 'assets/number-crates/ufo-parking-shadow-v4.png', loose: 'assets/ordinal-scenes/ufo.png', unit: 'пришельцев', container: 'Стоянка', group: 'Стоянки с пришельцами и отдельные пришельцы', width: 1536, height: 1024, looseWidth: 256, looseHeight: 256, className: 'ufo-hangar', sceneClass: 'ufo-scene' },
-    sock: { image: 'assets/number-crates/washer-socks-light-front-v2.png', loose: 'assets/number-crates/sock-single.png', unit: 'носков', container: 'Стиральная машина', group: 'Стиральные машины с носками и отдельные носки', width: 1312, height: 1199, looseWidth: 1312, looseHeight: 1199, className: 'sock-washer', sceneClass: 'sock-scene' },
-    robot: { image: 'assets/number-crates/robot-charging-station-cool-v2.png', loose: 'assets/ordinal-scenes/robot.png', unit: 'роботов', container: 'Зарядная станция', group: 'Зарядные станции с роботами и отдельные роботы', width: 1254, height: 1254, looseWidth: 256, looseHeight: 256, className: 'robot-station', sceneClass: 'robot-scene' },
-    penguin: { image: 'assets/number-crates/penguin-fridge-crowd-v2.png', loose: 'assets/ordinal-scenes/penguin.png', unit: 'пингвинов', container: 'Холодильник', group: 'Холодильники с пингвинами и отдельные пингвины', width: 1254, height: 1254, looseWidth: 256, looseHeight: 256, className: 'penguin-fridge', sceneClass: 'penguin-scene' },
-    duck: { image: 'assets/number-crates/duck-sink-blank-v9.png', loose: 'assets/number-crates/duck-single-v7.png', unit: 'уточек', container: 'Раковина', group: 'Раковины с уточками и отдельные уточки', width: 1254, height: 1254, looseWidth: 1254, looseHeight: 1254, className: 'duck-sink', sceneClass: 'duck-scene' },
-    cucumber: { image: 'assets/number-crates/cucumber-jar-blank-v2.png', loose: 'assets/number-crates/cucumber-single-v3.png', unit: 'огурцов', container: 'Банка', group: 'Банки с огурцами и отдельные огурцы', width: 1254, height: 1254, looseWidth: 1254, looseHeight: 1254, className: 'cucumber-jar', sceneClass: 'cucumber-scene' },
-    stamp: { image: 'assets/number-crates/stamp-album-blank-v1.png', loose: 'assets/number-crates/stamp-single-v2.png', unit: 'марок', container: 'Альбом', group: 'Альбомы с марками и отдельные марки', width: 1536, height: 1024, looseWidth: 1315, looseHeight: 1197, className: 'stamp-album', sceneClass: 'stamp-scene' }
+    apple: { image: 'assets/number-crates/optimized/crate-blank.png', loose: 'assets/ordinal-scenes/apple-leaf-v2.png', unit: 'яблок', container: 'Ящик', group: 'Ящики с яблоками и отдельные яблоки', width: 1254, height: 1254, looseWidth: 256, looseHeight: 256 },
+    gear: { image: 'assets/number-crates/optimized/gear-bin-blank.png', loose: 'assets/number-crates/optimized/gear-single.png', unit: 'шестерёнок', container: 'Контейнер', group: 'Контейнеры с шестерёнками и отдельные шестерёнки', width: 1254, height: 1254, looseWidth: 1254, looseHeight: 1254, className: 'gear-crate', sceneClass: 'gear-scene' },
+    egg: { image: 'assets/number-crates/optimized/egg-incubator-blank.png', loose: 'assets/number-crates/optimized/egg-single.png', unit: 'яиц', container: 'Инкубатор', group: 'Инкубаторы с яйцами и отдельные яйца', width: 1254, height: 1254, looseWidth: 1254, looseHeight: 1254, className: 'egg-incubator', sceneClass: 'egg-scene' },
+    ufo: { image: 'assets/number-crates/optimized/ufo-parking-shadow-v4.png', loose: 'assets/ordinal-scenes/ufo.png', unit: 'пришельцев', container: 'Стоянка', group: 'Стоянки с пришельцами и отдельные пришельцы', width: 1536, height: 1024, looseWidth: 256, looseHeight: 256, className: 'ufo-hangar', sceneClass: 'ufo-scene' },
+    sock: { image: 'assets/number-crates/optimized/washer-socks-light-front-v2.png', loose: 'assets/number-crates/optimized/sock-single.png', unit: 'носков', container: 'Стиральная машина', group: 'Стиральные машины с носками и отдельные носки', width: 1312, height: 1199, looseWidth: 1312, looseHeight: 1199, className: 'sock-washer', sceneClass: 'sock-scene' },
+    robot: { image: 'assets/number-crates/optimized/robot-charging-station-cool-v2.png', loose: 'assets/ordinal-scenes/robot.png', unit: 'роботов', container: 'Зарядная станция', group: 'Зарядные станции с роботами и отдельные роботы', width: 1254, height: 1254, looseWidth: 256, looseHeight: 256, className: 'robot-station', sceneClass: 'robot-scene' },
+    penguin: { image: 'assets/number-crates/optimized/penguin-fridge-crowd-v2.png', loose: 'assets/ordinal-scenes/penguin.png', unit: 'пингвинов', container: 'Холодильник', group: 'Холодильники с пингвинами и отдельные пингвины', width: 1254, height: 1254, looseWidth: 256, looseHeight: 256, className: 'penguin-fridge', sceneClass: 'penguin-scene' },
+    duck: { image: 'assets/number-crates/optimized/duck-sink-blank-v9.png', loose: 'assets/number-crates/optimized/duck-single-v7.png', unit: 'уточек', container: 'Раковина', group: 'Раковины с уточками и отдельные уточки', width: 1254, height: 1254, looseWidth: 1254, looseHeight: 1254, className: 'duck-sink', sceneClass: 'duck-scene' },
+    cucumber: { image: 'assets/number-crates/optimized/cucumber-jar-blank-v2.png', loose: 'assets/number-crates/optimized/cucumber-single-v3.png', unit: 'огурцов', container: 'Банка', group: 'Банки с огурцами и отдельные огурцы', width: 1254, height: 1254, looseWidth: 1254, looseHeight: 1254, className: 'cucumber-jar', sceneClass: 'cucumber-scene' },
+    stamp: { image: 'assets/number-crates/optimized/stamp-album-blank-v1.png', loose: 'assets/number-crates/optimized/stamp-single-v2.png', unit: 'марок', container: 'Альбом', group: 'Альбомы с марками и отдельные марки', width: 1536, height: 1024, looseWidth: 1315, looseHeight: 1197, className: 'stamp-album', sceneClass: 'stamp-scene' }
   };
   const scene = scenes[kind];
   const label = value => String(value).split('').map(digit => devanagariDigits.flashcards[Number(digit)].hi).join('');
@@ -1543,15 +1543,15 @@ function digitCountingSceneMarkup(stage) {
   const { kind, count } = stage.digitCountScene;
   const images = {
     apple: 'assets/ordinal-scenes/apple-leaf-v2.png',
-    gear: 'assets/number-crates/gear-single.png',
-    egg: 'assets/number-crates/egg-single.png',
+    gear: 'assets/number-crates/optimized/gear-single.png',
+    egg: 'assets/number-crates/optimized/egg-single.png',
     ufo: 'assets/ordinal-scenes/ufo.png',
-    sock: 'assets/number-crates/sock-single.png',
+    sock: 'assets/number-crates/optimized/sock-single.png',
     robot: 'assets/ordinal-scenes/robot.png',
     penguin: 'assets/ordinal-scenes/penguin.png',
-    duck: 'assets/number-crates/duck-single-v7.png',
-    cucumber: 'assets/number-crates/cucumber-single-v3.png',
-    stamp: 'assets/number-crates/stamp-single-v2.png'
+    duck: 'assets/number-crates/optimized/duck-single-v7.png',
+    cucumber: 'assets/number-crates/optimized/cucumber-single-v3.png',
+    stamp: 'assets/number-crates/optimized/stamp-single-v2.png'
   };
   const names = { apple: 'яблоки', gear: 'шестерёнки', egg: 'яйца', ufo: 'пришельцы', sock: 'носки', robot: 'роботы', penguin: 'пингвины', duck: 'уточки', cucumber: 'огурцы', stamp: 'марки' };
   return `<div class="digit-count-scene" role="img" aria-label="${names[kind]}: ${count}">${Array.from({ length: count }, () => `<img src="${images[kind]}" alt="" width="256" height="256" />`).join('')}</div>`;
@@ -2829,10 +2829,10 @@ return { openNumberWordCheat };
     'Названия 0–100': 'Names 0–100',
     'Лакхи и кроры': 'Lakhs and crores',
     'Числительные 1–100': 'Ordinals 1–100',
-    'До 8 заданий и карточки с цифрами деванагари.': 'Up to 8 activities and Devanagari digit cards.',
+    'До 8 заданий и карточки с цифрами деванагари': 'Up to 8 activities and Devanagari digit cards',
     'До 9 заданий и карточки от शून्य до सौ': 'Up to 9 activities and cards from शून्य to सौ',
     'Непривычные запятые и 7 видов заданий': 'Unfamiliar commas and 7 types of activities',
-    '5 заданий — от первого до сотого.': '5 activities, from first to hundredth.',
+    '5 заданий — от первого до сотого': '5 activities, from first to hundredth',
     'Цифры ०–९': 'Digits ०–९',
     'Числа 0–100': 'Numbers 0–100',
     'Карточки или игровая практика на выбранном уровне.': 'Choose cards or a game difficulty.',
