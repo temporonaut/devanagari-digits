@@ -69,6 +69,8 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
 .flashcard{-webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation;-webkit-user-select:none;user-select:none}
 .digit-sequence-display{display:flex;align-items:baseline;justify-content:center;gap:clamp(8px,3vw,38px);font-size:clamp(40px,9vw,92px);white-space:nowrap}
 .digit-sequence-token{display:inline-block;flex:0 0 1em;width:1em;text-align:center}
+.error-sequence{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(5px,1.5vw,12px);max-width:560px;margin:20px auto 24px}.error-sequence.four-digits{grid-template-columns:repeat(4,minmax(0,1fr))}.error-digit{min-width:0;min-height:74px;border:2px solid var(--line);border-radius:16px;background:#fff;color:var(--ink);font-family:"Noto Sans Devanagari",sans-serif;font-size:clamp(32px,7vw,50px);font-weight:800;cursor:pointer}.error-digit:hover,.error-digit:focus-visible{border-color:var(--pink)}.error-digit.selected{border-color:var(--ink);background:#e7f0ed}.error-digit.correct{border-color:var(--green);background:#effaf5}.error-digit.wrong{border-color:var(--pink);background:#fff0f3}.error-step{min-height:24px;margin:0 0 12px;color:#587684;font-size:14px;font-weight:900;text-align:center}.error-keypad{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;max-width:560px;margin:0 auto 16px}.error-keypad[hidden]{display:none}.error-key.selected{border-color:var(--ink);background:#e7f0ed}.error-key.correct{border-color:var(--green);background:#effaf5}.error-key.wrong{border-color:var(--pink);background:#fff0f3}.error-submit{display:block;margin:0 auto}
+@media(max-width:600px){.error-digit{min-height:60px}.error-keypad{gap:6px}}
 .digit-sequence-answer.correct{color:var(--green)}
 .digit-sequence-answer.wrong{color:var(--pink)}
 .feedback.digit-feedback.wrong{background:#fff0f3;color:#a32850}
@@ -135,6 +137,7 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
 .number-sequence-token.digit-sequence-answer{border-style:dashed;background:#f7f4ee}
 .number-sequence-token.correct{border-color:var(--green);background:#effaf5;color:var(--green)}
 .number-sequence-token.wrong{border-color:var(--pink);background:#fff0f3;color:var(--pink)}
+.word-error-sequence .number-sequence-token{cursor:pointer}.word-error-sequence .number-sequence-token:hover,.word-error-sequence .number-sequence-token:focus-visible{border-color:var(--pink)}.word-error-sequence .number-sequence-token.selected{border-color:var(--ink);background:#e7f0ed}.word-error-answer{display:grid;justify-items:center;gap:9px;max-width:360px;margin:0 auto}.word-error-answer[hidden]{display:none}.word-error-answer label{color:#587684;font-size:14px;font-weight:900;text-align:center}.word-error-input{width:100%;max-width:220px;min-height:58px;padding:10px 14px;border:2px solid var(--line);border-radius:13px;background:#fff;color:var(--ink);font:inherit;font-size:28px;font-weight:900;text-align:center;font-variant-numeric:tabular-nums}.word-error-input:focus-visible{outline:2px solid var(--ink);outline-offset:2px}.word-error-input.correct{border-color:var(--green);background:#effaf5}.word-error-input.wrong{border-color:var(--pink);background:#fff0f3}.word-error-answer small{color:#6d8891;font-size:12px;font-weight:800;text-align:center}.word-error-submit{margin:7px auto 0}
 @media(max-width:600px){.number-sequence{grid-template-columns:repeat(2,minmax(0,1fr))}.number-sequence-token{min-height:80px;font-size:22px}.number-compare{min-height:105px;font-size:30px}.number-compare.digit-comparison{font-size:46px}}
 .chat-window .message,.chat-choices .choice{font-family:"Nunito Sans","Noto Sans Devanagari",sans-serif;font-weight:700}
 .chat-choices.chat-choices--two-column{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -145,7 +148,7 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
 .topbar .digits-site-title:hover,.topbar .digits-site-title:focus-visible{color:var(--pink)}
 .mode-picker h1{font-family:"Nunito Sans",sans-serif;font-weight:900;line-height:1.05}
 .mode-option#start-flashcards .mode-icon{background:var(--ink);color:#fff;font-family:"Noto Sans Devanagari",sans-serif;font-size:16px}
-.hero .digits-back-menu{position:relative;z-index:2;display:inline-flex;align-items:center;margin:0 0 20px}
+.hero .digits-back-menu{position:relative;z-index:2;display:inline-flex;align-items:center;margin:0 0 20px;padding:9px 15px;border:1.5px solid var(--line);border-radius:999px;background:var(--paper);box-shadow:0 4px 12px rgba(22,71,90,.05)}.hero .digits-back-menu:hover,.hero .digits-back-menu:focus-visible{border-color:var(--pink);color:var(--pink)}
 .topbar .language-switch{display:inline-flex;gap:2px;align-items:center;margin-left:auto;padding:3px;border:1px solid var(--line);border-radius:999px;background:var(--paper);white-space:nowrap}
 .topbar .language-switch button{min-width:35px;padding:6px 8px;border:0;border-radius:999px;background:transparent;color:#607e8a;font:800 12px "Nunito Sans",sans-serif;cursor:pointer}
 .topbar .language-switch button[aria-pressed="true"]{background:var(--ink);color:#fff}
@@ -162,7 +165,7 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
 @media(max-width:540px){.ending-range{max-width:330px;margin:16px auto 22px;padding:14px 18px}.number-equation{min-height:105px;gap:8px 11px;font-size:clamp(23px,6vw,32px)}}
 
 .mode-option[hidden],.back-link[hidden]{display:none!important}
-.difficulty-picker .back-link{justify-self:start;margin:0 0 5px}
+.difficulty-picker .back-link{justify-self:start;margin:0 0 5px;padding:9px 15px;border:1.5px solid var(--line);border-radius:999px;background:var(--paper);box-shadow:0 4px 12px rgba(22,71,90,.05)}.difficulty-picker .back-link:hover,.difficulty-picker .back-link:focus-visible{border-color:var(--pink);color:var(--pink)}
 .mode-option#start-word-cards .mode-icon{background:var(--pink);color:#fff}
 .mode-option#start-number-game .mode-icon{background:var(--pink);color:#fff}
 .mode-option#start-word-cards .mode-icon{font-family:"Nunito Sans",sans-serif;font-size:18px}
@@ -402,7 +405,7 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
         </div>
       </section>
 
-      <section class="hero"><button class="back-link digits-back-menu" id="digits-back-menu" type="button">← В меню</button>
+      <section class="hero"><button class="back-link digits-back-menu" id="digits-back-menu" type="button">← К выбору уровня</button>
         <div class="mandala mandala-one"></div><div class="mandala mandala-two"></div>
         <p class="eyebrow" id="lesson-task-count">Мини-игра · 7 заданий</p>
         <h1 id="hero-title">Игровая<br /><em>практика</em></h1>
@@ -533,6 +536,26 @@ function makeSequenceQuestions(config) {
   });
 }
 
+function makeDigitErrorQuestions(config) {
+  return pickSome(digits, config.questions).map(correctDigit => {
+    const length = pick([4, 5]);
+    const starts = Array.from({ length: 11 - length }, (_, value) => value)
+      .filter(start => correctDigit.value >= start && correctDigit.value < start + length);
+    const start = pick(starts);
+    const correctValues = Array.from({ length }, (_, index) => start + index);
+    const wrongIndex = correctDigit.value - start;
+    const wrongDigit = pick(digits.filter(digit => !correctValues.includes(digit.value)));
+    const correctSequence = correctValues.map(value => digits[value].glyph);
+    const shown = [...correctSequence];
+    shown[wrongIndex] = wrongDigit.glyph;
+    return {
+      prompt: 'Найди неверную цифру и замени её.',
+      errorSequence: { shown, wrongIndex, correctGlyph: correctDigit.glyph, correctValue: correctDigit.value, correctSequence },
+      explanation: `Ошибка в позиции ${wrongIndex + 1}: вместо ${wrongDigit.glyph} нужна ${correctDigit.glyph}. Правильный ряд: ${correctSequence.join(' ')}.`
+    };
+  });
+}
+
 function makeComposeQuestions(config) {
   return Array.from({ length: config.questions }, () => {
     const length = config.minLength + Math.floor(Math.random() * (config.maxLength - config.minLength + 1));
@@ -589,7 +612,7 @@ function createDevanagariDigitRounds(level = 'warmup') {
       leftLabel: 'Деванагари', rightLabel: 'Обычная запись', pairs, hindi: shuffle(pairs), russian: shuffle(pairs)
     },
     makeDigitChatRound(selectedLevel, config),
-    seriesRound(3, 'Продолжи ряд', `Восстанови ${counted(config.questions, 'ряд', 'ряда', 'рядов')} по очереди.`, makeSequenceQuestions(config)),
+    seriesRound(3, selectedLevel === 'pahalvaan' ? 'Найди ошибку' : 'Продолжи ряд', selectedLevel === 'pahalvaan' ? 'В каждом ряду найди ошибку и замени цифру.' : `Восстанови ${counted(config.questions, 'ряд', 'ряда', 'рядов')} по очереди.`, selectedLevel === 'pahalvaan' ? makeDigitErrorQuestions(config) : makeSequenceQuestions(config), { trainingTag: 'продолжи ряд' }),
     {
       type: 'digit-compose', trainingTag: 'собери число', label: 'Задание 4 · собери число', title: 'Собери число',
       description: `Запиши ${counted(config.questions, 'число', 'числа', 'чисел')} цифрами деванагари, выбирая цифры на клавиатуре.`, questions: makeComposeQuestions(config)
@@ -640,6 +663,27 @@ const range = max => Array.from({ length: max + 1 }, (_, value) => value);
 const word = value => numberWords[value];
 const notation = (value, kind) => kind === 'digit' ? digits[value].glyph : word(value);
 const pickTargets = (max, count) => pickSome(range(max), count);
+function makeNumberErrorQuestions(config) {
+  const length = 4;
+  return pickTargets(config.max, config.questions).map(correctValue => {
+    const starts = Array.from({ length: config.max - length + 2 }, (_, start) => start)
+      .filter(start => correctValue >= start && correctValue < start + length);
+    const start = pick(starts);
+    const correctValues = Array.from({ length }, (_, index) => start + index);
+    const wrongIndex = correctValue - start;
+    const nearby = [correctValue - 2, correctValue + 2, correctValue - 3, correctValue + 3, correctValue - 10, correctValue + 10]
+      .filter(value => value >= 0 && value <= config.max && !correctValues.includes(value));
+    const wrongValue = pick(nearby);
+    const correctWords = correctValues.map(word);
+    const shown = [...correctWords];
+    shown[wrongIndex] = word(wrongValue);
+    return {
+      prompt: 'Найди число, нарушающее порядок, и введи правильное цифрами.',
+      wordErrorSequence: { shown, wrongIndex, correctValue, correctWord: word(correctValue), correctValues, correctWords },
+      explanation: `Ошибка в позиции ${wrongIndex + 1}: вместо «${word(wrongValue)}» должно быть «${word(correctValue)}» (${correctValue}). Правильный ряд: ${correctWords.join(' → ')}.`
+    };
+  });
+}
 function nearbyChoices(value, max, count, kind) {
   const near = [value - 1, value + 1, value - 2, value + 2, value - 10, value + 10, value - 9, value + 9]
     .filter(other => other >= 0 && other <= max && other !== value);
@@ -796,7 +840,7 @@ function createDevanagariNumberRounds(level = 'warmup', { includeEndings = false
     return { prompt: `Найди название числа ${value}.`, display: String(value),
       choices, wordChoices: true, answer: choices.indexOf(word(value)), explanation: `${value} — это ${word(value)}.` };
   });
-  const sequences = Array.from({ length: config.questions }, () => {
+  const sequences = level === 'pahalvaan' ? makeNumberErrorQuestions(config) : Array.from({ length: config.questions }, () => {
     const start = Math.floor(Math.random() * (config.max - 2));
     const missing = Math.floor(Math.random() * 4);
     const sequence = Array.from({ length: 4 }, (_, index) => start + index);
@@ -826,7 +870,7 @@ function createDevanagariNumberRounds(level = 'warmup', { includeEndings = false
     { type: 'chat', trainingTag: 'узнай число', label: 'Задание 2 · чат с Наташей', title: 'Чат с Наташей',
       description: 'Помоги Наташе разобраться с маршрутом, билетом и номером комнаты.', chatName: 'Наташа', chatAvatar: 'Н', chatTwoColumns: true, dialogue },
     seriesRound(3, 'Не перепутай!', 'Выбери название числа среди близких вариантов.', confusing),
-    seriesRound(4, 'Продолжи ряд', `Восстанови ${counted(config.questions, 'ряд', 'ряда', 'рядов')} по очереди.`, sequences),
+    seriesRound(4, level === 'pahalvaan' ? 'Финальное испытание' : 'Продолжи ряд', level === 'pahalvaan' ? 'Каждый ряд содержит одну ошибку: найди её и введи правильное число.' : `Восстанови ${counted(config.questions, 'ряд', 'ряда', 'рядов')} по очереди.`, sequences, { trainingTag: 'продолжи ряд' }),
     seriesRound(6, 'Кто больше?', 'Выбери большее из двух чисел.', makeComparisonQuestions(config, 'word')),
     seriesRound(7, 'Расставь по порядку', `Расположи названия чисел от меньшего к большему ${config.questions} раз.`, ordering),
     seriesRound(8, 'Соседи', 'Найди число на единицу больше или меньше.', makeNeighborQuestions(config, 'word'))
@@ -845,6 +889,10 @@ function createDevanagariNumberRounds(level = 'warmup', { includeEndings = false
     for (let index = rounds.length - 1; index >= 0; index--) {
       if (!warmupTitles.has(rounds[index].title)) rounds.splice(index, 1);
     }
+  }
+  if (level === 'pahalvaan') {
+    const finalIndex = rounds.findIndex(round => round.title === 'Финальное испытание');
+    rounds.push(...rounds.splice(finalIndex, 1));
   }
   rounds.forEach((round, index) => { round.label = round.label.replace(/^Задание \d+/, `Задание ${index + 1}`); });
   return rounds;
@@ -1249,6 +1297,17 @@ const startNumberGame = document.querySelector('#start-number-game');
 const startLargeNumbers = document.querySelector('#start-large-numbers');
 const startOrdinalGame = document.querySelector('#start-ordinal-game');
 let numberWordMode;
+let digitsHistoryReady = false;
+let restoringDigitsHistory = false;
+const digitsHistoryKey = 'devanagari-digits-screen';
+function recordDigitsScreen(view, details = {}) {
+  if (!digitsStandalone || !digitsHistoryReady || restoringDigitsHistory) return;
+  const screen = { [digitsHistoryKey]: true, view, ...details };
+  if (JSON.stringify(history.state) !== JSON.stringify(screen)) history.pushState(screen, '');
+}
+function setDigitsBackLabel(label) {
+  document.querySelector('#digits-back-menu').textContent = `← ${label}`;
+}
 const practiceCards = document.querySelectorAll('[data-practice]');
 const practiceCounters = document.querySelectorAll('[data-practice-count]');
 const progressStorageKey = 'devanagari-digits-progress-v1';
@@ -1558,6 +1617,16 @@ function digitCountingSceneMarkup(stage) {
 }
 function digitSeriesMarkup(item) {
   const stage = item.questions[digitSeriesIndex];
+  if (stage.errorSequence) {
+    const { shown } = stage.errorSequence;
+    const sequence = shown.map((glyph, index) => `<button class="error-digit" type="button" data-error-index="${index}" aria-label="Цифра ${index + 1}: ${glyph}" aria-pressed="false" lang="hi">${glyph}</button>`).join('');
+    const keys = devanagariDigits.flashcards.map(({ hi, ru }) => `<button class="digit-key error-key" type="button" data-error-key="${hi}" aria-label="Заменить на ${ru}" aria-pressed="false" lang="hi">${hi}</button>`).join('');
+    return `<div class="digit-series digit-error-series"><p class="digit-progress">Вопрос ${digitSeriesIndex + 1} из ${item.questions.length}</p><p class="digit-prompt">${stage.prompt}</p><div class="error-sequence${shown.length === 4 ? ' four-digits' : ''}" role="group" aria-label="Ряд цифр с одной ошибкой">${sequence}</div><p class="error-step" aria-live="polite">Шаг 1. Нажми неверную цифру.</p><div class="error-keypad" role="group" aria-label="Правильная цифра" hidden>${keys}</div><button class="semantic-check error-submit" type="button" data-error-submit disabled>Проверить</button></div>`;
+  }
+  if (stage.wordErrorSequence) {
+    const words = stage.wordErrorSequence.shown.map((value, index) => `<button class="number-sequence-token" type="button" data-word-error-index="${index}" aria-pressed="false" lang="hi">${value}</button>`).join('');
+    return `<div class="digit-series word-error-series"><p class="digit-progress">Вопрос ${digitSeriesIndex + 1} из ${item.questions.length}</p><p class="digit-prompt">${stage.prompt}</p><div class="number-sequence word-error-sequence" role="group" aria-label="Ряд чисел с одной ошибкой">${words}</div><p class="error-step" aria-live="polite">Шаг 1. Нажми неверное слово.</p><form class="word-error-answer" hidden><label for="word-error-input">Какое число должно быть на этом месте?</label><input id="word-error-input" class="word-error-input" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" maxlength="3" aria-describedby="word-error-hint" /><small id="word-error-hint">Введи обычными цифрами или цифрами деванагари.</small><button class="semantic-check word-error-submit" type="submit" disabled>Проверить</button></form></div>`;
+  }
   const prompt = stage.ordinalGender
     ? stage.prompt.replace(stage.ordinalGender, `<mark class="ordinal-gender-highlight">${stage.ordinalGender}</mark>`)
     : stage.neighborDirection
@@ -1651,6 +1720,87 @@ function bindDigitCompose(item, isReview = false) {
   card.querySelector('[data-digit-clear]').addEventListener('click', () => { digitComposeSelection = []; refresh(); });
   card.querySelector('[data-digit-submit]').addEventListener('click', () => answerDigitCompose(item, digitComposeSelection.join('') === stage.correct, isReview));
 }
+function bindDigitError(item, isReview = false) {
+  const stage = item.questions[digitSeriesIndex].errorSequence;
+  let selectedIndex = null;
+  let replacement = null;
+  const positions = [...card.querySelectorAll('[data-error-index]')];
+  const keys = [...card.querySelectorAll('[data-error-key]')];
+  const keypad = card.querySelector('.error-keypad');
+  const submit = card.querySelector('[data-error-submit]');
+  positions.forEach(button => button.addEventListener('click', () => {
+    selectedIndex = Number(button.dataset.errorIndex);
+    replacement = null;
+    positions.forEach(position => {
+      const selected = position === button;
+      position.classList.toggle('selected', selected);
+      position.setAttribute('aria-pressed', String(selected));
+    });
+    keys.forEach(key => { key.classList.remove('selected'); key.setAttribute('aria-pressed', 'false'); });
+    keypad.hidden = false;
+    submit.disabled = true;
+    card.querySelector('.error-step').textContent = 'Шаг 2. Нажми правильную цифру.';
+  }));
+  keys.forEach(button => button.addEventListener('click', () => {
+    replacement = button.dataset.errorKey;
+    keys.forEach(key => {
+      const selected = key === button;
+      key.classList.toggle('selected', selected);
+      key.setAttribute('aria-pressed', String(selected));
+    });
+    submit.disabled = false;
+  }));
+  submit.addEventListener('click', () => {
+    const correct = selectedIndex === stage.wrongIndex && replacement === stage.correctGlyph;
+    positions.forEach(button => { button.disabled = true; button.classList.remove('selected'); });
+    keys.forEach(button => { button.disabled = true; button.classList.remove('selected'); });
+    positions[stage.wrongIndex].classList.add('correct');
+    if (selectedIndex !== stage.wrongIndex) positions[selectedIndex].classList.add('wrong');
+    keys.find(button => button.dataset.errorKey === stage.correctGlyph).classList.add('correct');
+    if (replacement !== stage.correctGlyph) keys.find(button => button.dataset.errorKey === replacement).classList.add('wrong');
+    submit.disabled = true;
+    answerDigitStage(item, correct, isReview);
+  });
+}
+function bindWordError(item, isReview = false) {
+  const stage = item.questions[digitSeriesIndex].wordErrorSequence;
+  let selectedIndex = null;
+  const positions = [...card.querySelectorAll('[data-word-error-index]')];
+  const form = card.querySelector('.word-error-answer');
+  const input = form.querySelector('.word-error-input');
+  const submit = form.querySelector('.word-error-submit');
+  const parsedValue = () => {
+    const normalized = input.value.trim().replace(/[०-९]/g, glyph => String(glyph.charCodeAt(0) - 0x0966));
+    return /^\d{1,3}$/.test(normalized) && Number(normalized) <= 100 ? Number(normalized) : null;
+  };
+  positions.forEach(button => button.addEventListener('click', () => {
+    selectedIndex = Number(button.dataset.wordErrorIndex);
+    positions.forEach(position => {
+      const selected = position === button;
+      position.classList.toggle('selected', selected);
+      position.setAttribute('aria-pressed', String(selected));
+    });
+    form.hidden = false;
+    input.value = '';
+    submit.disabled = true;
+    card.querySelector('.error-step').textContent = 'Шаг 2. Введи правильное число.';
+    input.focus();
+  }));
+  input.addEventListener('input', () => { submit.disabled = parsedValue() === null; });
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    const value = parsedValue();
+    if (value === null || selectedIndex === null) return;
+    const correct = selectedIndex === stage.wrongIndex && value === stage.correctValue;
+    positions.forEach(button => { button.disabled = true; button.classList.remove('selected'); });
+    positions[stage.wrongIndex].classList.add('correct');
+    if (selectedIndex !== stage.wrongIndex) positions[selectedIndex].classList.add('wrong');
+    input.disabled = true;
+    input.classList.add(value === stage.correctValue ? 'correct' : 'wrong');
+    submit.disabled = true;
+    answerDigitStage(item, correct, isReview);
+  });
+}
 function render() {
   updateHeader();
   const item = rounds[current];
@@ -1678,7 +1828,9 @@ function render() {
   card.querySelectorAll('[data-semantic]').forEach(button => button.addEventListener('click', () => selectSemantic(button)));
   card.querySelector('[data-semantic-check]')?.addEventListener('click', () => checkSemantic(item));
   if (item.type === 'order') bindOrder(item);
-  if (item.type === 'digit-series' && item.questions[digitSeriesIndex].orderChoices) bindNumberOrder(item);
+  if (item.type === 'digit-series' && item.questions[digitSeriesIndex].errorSequence) bindDigitError(item);
+  else if (item.type === 'digit-series' && item.questions[digitSeriesIndex].wordErrorSequence) bindWordError(item);
+  else if (item.type === 'digit-series' && item.questions[digitSeriesIndex].orderChoices) bindNumberOrder(item);
   if (item.type === 'digit-compose') bindDigitCompose(item);
   if (item.type === 'large-input') bindLargeInput(item);
   if (item.type === 'chat') scrollChatMessages(false);
@@ -2070,7 +2222,7 @@ function renderReview() {
   progress.style.width = '100%';
   document.querySelector('#progress-text').textContent = `Повтор ошибок · ${reviewIndex + 1} из ${mistakes.length}`;
   updateScoreText();
-  let inner = `${hasNumberCheat(activeLesson.data.id) ? digitCheatMarkup() : ''}<p class="game-label">Финальный раунд · повтор</p><h2 class="game-title">Закрепим ещё раз</h2><p class="game-description">В этом задании раньше был неверный ответ. Выбери правильный вариант — и урок будет пройден.</p>`;
+  let inner = `${hasNumberCheat(activeLesson.data.id) ? digitCheatMarkup() : ''}<p class="game-label">Финальный раунд · повтор</p><h2 class="game-title">Закрепим ещё раз</h2><p class="game-description">${item.type === 'digit-series' && item.questions[digitSeriesIndex].errorSequence ? 'В этом ряду раньше была ошибка. Найди неверную цифру и замени её.' : item.type === 'digit-series' && item.questions[digitSeriesIndex].wordErrorSequence ? 'В этом ряду раньше была ошибка. Найди неверное слово и введи правильное число.' : 'В этом задании раньше был неверный ответ. Выбери правильный вариант — и урок будет пройден.'}</p>`;
   if (item.scenario) inner += `<div class="scenario">${item.scenario}</div>`;
   if (item.type === 'fill') inner += `<div class="sentence">${item.sentence}</div>`;
   if (item.type === 'digit-series') inner += digitSeriesMarkup(item);
@@ -2080,7 +2232,9 @@ function renderReview() {
   else if (item.type !== 'digit-series' && item.type !== 'digit-compose') inner += answersMarkup(item.choices, item.type === 'fill' ? 'word-options' : item.type === 'opinion' ? 'opinion' : 'choice-grid');
   card.innerHTML = inner;
   bindDigitCheat();
-  if (item.type === 'digit-series' && item.questions[digitSeriesIndex].orderChoices) bindNumberOrder(item, true);
+  if (item.type === 'digit-series' && item.questions[digitSeriesIndex].errorSequence) bindDigitError(item, true);
+  else if (item.type === 'digit-series' && item.questions[digitSeriesIndex].wordErrorSequence) bindWordError(item, true);
+  else if (item.type === 'digit-series' && item.questions[digitSeriesIndex].orderChoices) bindNumberOrder(item, true);
   else if (item.type === 'digit-series') card.querySelectorAll('[data-answer]').forEach(button => button.addEventListener('click', () => answerDigitSeries(item, Number(button.dataset.answer), button, true)));
   else if (item.type === 'semantic') {
     card.querySelectorAll('[data-semantic]').forEach(button => button.addEventListener('click', () => selectSemantic(button)));
@@ -2180,6 +2334,7 @@ function startPractice(lessonId) {
 }
 function openLessonMode(lessonId) {
   if (digitsStandalone && lessonId !== 'digits') return;
+  if (digitsStandalone) stopNumberAudio();
   if (blitz) window.clearInterval(blitz.timer);
   blitz = null;
   activeLesson = lessons[lessonId];
@@ -2212,12 +2367,13 @@ function openLessonMode(lessonId) {
   startFlashcards.querySelector('small').textContent = lessonId === 'digits' ? 'Переворачивай карточки с цифрами' : 'Переворачивай карточки в своём темпе';
   appShell.classList.remove('selecting', 'flashcards', 'blitzing');
   appShell.classList.add('choosing-mode');
+  if (digitsStandalone) recordDigitsScreen('home');
   window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
 }
 function openDigitsTopic(topic) {
   const topics = {
     digits: { title: 'Цифры ०–९', subtitle: 'Карточки или игровая практика на выбранном уровне.', picker: difficultyPicker },
-    numbers: { title: 'Числа 0–100', subtitle: 'Карточки с названиями чисел или игровая практика.', picker: numberDifficultyPicker },
+    numbers: { title: 'Числа 0 – 100', subtitle: 'Карточки с названиями чисел или игровая практика.', picker: numberDifficultyPicker },
     large: { title: 'Большие числа', subtitle: 'Лакхи, кроры и индийская запись чисел.', picker: largeNumberDifficultyPicker },
     ordinals: { title: 'Который по счёту?', subtitle: 'Порядковые числительные от первого до сотого.', picker: ordinalDifficultyPicker }
   };
@@ -2229,6 +2385,7 @@ function openDigitsTopic(topic) {
   modeOptions.hidden = true;
   backToLessons.hidden = true;
   [difficultyPicker, numberDifficultyPicker, largeNumberDifficultyPicker, ordinalDifficultyPicker, flashcardCountPicker, wordCountPicker].forEach(picker => { picker.hidden = picker !== selected.picker; });
+  recordDigitsScreen('topic', { topic });
   window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
 }
 function renderFlashcards() {
@@ -2311,6 +2468,10 @@ function startFlashcardMode(count) {
   flashcardFlipped = false;
   appShell.classList.remove('selecting', 'choosing-mode', 'blitzing');
   appShell.classList.add('flashcards');
+  if (digitsStandalone) {
+    setDigitsBackLabel('К выбору карточек');
+    recordDigitsScreen('digit-cards', { count: flashcardCount });
+  }
   renderFlashcards();
   window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
 }
@@ -2334,7 +2495,7 @@ function quickRounds(lessonId) {
     let added = false;
     const generated = lessons[lessonId].createRounds(isNumberPractice(lessonId) ? selectedDifficulty : undefined);
     const candidates = generated.flatMap(round => {
-      if (round.type === 'digit-series' && (round.trainingTag === 'угадай окончание' || round.questions.some(stage => stage.orderChoices || stage.ordinalScene))) return [];
+      if (round.type === 'digit-series' && (round.trainingTag === 'угадай окончание' || round.questions.some(stage => stage.orderChoices || stage.ordinalScene || stage.errorSequence || stage.wordErrorSequence))) return [];
       if (round.type === 'digit-series') return round.questions.map(stage => ({ type: 'digit-choice', title: round.title, prompt: stage.prompt, display: stage.display, contextScene: stage.contextScene, digitCountScene: stage.digitCountScene, countScene: stage.countScene, compare: stage.compare, sequenceWords: stage.sequenceWords, wordDisplay: stage.wordDisplay, wordChoices: stage.wordChoices, largeDisplay: stage.largeDisplay, choices: stage.choices, answer: stage.answer, explanation: stage.explanation }));
       if (round.type === 'digit-compose') return round.questions.map(stage => ({ type: 'digit-choice', title: round.title, prompt: `${stage.prompt}: ${stage.value}`, choices: stage.choices, answer: stage.answer, explanation: stage.explanation }));
       if (round.type === 'match' && isNumberPractice(lessonId)) return round.pairs.map(pair => {
@@ -2445,6 +2606,10 @@ function openLesson(lessonId, difficulty = selectedDifficulty) {
   if (lessonId === 'large-numbers' && selectedDifficulty === 'pahalvaan') document.querySelector('#lesson-task-count').textContent = 'Pahalvaan · 3 задания';
   renderNavigation();
   appShell.classList.remove('selecting', 'choosing-mode', 'flashcards', 'blitzing');
+  if (digitsStandalone) {
+    setDigitsBackLabel('К выбору уровня');
+    recordDigitsScreen('lesson', { lessonId, difficulty });
+  }
   render();
 }
 function openCatalog(event) {
@@ -2479,6 +2644,7 @@ startGame.addEventListener('click', () => {
   modeOptions.hidden = true;
   backToLessons.hidden = true;
   difficultyPicker.hidden = false;
+  recordDigitsScreen('level-picker', { topic: 'digits' });
 });
 difficultyPicker.querySelectorAll('[data-digit-level]').forEach(button => button.addEventListener('click', () => openLesson('digits', button.dataset.digitLevel)));
 startNumberGame.addEventListener('click', () => {
@@ -2492,6 +2658,7 @@ startNumberGame.addEventListener('click', () => {
   flashcardCountPicker.hidden = true;
   wordCountPicker.hidden = true;
   numberDifficultyPicker.hidden = false;
+  recordDigitsScreen('level-picker', { topic: 'numbers' });
 });
 startLargeNumbers.addEventListener('click', () => {
   modeTitle.textContent = 'Большие числа';
@@ -2504,6 +2671,7 @@ startLargeNumbers.addEventListener('click', () => {
   flashcardCountPicker.hidden = true;
   wordCountPicker.hidden = true;
   largeNumberDifficultyPicker.hidden = false;
+  recordDigitsScreen('level-picker', { topic: 'large' });
 });
 startOrdinalGame?.addEventListener('click', () => {
   modeTitle.textContent = 'Который по счёту?';
@@ -2516,6 +2684,7 @@ startOrdinalGame?.addEventListener('click', () => {
   flashcardCountPicker.hidden = true;
   wordCountPicker.hidden = true;
   ordinalDifficultyPicker.hidden = false;
+  recordDigitsScreen('level-picker', { topic: 'ordinals' });
 });
 ordinalDifficultyPicker?.querySelectorAll('[data-ordinal-level]').forEach(button => button.addEventListener('click', () => openLesson('ordinals', button.dataset.ordinalLevel)));
 largeNumberDifficultyPicker.querySelectorAll('[data-large-level]').forEach(button => button.addEventListener('click', () => openLesson('large-numbers', button.dataset.largeLevel)));
@@ -2533,13 +2702,18 @@ startFlashcards.addEventListener('click', () => {
   ordinalDifficultyPicker.hidden = true;
   wordCountPicker.hidden = true;
   flashcardCountPicker.hidden = false;
+  recordDigitsScreen('digit-card-picker');
 });
 document.querySelectorAll('[data-back-to-modes]').forEach(button => button.addEventListener('click', () => {
+  if (digitsStandalone && history.state?.[digitsHistoryKey] && ['topic', 'level-picker', 'digit-card-picker', 'word-card-picker'].includes(history.state.view)) {
+    history.back();
+    return;
+  }
   if (digitsStandalone && button.closest('#digits-flashcard-counts')) openDigitsTopic('digits');
   else if (digitsStandalone && button.closest('#digits-word-counts')) openDigitsTopic('numbers');
   else openLessonMode('digits');
 }));
-numberWordMode = setupNumberWordMode({ card, progress, appShell, modeTitle, modeSubtitle, modeOptions, difficultyPicker, flashcardCountPicker, lessonSubtitle, openLessonMode, setMode: value => { mode = value; } });
+numberWordMode = setupNumberWordMode({ card, progress, appShell, modeTitle, modeSubtitle, modeOptions, difficultyPicker, flashcardCountPicker, lessonSubtitle, openLessonMode, recordDigitsScreen, setDigitsBackLabel, setMode: value => { mode = value; } });
 document.querySelector('#open-number-table').addEventListener('click', event => numberWordMode.openNumberWordCheat(event.currentTarget));
 brand?.addEventListener('click', event => {
   if (digitsStandalone) { event.preventDefault(); openLessonMode('digits'); return; }
@@ -2549,6 +2723,30 @@ appShell.classList.add('selecting');
 if (digitsStandalone) {
   appShell.classList.remove('digits-boot');
   openLessonMode('digits');
+  history.replaceState({ [digitsHistoryKey]: true, view: 'home' }, '');
+  digitsHistoryReady = true;
+  window.addEventListener('popstate', event => {
+    const screen = event.state;
+    if (!screen?.[digitsHistoryKey]) return;
+    restoringDigitsHistory = true;
+    stopNumberAudio();
+    try {
+      openLessonMode('digits');
+      if (screen.view === 'topic') openDigitsTopic(screen.topic);
+      else if (screen.view === 'level-picker') {
+        openDigitsTopic(screen.topic);
+        ({ digits: startGame, numbers: startNumberGame, large: startLargeNumbers, ordinals: startOrdinalGame })[screen.topic]?.click();
+      } else if (screen.view === 'digit-card-picker') {
+        openDigitsTopic('digits');
+        startFlashcards.click();
+      } else if (screen.view === 'word-card-picker') {
+        openDigitsTopic('numbers');
+        numberWordMode.openNumberWordChoices();
+      } else if (screen.view === 'lesson') openLesson(screen.lessonId, screen.difficulty);
+      else if (screen.view === 'digit-cards') startFlashcardMode(screen.count);
+      else if (screen.view === 'number-cards') numberWordMode.startNumberWords(screen.count, screen.rangeStart);
+    } finally { restoringDigitsHistory = false; }
+  });
 } else {
   updateLessonChrome();
   renderNavigation();
@@ -2557,7 +2755,7 @@ if (digitsStandalone) {
 }
 
 
-function setupNumberWordMode({ card, progress, appShell, modeTitle, modeSubtitle, modeOptions, difficultyPicker, flashcardCountPicker, lessonSubtitle, openLessonMode, setMode }) {
+function setupNumberWordMode({ card, progress, appShell, modeTitle, modeSubtitle, modeOptions, difficultyPicker, flashcardCountPicker, lessonSubtitle, openLessonMode, recordDigitsScreen, setDigitsBackLabel, setMode }) {
 
 const numberWordCards = numberWords.map((word, value) => ({ value, number: String(value), word }));
 const largeNumberCards = [
@@ -2622,6 +2820,7 @@ function openNumberWordChoices() {
   document.querySelectorAll('.difficulty-picker').forEach(picker => {
     picker.hidden = picker !== wordCountPicker;
   });
+  recordDigitsScreen('word-card-picker');
 }
 
 function startNumberWords(count, rangeStart = numberRangeStart) {
@@ -2639,6 +2838,8 @@ function startNumberWords(count, rangeStart = numberRangeStart) {
   setMode('number-words');
   appShell.classList.remove('selecting', 'choosing-mode', 'blitzing');
   appShell.classList.add('flashcards');
+  setDigitsBackLabel('К выбору карточек');
+  recordDigitsScreen('number-cards', { count, rangeStart: count === 'decade' ? rangeStart : undefined });
   renderNumberWordCard();
   window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
 }
@@ -2797,8 +2998,11 @@ wordCountPicker.querySelectorAll('[data-word-count]').forEach(button => button.a
   startNumberWords(count);
 }));
 document.querySelector('#digits-site-title')?.addEventListener('click', goToDigitsMenu);
-document.querySelector('#digits-back-menu')?.addEventListener('click', goToDigitsMenu);
-return { openNumberWordCheat };
+document.querySelector('#digits-back-menu')?.addEventListener('click', () => {
+  if (history.state?.[digitsHistoryKey] && ['lesson', 'digit-cards', 'number-cards'].includes(history.state.view)) history.back();
+  else goToDigitsMenu();
+});
+return { openNumberWordCheat, openNumberWordChoices, startNumberWords };
 }
 
 // This file is inlined only into the standalone digits build. The lesson game
@@ -2815,6 +3019,8 @@ return { openNumberWordCheat };
     'К меню цифр': 'Back to menu',
     'В меню →': 'Menu →',
     '← В меню': '← Menu',
+    '← К выбору уровня': '← Choose a level',
+    '← К выбору карточек': '← Choose cards',
     '← К видам практики': '← Practice types',
     '← К темам': '← Topics',
     '← К цифрам': '← Digits',
@@ -2835,6 +3041,7 @@ return { openNumberWordCheat };
     '5 заданий — от первого до сотого': '5 activities, from first to hundredth',
     'Цифры ०–९': 'Digits ०–९',
     'Числа 0–100': 'Numbers 0–100',
+    'Числа 0 – 100': 'Numbers 0 – 100',
     'Карточки или игровая практика на выбранном уровне.': 'Choose cards or a game difficulty.',
     'Карточки с названиями чисел или игровая практика.': 'Choose number-name cards or game practice.',
     'Лакхи, кроры и индийская запись чисел.': 'Lakhs, crores, and Indian number notation.',
@@ -3065,6 +3272,10 @@ return { openNumberWordCheat };
     'Вспомни по диапазону чисел характерное окончание их названий.': 'Recall the typical ending of the number names from their range.',
     'Диапазон чисел': 'Number range',
     'Продолжи ряд': 'Complete the sequence',
+    'Найди ошибку': 'Find the error',
+    'найди ошибку': 'find the error',
+    'Финальное испытание': 'Final challenge',
+    'финальное испытание': 'final challenge',
     'Собери число': 'Build the number',
     'Цифры вокруг нас': 'Digits around us',
     'На автобусе указан номер маршрута. Как записать его обычными цифрами?': 'The bus shows its route number. How would you write it with standard numerals?',
@@ -3141,6 +3352,21 @@ return { openNumberWordCheat };
     'Найди число на единицу больше или меньше.': 'Find the number one higher or lower.',
     'Что это за цифра?': 'What digit is this?',
     'Какой цифры не хватает в ряду?': 'Which digit is missing from the sequence?',
+    'Найди неверную цифру и замени её.': 'Find the wrong digit and replace it.',
+    'В каждом ряду найди ошибку и замени цифру.': 'Find the error in each sequence and replace the digit.',
+    'В этом ряду раньше была ошибка. Найди неверную цифру и замени её.': 'You missed this sequence earlier. Find the wrong digit and replace it.',
+    'Ряд цифр с одной ошибкой': 'Digit sequence with one error',
+    'Правильная цифра': 'Correct digit',
+    'Шаг 1. Нажми неверную цифру.': 'Step 1. Tap the wrong digit.',
+    'Шаг 2. Нажми правильную цифру.': 'Step 2. Tap the correct digit.',
+    'Найди число, нарушающее порядок, и введи правильное цифрами.': 'Find the number that breaks the sequence and enter the correct value in digits.',
+    'Каждый ряд содержит одну ошибку: найди её и введи правильное число.': 'Each sequence has one error. Find it and enter the correct number.',
+    'В этом ряду раньше была ошибка. Найди неверное слово и введи правильное число.': 'You missed this sequence earlier. Find the wrong word and enter the correct number.',
+    'Ряд чисел с одной ошибкой': 'Number sequence with one error',
+    'Шаг 1. Нажми неверное слово.': 'Step 1. Tap the wrong word.',
+    'Шаг 2. Введи правильное число.': 'Step 2. Enter the correct number.',
+    'Какое число должно быть на этом месте?': 'What number belongs here?',
+    'Введи обычными цифрами или цифрами деванагари.': 'Enter standard or Devanagari digits.',
     'Какого числа не хватает в ряду?': 'Which number is missing from the sequence?',
     'Запиши число цифрами деванагари': 'Write the number using Devanagari digits',
     'Какое число написано?': 'What number is written here?',
@@ -3328,6 +3554,10 @@ return { openNumberWordCheat };
     [/^(.+) — это (.+); больше, чем (\d+)\.$/, (_, value, number, smaller) => `${value} is ${number}; that is greater than ${smaller}.`],
     [/^(.+) — это (\d+), (следующее|предыдущее) число — (.+) \((\d+)\)\.$/, (_, value, number, direction, other, otherNumber) => `${value} is ${number}; the ${direction === 'следующее' ? 'next' : 'previous'} number is ${other} (${otherNumber}).`],
     [/^На месте пропуска должна быть цифра (.+) \((\d+)\)\.$/, (_, glyph, value) => `The missing digit is ${glyph} (${value}).`],
+    [/^Ошибка в позиции (\d+): вместо (.+) нужна (.+)\. Правильный ряд: (.+)\.$/, (_, position, wrong, correct, sequence) => `Error at position ${position}: replace ${wrong} with ${correct}. Correct sequence: ${sequence}.`],
+    [/^Ошибка в позиции (\d+): вместо «(.+)» должно быть «(.+)» \((\d+)\)\. Правильный ряд: (.+)\.$/, (_, position, wrong, correct, value, sequence) => `Error at position ${position}: replace «${wrong}» with «${correct}» (${value}). Correct sequence: ${sequence}.`],
+    [/^Цифра (\d+): (.+)$/, (_, position, glyph) => `Digit ${position}: ${glyph}`],
+    [/^Заменить на (\d+)$/, (_, value) => `Replace with ${value}`],
     [/^(\d+) записывается так: (.+)\.$/, (_, value, glyphs) => `${value} is written as ${glyphs}.`],
     [/^Это число (.+)\.$/, (_, value) => `That number is ${value}.`],
     [/^Пропуск — (.+) \((\d+)\)\.$/, (_, word, value) => `The missing number is ${word} (${value}).`],
