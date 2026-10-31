@@ -663,9 +663,9 @@ const range = max => Array.from({ length: max + 1 }, (_, value) => value);
 const word = value => numberWords[value];
 const notation = (value, kind) => kind === 'digit' ? digits[value].glyph : word(value);
 const pickTargets = (max, count) => pickSome(range(max), count);
-function makeNumberErrorQuestions(config) {
+function makeNumberErrorQuestions(config, count) {
   const length = 4;
-  return pickTargets(config.max, config.questions).map(correctValue => {
+  return pickTargets(config.max, count).map(correctValue => {
     const starts = Array.from({ length: config.max - length + 2 }, (_, start) => start)
       .filter(start => correctValue >= start && correctValue < start + length);
     const start = pick(starts);
@@ -840,7 +840,7 @@ function createDevanagariNumberRounds(level = 'warmup', { includeEndings = false
     return { prompt: `Найди название числа ${value}.`, display: String(value),
       choices, wordChoices: true, answer: choices.indexOf(word(value)), explanation: `${value} — это ${word(value)}.` };
   });
-  const sequences = level === 'pahalvaan' ? makeNumberErrorQuestions(config) : Array.from({ length: config.questions }, () => {
+  const sequences = level === 'pahalvaan' ? makeNumberErrorQuestions(config, 8) : Array.from({ length: config.questions }, () => {
     const start = Math.floor(Math.random() * (config.max - 2));
     const missing = Math.floor(Math.random() * 4);
     const sequence = Array.from({ length: 4 }, (_, index) => start + index);
@@ -870,7 +870,7 @@ function createDevanagariNumberRounds(level = 'warmup', { includeEndings = false
     { type: 'chat', trainingTag: 'узнай число', label: 'Задание 2 · чат с Наташей', title: 'Чат с Наташей',
       description: 'Помоги Наташе разобраться с маршрутом, билетом и номером комнаты.', chatName: 'Наташа', chatAvatar: 'Н', chatTwoColumns: true, dialogue },
     seriesRound(3, 'Не перепутай!', 'Выбери название числа среди близких вариантов.', confusing),
-    seriesRound(4, level === 'pahalvaan' ? 'Финальное испытание' : 'Продолжи ряд', level === 'pahalvaan' ? 'Каждый ряд содержит одну ошибку: найди её и введи правильное число.' : `Восстанови ${counted(config.questions, 'ряд', 'ряда', 'рядов')} по очереди.`, sequences, { trainingTag: 'продолжи ряд' }),
+    seriesRound(4, level === 'pahalvaan' ? 'Найди ошибку' : 'Продолжи ряд', level === 'pahalvaan' ? 'Каждый ряд содержит одну ошибку: найди её и введи правильное число.' : `Восстанови ${counted(config.questions, 'ряд', 'ряда', 'рядов')} по очереди.`, sequences, { trainingTag: 'продолжи ряд', finalChallenge: level === 'pahalvaan' }),
     seriesRound(6, 'Кто больше?', 'Выбери большее из двух чисел.', makeComparisonQuestions(config, 'word')),
     seriesRound(7, 'Расставь по порядку', `Расположи названия чисел от меньшего к большему ${config.questions} раз.`, ordering),
     seriesRound(8, 'Соседи', 'Найди число на единицу больше или меньше.', makeNeighborQuestions(config, 'word'))
@@ -891,10 +891,10 @@ function createDevanagariNumberRounds(level = 'warmup', { includeEndings = false
     }
   }
   if (level === 'pahalvaan') {
-    const finalIndex = rounds.findIndex(round => round.title === 'Финальное испытание');
+    const finalIndex = rounds.findIndex(round => round.finalChallenge);
     rounds.push(...rounds.splice(finalIndex, 1));
   }
-  rounds.forEach((round, index) => { round.label = round.label.replace(/^Задание \d+/, `Задание ${index + 1}`); });
+  rounds.forEach((round, index) => { round.label = round.finalChallenge ? `Задание ${index + 1} · финальное испытание` : round.label.replace(/^Задание \d+/, `Задание ${index + 1}`); });
   return rounds;
 }
 
@@ -1428,7 +1428,7 @@ function updateLessonChrome() {
 }
 function renderNavigation() {
   roundsNav.innerHTML = rounds.map((round, index) => {
-    const label = round.label.split('·')[1].trim();
+    const label = round.finalChallenge ? round.title : round.label.split('·')[1].trim();
     return `<button class="round${index === current ? ' active' : ''}" data-round="${index}" aria-current="${index === current ? 'step' : 'false'}"><span>${index + 1}</span><b>${label.charAt(0).toUpperCase() + label.slice(1)}</b></button>`;
   }).join('');
   roundsNav.querySelectorAll('.round').forEach(button => button.addEventListener('click', () => { current = Number(button.dataset.round); matchSelection = null; matchLocked = false; if (rounds[current].type === 'chat') { chatStep = 0; chatAnswers = []; } if (rounds[current].type === 'emoji') { emojiStep = 0; emojiHadError = false; } if (['digit-series', 'digit-compose', 'large-input'].includes(rounds[current].type)) { digitSeriesIndex = 0; digitSeriesHadError = false; digitComposeSelection = []; orderSelection = []; } render(); }));
