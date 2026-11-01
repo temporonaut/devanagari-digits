@@ -303,7 +303,7 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
           <button class="number-table-open" id="open-number-table" type="button">▦ Таблица чисел 0–100 <span aria-hidden="true">→</span></button>
           <button class="topic-option" data-open-topic="digits" type="button"><b>Цифры</b><span class="topic-subtitle">Знаки <span lang="hi">०–९</span></span><small>До 8 заданий и карточки с цифрами деванагари</small></button>
           <button class="topic-option" data-open-topic="numbers" type="button"><b>Числа</b><span class="topic-subtitle">Названия 0–100</span><small>До 9 заданий и карточки от शून्य до सौ</small></button>
-          <button class="topic-option" data-open-topic="large" type="button"><b>Большие числа</b><span class="topic-subtitle">Лакхи и кроры</span><small>Непривычные запятые и 7 видов заданий</small></button>
+          <button class="topic-option" data-open-topic="large" type="button"><b>Большие числа</b><span class="topic-subtitle">Лакхи и кроры</span><small>Непривычные запятые и 8 видов заданий</small></button>
           <button class="topic-option" data-open-topic="ordinals" type="button"><b>Который по счёту?</b><span class="topic-subtitle">Числительные 1–100</span><small>5 заданий — от первого до сотого</small></button>
         </div>
         <div class="mode-options">
@@ -392,7 +392,7 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
         <div class="difficulty-picker" id="large-numbers-difficulty" hidden>
           <button class="back-link" data-back-to-modes type="button">← К темам</button>
           <p class="difficulty-intro">Выбери темп: сначала знакомые числа или сразу некруглые — без вариантов ответа.</p>
-          <button class="difficulty-option" data-large-level="warmup" type="button"><span class="difficulty-badge">1</span><span><b>Разминка</b><small>Лакхи, кроры и запись чисел · 4 задания</small></span><span class="lesson-arrow">→</span></button>
+          <button class="difficulty-option" data-large-level="warmup" type="button"><span class="difficulty-badge">1</span><span><b>Разминка</b><small>Лакхи, кроры и запись чисел · 5 заданий</small></span><span class="lesson-arrow">→</span></button>
           <button class="difficulty-option pahalvaan-option" data-large-level="pahalvaan" type="button"><span class="difficulty-badge">💪</span><span><b>Pahalvaan</b><small>Некруглые числа · 3 раунда с вводом ответа</small></span><span class="lesson-arrow">→</span></button>
         </div>
         <div class="difficulty-picker" id="ordinals-difficulty" hidden>
@@ -1070,7 +1070,7 @@ function createDevanagariOrdinalRounds(level = 'warmup') {
 const devanagariLargeNumbers = {
   id: 'large-numbers', title: 'Лакхи и кроры', shortLabel: 'Дополнительная практика',
   subtitle: 'Разберись, как большие числа записываются и называются в Индии.',
-  taskCount: 4, heroTitle: 'Большие<br /><em>числа</em>'
+  taskCount: 5, heroTitle: 'Большие<br /><em>числа</em>'
 };
 
 const compositeLargeNumbers = [
@@ -1096,6 +1096,42 @@ const largeNumberExamples = [
 
 const westernNumber = value => new Intl.NumberFormat('en-US').format(value);
 const indianNumber = value => new Intl.NumberFormat('en-IN').format(value);
+
+function makeLargeNumberChatRound() {
+  const stage = (message, correct, distractors, explanation) => {
+    const choices = shuffle([correct, ...distractors]);
+    return { message, choices, answer: choices.indexOf(correct), explanation };
+  };
+  const rupees = value => `${indianNumber(value)} ₹`;
+  const lakhCount = pick([10, 20, 30, 50]);
+  const lakhBase = lakhCount / 10;
+  const carValue = pick([2000000, 3000000, 4000000, 5000000]);
+  const grantLakhs = pick([10, 20, 30, 50]);
+  const grantBase = grantLakhs / 10;
+  const grantWord = `${numberWords[grantLakhs]} लाख`;
+  const catValue = pick([5000000, 10000000, 20000000]);
+  const croreCount = pick([2, 3, 4, 5].filter(count => count * 10000000 !== catValue));
+  const catCount = catValue >= 10000000 ? catValue / 10000000 : catValue / 100000;
+  const catUnit = catValue >= 10000000 ? counted(catCount, 'крор', 'крора', 'кроров') : counted(catCount, 'лакх', 'лакха', 'лакхов');
+  const catAnswer = `${catUnit}.`;
+  const catBase = catValue >= 10000000 ? catCount : catCount / 10;
+  const pairedAmounts = (base, large) => [
+    `${counted(base, 'лакх', 'лакха', 'лакхов')}.`,
+    `${counted(large, 'лакх', 'лакха', 'лакхов')}.`,
+    `${counted(base, 'крор', 'крора', 'кроров')}.`,
+    `${counted(large, 'крор', 'крора', 'кроров')}.`
+  ];
+  const grantChoices = [grantBase, grantLakhs].flatMap(count => [`${numberWords[count]} लाख।`, `${numberWords[count]} करोड़।`]);
+  const dialogue = [
+    stage(`Смотрю квартиру за ${rupees(lakhCount * 100000)}. Сколько это лакхов или кроров?`, `${counted(lakhCount, 'лакх', 'лакха', 'лакхов')}.`, pairedAmounts(lakhBase, lakhCount).filter(choice => choice !== `${lakhCount} лакхов.`), `${rupees(lakhCount * 100000)} = ${lakhCount} лакхов.`),
+    stage(`Теперь машина за ${westernNumber(carValue)} ₹. Как записать цену с индийскими запятыми?`, `${rupees(carValue)}.`, [carValue / 10, carValue * 10, carValue * 100].map(value => `${rupees(value)}.`), `${westernNumber(carValue)} ₹ = ${rupees(carValue)} = ${carValue / 100000} лакхов.`),
+    stage(`В объявлении о гранте указано ${rupees(grantLakhs * 100000)}. Как назвать эту сумму на хинди?`, `${grantWord}।`, grantChoices.filter(choice => choice !== `${grantWord}।`), `${rupees(grantLakhs * 100000)} = ${grantLakhs} лакхов = ${grantWord}।`),
+    stage(`В статье пишут, что домик для кота болливудской звезды стоит ${rupees(catValue)}. Это сколько кроров или лакхов?`, catAnswer, pairedAmounts(catBase, catBase * 10).filter(choice => choice !== catAnswer), `${rupees(catValue)} = ${catAnswer}`),
+    stage(`В другой статье пишут, что политика подозревают в получении взятки в размере ${westernNumber(croreCount * 10000000)} ₹. Это сколько кроров или лакхов?`, `${counted(croreCount, 'крор', 'крора', 'кроров')}.`, [`${counted(croreCount, 'лакх', 'лакха', 'лакхов')}.`, `${croreCount * 10} лакхов.`, `${croreCount * 10} кроров.`], `${westernNumber(croreCount * 10000000)} ₹ = ${rupees(croreCount * 10000000)} = ${counted(croreCount, 'крор', 'крора', 'кроров')}.`)
+  ];
+  return { type: 'chat', trainingTag: 'большие числа в объявлениях', label: 'Задание 5 · чат с Наташей', title: 'Чат с Наташей',
+    description: 'Помоги Наташе разобраться с ценами и суммами в объявлениях.', chatName: 'Наташа', chatAvatar: 'Н', chatTwoColumns: true, dialogue };
+}
 
 function createLargeNumberRounds(level = 'warmup') {
   if (level === 'pahalvaan') {
@@ -1156,7 +1192,8 @@ function createLargeNumberRounds(level = 'warmup') {
       description: 'Соедини название на хинди с записью по лакхам и крорам.', leftLabel: 'На хинди', rightLabel: 'Лакхи и кроры',
       pairs: wordPairs, hindi: shuffle(wordPairs), russian: shuffle(wordPairs) },
     seriesRound(3, 'Назови число', 'Переведи четыре больших числа в лакхи и кроры.', names),
-    seriesRound(4, 'Расставь запятые', 'Выбери запись по лакхам и крорам.', notationQuestions)
+    seriesRound(4, 'Расставь запятые', 'Выбери запись по лакхам и крорам.', notationQuestions),
+    makeLargeNumberChatRound()
   ];
 }
 
@@ -3041,7 +3078,8 @@ return { openNumberWordCheat, openNumberWordChoices, startNumberWords };
     'Числительные 1–100': 'Ordinals 1–100',
     'До 8 заданий и карточки с цифрами деванагари': 'Up to 8 activities and Devanagari digit cards',
     'До 9 заданий и карточки от शून्य до सौ': 'Up to 9 activities and cards from शून्य to सौ',
-    'Непривычные запятые и 7 видов заданий': 'Unfamiliar commas and 7 types of activities',
+    'Непривычные запятые и 8 видов заданий': 'Unfamiliar commas and 8 types of activities',
+    'Лакхи, кроры и запись чисел · 5 заданий': 'Lakhs, crores, and number notation · 5 activities',
     '5 заданий — от первого до сотого': '5 activities, from first to hundredth',
     'Цифры ०–९': 'Digits ०–९',
     'Числа 0–100': 'Numbers 0–100',
@@ -3391,6 +3429,31 @@ return { openNumberWordCheat, openNumberWordChoices, startNumberWords };
     'Переведи четыре больших числа в лакхи и кроры.': 'Express four large numbers in lakhs and crores.',
     'Выбери запись по лакхам и крорам.': 'Choose the lakh and crore notation.',
     'Запиши четыре числа, отделяя группы разрядов запятыми или точками.': 'Write four numbers, separating digit groups with commas or periods.',
+    'Помоги Наташе разобраться с ценами и суммами в объявлениях.': 'Help Natasha understand the prices and amounts in the ads.',
+    'в сети': 'online',
+    'Выбери ответ:': 'Choose a reply:',
+    'Смотрю квартиру за 25,00,000 ₹. Сколько это лакхов или кроров?': 'I found a flat for ₹25,00,000. How many lakhs or crores is that?',
+    'Теперь машина за 3,000,000 ₹. Как записать цену с индийскими запятыми?': 'Now a car for ₹3,000,000. How would I write the price with Indian comma grouping?',
+    'В объявлении о гранте указано 50,00,000 ₹. Как назвать эту сумму на хинди?': 'This grant ad says ₹50,00,000. What is that amount called in Hindi?',
+    'В статье пишут, что домик для кота болливудской звезды стоит 1,00,00,000 ₹. Это сколько кроров или лакхов?': 'An article says a Bollywood star’s cat house costs ₹1,00,00,000. How many crores or lakhs is that?',
+    'В другой статье пишут, что политика подозревают в получении взятки в размере 20,000,000 ₹. Это сколько кроров или лакхов?': 'Another article says a politician is suspected of taking a ₹20,000,000 bribe. How many crores or lakhs is that?',
+    '25 лакхов.': '25 lakhs.',
+    '2,5 лакха.': '2.5 lakhs.',
+    '25 кроров.': '25 crores.',
+    '2,5 крора.': '2.5 crores.',
+    '1 крор.': '1 crore.',
+    '1 лакх.': '1 lakh.',
+    '10 лакхов.': '10 lakhs.',
+    '10 кроров.': '10 crores.',
+    '2 крора.': '2 crores.',
+    '2 лакха.': '2 lakhs.',
+    '20 лакхов.': '20 lakhs.',
+    '20 кроров.': '20 crores.',
+    '25,00,000 ₹ = 25 лакхов.': '₹25,00,000 = 25 lakhs.',
+    '3,000,000 ₹ = 30,00,000 ₹ = 30 лакхов.': '₹3,000,000 = ₹30,00,000 = 30 lakhs.',
+    '50,00,000 ₹ = 50 лакхов = पचास लाख।': '₹50,00,000 = 50 lakhs = पचास लाख।',
+    '1,00,00,000 ₹ = 1 крор.': '₹1,00,00,000 = 1 crore.',
+    '20,000,000 ₹ = 2,00,00,000 ₹ = 2 крора.': '₹20,000,000 = ₹2,00,00,000 = 2 crores.',
     'Переведи четыре числа в лакхи. Дробную часть можно писать через запятую или точку.': 'Express four numbers in lakhs. Use a comma or period for the decimal part.',
     'Переведи четыре числа в кроры. Ответ может быть меньше единицы.': 'Express four numbers in crores. Your answer may be less than one.',
     'Запись по лакхам и крорам': 'Lakh and crore notation',
@@ -3454,7 +3517,20 @@ return { openNumberWordCheat, openNumberWordChoices, startNumberWords };
     'баллов': 'points'
   }));
 
+  const largeAmountEnglish = (value, unit) => {
+    const amount = String(value).replace(',', '.');
+    return `${amount} ${unit.startsWith('лакх') ? 'lakh' : 'crore'}${Number(amount) === 1 ? '' : 's'}`;
+  };
   const rules = [
+    [/^Смотрю квартиру за ([\d,]+) ₹\. Сколько это лакхов или кроров\?$/, (_, amount) => `I found a flat for ₹${amount}. How many lakhs or crores is that?`],
+    [/^Теперь машина за ([\d,]+) ₹\. Как записать цену с индийскими запятыми\?$/, (_, amount) => `Now a car for ₹${amount}. How would I write the price with Indian comma grouping?`],
+    [/^В объявлении о гранте указано ([\d,]+) ₹\. Как назвать эту сумму на хинди\?$/, (_, amount) => `This grant ad says ₹${amount}. What is that amount called in Hindi?`],
+    [/^В статье пишут, что домик для кота болливудской звезды стоит ([\d,]+) ₹\. Это сколько кроров или лакхов\?$/, (_, amount) => `An article says a Bollywood star’s cat house costs ₹${amount}. How many crores or lakhs is that?`],
+    [/^В другой статье пишут, что политика подозревают в получении взятки в размере ([\d,]+) ₹\. Это сколько кроров или лакхов\?$/, (_, amount) => `Another article says a politician is suspected of taking a ₹${amount} bribe. How many crores or lakhs is that?`],
+    [/^(\d+(?:,\d+)?) (лакх|лакха|лакхов|крор|крора|кроров)\.$/, (_, value, unit) => `${largeAmountEnglish(value, unit)}.`],
+    [/^([\d,]+) ₹ = ([\d,]+) ₹ = (\d+) (лакх|лакха|лакхов|крор|крора|кроров)\.$/, (_, western, indian, value, unit) => `₹${western} = ₹${indian} = ${largeAmountEnglish(value, unit)}.`],
+    [/^([\d,]+) ₹ = (\d+) (лакх|лакха|лакхов|крор|крора|кроров)\.$/, (_, amount, value, unit) => `₹${amount} = ${largeAmountEnglish(value, unit)}.`],
+    [/^([\d,]+) ₹ = (\d+) лакхов = (.+)।$/, (_, amount, value, word) => `₹${amount} = ${value} lakhs = ${word}।`],
     [/^Я на вокзале\. На табло платформа ([०-९])\. К какой идти\?$/, (_, glyph) => `I'm at the station. The board says platform ${glyph}. Which one?`],
     [/^Нашла платформу! На билете вагон ([०-९])\. Какой искать\?$/, (_, glyph) => `Found the platform! My ticket says carriage ${glyph}. Which one?`],
     [/^Я в вагоне\. Моё место ([०-९])\. Куда садиться\?$/, (_, glyph) => `I'm in the carriage. My seat is ${glyph}. Where should I sit?`],
