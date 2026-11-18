@@ -3071,7 +3071,7 @@ function openNumberWordCheat(trigger = card.querySelector('#number-word-cheat'))
     });
     applySearch();
   }));
-  search.focus();
+  overlay.querySelector('.digit-cheat-close').focus();
 }
 
 document.querySelector('#start-word-cards').addEventListener('click', openNumberWordChoices);
