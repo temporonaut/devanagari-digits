@@ -266,6 +266,9 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
 .word-cheat-item.search-dimmed{opacity:.55}
 .word-cheat-item.search-match{outline:2px solid var(--pink);outline-offset:-2px;background:#fff7f9}
 .word-cheat-item{display:flex;align-items:center;gap:8px;min-width:0;padding:9px 10px;border:1px solid var(--line);border-radius:11px;background:#fff}
+.word-cheat-audio{width:100%;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.word-cheat-audio:hover,.word-cheat-audio:focus-visible,.word-bridge-item:hover,.word-bridge-item:focus-visible{border-color:var(--pink);outline:2px solid var(--pink);outline-offset:1px}
+.word-cheat-audio:disabled,.word-bridge-item:disabled{cursor:default}
 .word-cheat-item[hidden]{display:none}
 .word-cheat-item b{min-width:25px;color:var(--pink);font-size:14px;font-weight:900}
 .word-cheat-item span{overflow-wrap:anywhere;font-family:"Noto Sans Devanagari",sans-serif;font-size:15px;font-weight:700}
@@ -273,10 +276,13 @@ body[data-digits-only="true"] .lesson-picker,body[data-digits-only="true"] #back
 .word-cheat-modes{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 16px}
 .word-cheat-mode{border:1.5px solid var(--line);border-radius:999px;padding:8px 11px;background:#fff;color:var(--ink);font:inherit;font-size:12px;font-weight:900;cursor:pointer}
 .word-cheat-mode.active{border-color:var(--ink);background:var(--ink);color:#fff}
+.word-cheat-sound-toggle{display:grid;place-items:center;width:36px;height:36px;margin-left:auto;border:1.5px solid var(--line);border-radius:50%;background:#fff;color:var(--ink);cursor:pointer}
+.word-cheat-sound-toggle:hover,.word-cheat-sound-toggle:focus-visible{border-color:var(--pink);outline:none}
+.word-cheat-sound-toggle svg{display:block;width:19px;height:19px}
 .word-cheat-note{margin:0 0 12px;color:#587684;font-size:13px;font-weight:700;line-height:1.45}
 .word-cheat-item .word-cheat-ending{padding:0 .12em;border-radius:4px;background:var(--decade-tint);color:var(--decade-ink);font-weight:900;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .word-bridge-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.word-bridge-item{display:flex;flex-wrap:wrap;align-items:center;gap:5px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#fff;font-family:"Noto Sans Devanagari",sans-serif;font-size:14px;font-weight:800}
+.word-bridge-item{display:flex;flex-wrap:wrap;align-items:center;gap:5px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font-family:"Noto Sans Devanagari",sans-serif;font-size:14px;font-weight:800;text-align:left;cursor:pointer}
 .word-bridge-item[hidden]{display:none!important}
 .word-bridge-item b{color:var(--pink);font-family:"Nunito Sans",sans-serif}.word-bridge-item .bridge-arrow{color:#78929a}
 @media(max-width:700px){.word-cheat-dialog{padding:22px 15px 17px}.word-cheat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.word-cheat-extra .word-cheat-grid{grid-template-columns:1fr}.word-cheat-item{padding:8px}.word-cheat-item span{font-size:14px}}
@@ -1243,9 +1249,14 @@ let selectedNumberAudioVoice = 'kishore';
 let numberAudioMuted = localStorage.getItem('devanagari-number-audio-muted') === 'true';
 const numberAudioPlayer = new Audio();
 const numberAudioNextTakes = new Map();
+let numberAudioPairEndHandler = null;
 const speakerOnIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3Z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></svg>';
 const speakerOffIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3Z"/><path d="m16 9 5 6m0-6-5 6"/></svg>';
 function stopNumberAudio() {
+  if (numberAudioPairEndHandler) {
+    numberAudioPlayer.removeEventListener('ended', numberAudioPairEndHandler);
+    numberAudioPairEndHandler = null;
+  }
   numberAudioPlayer.pause();
   numberAudioPlayer.currentTime = 0;
 }
@@ -1268,6 +1279,21 @@ function playNumberAudio(value) {
   numberAudioPlayer.src = `assets/audio/numbers/${key}-${String(take).padStart(2, '0')}.mp3`;
   numberAudioPlayer.play().catch(() => {});
 }
+function playNumberAudioPair(first, second) {
+  if (numberAudioMuted || !hasNumberAudio(first) || !hasNumberAudio(second)) return;
+  playNumberAudio(first);
+  numberAudioPairEndHandler = () => {
+    numberAudioPairEndHandler = null;
+    playNumberAudio(second);
+  };
+  numberAudioPlayer.addEventListener('ended', numberAudioPairEndHandler, { once: true });
+}
+function setNumberAudioMuted(muted) {
+  numberAudioMuted = muted;
+  localStorage.setItem('devanagari-number-audio-muted', String(muted));
+  if (muted) stopNumberAudio();
+  syncNumberAudioControls();
+}
 function syncNumberAudioControls() {
   document.querySelectorAll('.card-audio-controls').forEach(controls => {
     controls.querySelector('.card-audio-replay').disabled = numberAudioMuted;
@@ -1278,18 +1304,23 @@ function syncNumberAudioControls() {
     toggle.setAttribute('aria-pressed', String(numberAudioMuted));
     toggle.innerHTML = numberAudioMuted ? speakerOffIcon : speakerOnIcon;
   });
+  document.querySelectorAll('.word-cheat-sound-toggle').forEach(toggle => {
+    const label = numberAudioMuted ? 'Включить звук' : 'Выключить звук';
+    toggle.setAttribute('aria-label', label);
+    toggle.setAttribute('title', label);
+    toggle.setAttribute('aria-pressed', String(!numberAudioMuted));
+    toggle.innerHTML = numberAudioMuted ? speakerOffIcon : speakerOnIcon;
+  });
+  document.querySelectorAll('.word-cheat-audio,.word-bridge-item').forEach(button => {
+    button.disabled = numberAudioMuted;
+  });
 }
 function attachNumberAudioControls(flashcard, value) {
   if (!hasNumberAudio(value)) return;
   flashcard.insertAdjacentHTML('afterend', `<div class="card-audio-controls"><button class="card-audio-replay" type="button" aria-label="Повторить произношение числа ${value}"><span class="card-audio-play-icon" aria-hidden="true">▶</span><span>Слушать · ${numberAudioVoices[selectedNumberAudioVoice].label}</span></button><button class="card-audio-mute" type="button"></button></div>`);
   const controls = flashcard.nextElementSibling;
   controls.querySelector('.card-audio-replay').addEventListener('click', () => playNumberAudio(value));
-  controls.querySelector('.card-audio-mute').addEventListener('click', () => {
-    numberAudioMuted = !numberAudioMuted;
-    localStorage.setItem('devanagari-number-audio-muted', String(numberAudioMuted));
-    if (numberAudioMuted) stopNumberAudio();
-    syncNumberAudioControls();
-  });
+  controls.querySelector('.card-audio-mute').addEventListener('click', () => setNumberAudioMuted(!numberAudioMuted));
   syncNumberAudioControls();
 }
 let selectedDifficulty = 'warmup';
@@ -2953,7 +2984,7 @@ function recurringEnding(value, word) {
 }
 
 function numberWordItem({ number, word, value }) {
-  return `<div class="word-cheat-item" data-word-search="${number} ${word}"><b>${number}</b><span lang="hi" data-word-value="${value}">${word}</span></div>`;
+  return `<button class="word-cheat-item word-cheat-audio" type="button" data-word-search="${number.replace(/[,\s]/g, '')} ${word}" data-audio-value="${value}" aria-label="Прослушать число ${number}: ${word}"><b>${number}</b><span lang="hi" data-word-value="${value}">${word}</span></button>`;
 }
 
 function numberWordColumns() {
@@ -2968,12 +2999,24 @@ function openNumberWordCheat(trigger = card.querySelector('#number-word-cheat'))
   const overlay = document.createElement('div');
   overlay.className = 'digit-cheat-overlay';
   const bridgeValues = Array.from({ length: 10 }, (_, index) => index * 10 + 9);
-  overlay.innerHTML = `<section class="digit-cheat-dialog word-cheat-dialog" role="dialog" aria-modal="true" aria-labelledby="word-cheat-title"><button class="digit-cheat-close" type="button" aria-label="Закрыть">×</button><p class="eyebrow">Таблица чисел</p><h2 id="word-cheat-title">Числа от 0 до 100</h2><div class="word-cheat-modes" role="group" aria-label="Вид таблицы"><button class="word-cheat-mode active" data-table-mode="plain" type="button" aria-pressed="true">Обычный</button><button class="word-cheat-mode" data-table-mode="endings" type="button" aria-pressed="false">Похожие окончания</button><button class="word-cheat-mode" data-table-mode="bridges" type="button" aria-pressed="false">Перед круглым числом</button></div><p class="word-cheat-note" id="word-cheat-note">Все названия чисел — без подсветки.</p><label class="word-cheat-label" for="word-cheat-search">Найти число или слово</label><input id="word-cheat-search" class="word-cheat-search" type="search" inputmode="search" placeholder="Например, 54 или चौवन" /><p class="word-cheat-search-status" id="word-cheat-search-status" role="status" aria-live="polite"></p><div class="word-cheat-main" id="word-cheat-main"><p class="word-cheat-scroll-hint">← Листайте десятки →</p><div class="word-cheat-board" tabindex="0" role="region" aria-label="Таблица чисел по десяткам, листайте горизонтально"><div class="word-cheat-columns">${numberWordColumns()}</div></div><div class="word-cheat-hundred">${numberWordItem(numberWordCards[100])}</div><section class="word-cheat-extra"><h3>Большие числа</h3><div class="word-cheat-grid">${largeNumberCards.map(({ number, word }) => `<div class="word-cheat-item" data-word-search="${number.replace(/[\s,]/g, '')} ${word}"><b>${number}</b><span lang="hi">${word}</span></div>`).join('')}</div></section></div><div class="word-bridge-grid" id="word-cheat-bridges" hidden>${bridgeValues.map(value => `<div class="word-bridge-item" data-word-search="${value} ${numberWords[value]} ${value + 1} ${numberWords[value + 1]}"><b>${value}</b><span lang="hi">${numberWords[value]}</span><span class="bridge-arrow">→</span><b>${value + 1}</b><span lang="hi">${numberWords[value + 1]}</span></div>`).join('')}</div></section>`;
+  overlay.innerHTML = `<section class="digit-cheat-dialog word-cheat-dialog" role="dialog" aria-modal="true" aria-labelledby="word-cheat-title"><button class="digit-cheat-close" type="button" aria-label="Закрыть">×</button><p class="eyebrow">Таблица чисел</p><h2 id="word-cheat-title">Числа от 0 до 100</h2><div class="word-cheat-modes" role="group" aria-label="Вид таблицы"><button class="word-cheat-mode active" data-table-mode="plain" type="button" aria-pressed="true">Обычный</button><button class="word-cheat-mode" data-table-mode="endings" type="button" aria-pressed="false">Похожие окончания</button><button class="word-cheat-mode" data-table-mode="bridges" type="button" aria-pressed="false">Перед круглым числом</button><button class="word-cheat-sound-toggle" type="button"></button></div><p class="word-cheat-note" id="word-cheat-note">Все названия чисел — без подсветки.</p><label class="word-cheat-label" for="word-cheat-search">Найти число или слово</label><input id="word-cheat-search" class="word-cheat-search" type="search" inputmode="search" placeholder="Например, 54 или चौवन" /><p class="word-cheat-search-status" id="word-cheat-search-status" role="status" aria-live="polite"></p><div class="word-cheat-main" id="word-cheat-main"><p class="word-cheat-scroll-hint">← Листайте десятки →</p><div class="word-cheat-board" tabindex="0" role="region" aria-label="Таблица чисел по десяткам, листайте горизонтально"><div class="word-cheat-columns">${numberWordColumns()}</div></div><div class="word-cheat-hundred">${numberWordItem(numberWordCards[100])}</div><section class="word-cheat-extra"><h3>Большие числа</h3><div class="word-cheat-grid">${largeNumberCards.map(numberWordItem).join('')}</div></section></div><div class="word-bridge-grid" id="word-cheat-bridges" hidden>${bridgeValues.map(value => `<button class="word-bridge-item" type="button" data-audio-pair="${value},${value + 1}" data-word-search="${value} ${numberWords[value]} ${value + 1} ${numberWords[value + 1]}" aria-label="Прослушать пару ${value}–${value + 1}: ${numberWords[value]} — ${numberWords[value + 1]}"><b>${value}</b><span lang="hi">${numberWords[value]}</span><span class="bridge-arrow">→</span><b>${value + 1}</b><span lang="hi">${numberWords[value + 1]}</span></button>`).join('')}</div></section>`;
   document.body.append(overlay);
-  const close = () => { overlay.remove(); document.removeEventListener('keydown', onKeyDown); trigger?.focus(); };
+  const close = () => { stopNumberAudio(); overlay.remove(); document.removeEventListener('keydown', onKeyDown); trigger?.focus(); };
   const onKeyDown = event => { if (event.key === 'Escape') close(); };
   overlay.querySelector('.digit-cheat-close').addEventListener('click', close);
   overlay.addEventListener('click', event => { if (event.target === overlay) close(); });
+  overlay.addEventListener('click', event => {
+    const pair = event.target.closest('[data-audio-pair]');
+    if (pair) {
+      const [first, second] = pair.dataset.audioPair.split(',').map(Number);
+      playNumberAudioPair(first, second);
+      return;
+    }
+    const number = event.target.closest('[data-audio-value]');
+    if (number) playNumberAudio(Number(number.dataset.audioValue));
+  });
+  overlay.querySelector('.word-cheat-sound-toggle').addEventListener('click', () => setNumberAudioMuted(!numberAudioMuted));
+  syncNumberAudioControls();
   document.addEventListener('keydown', onKeyDown);
   const search = overlay.querySelector('#word-cheat-search');
   const main = overlay.querySelector('#word-cheat-main');
@@ -3522,6 +3565,8 @@ return { openNumberWordCheat, openNumberWordChoices, startNumberWords };
     return `${amount} ${unit.startsWith('лакх') ? 'lakh' : 'crore'}${Number(amount) === 1 ? '' : 's'}`;
   };
   const rules = [
+    [/^Прослушать пару (\d+)–(\d+): (.+) — (.+)$/, (_, first, second, firstWord, secondWord) => `Listen to the pair ${first}–${second}: ${firstWord} — ${secondWord}`],
+    [/^Прослушать число (.+): (.+)$/, (_, number, word) => `Listen to ${number}: ${word}`],
     [/^Смотрю квартиру за ([\d,]+) ₹\. Сколько это лакхов или кроров\?$/, (_, amount) => `I found a flat for ₹${amount}. How many lakhs or crores is that?`],
     [/^Теперь машина за ([\d,]+) ₹\. Как записать цену с индийскими запятыми\?$/, (_, amount) => `Now a car for ₹${amount}. How would I write the price with Indian comma grouping?`],
     [/^В объявлении о гранте указано ([\d,]+) ₹\. Как назвать эту сумму на хинди\?$/, (_, amount) => `This grant ad says ₹${amount}. What is that amount called in Hindi?`],
